@@ -3,3 +3,5 @@
 </p>
 
 ## Nhóm Anh em văn phòng
+
+#### Link design: [Figma](https://www.figma.com/file/INJ9sqG4o5mBnj7xsi2tYJ/LaTiPee?type=design&node-id=0-1&mode=design&t=KirFaVX20euDnNER-0)
