@@ -27,7 +27,7 @@ input {
   left: 0;
 }
 .panels-container .left-panel .content p, h3 {
-  color: black;
+  color: rgb(255, 255, 255);
 }
 .signin-signup {
   position: absolute;
@@ -104,14 +104,6 @@ form.sign-in-form {
   font-weight: 500;
 }
 
-.Forgot-Pass {
-  padding: 0.7rem 0;
-  font-size: 1rem;
-  text-decoration: none;
-  color: black;
-}
-
-
 .btn {
   width: 150px;
   background-color: #61FFB3;
@@ -148,7 +140,7 @@ form.sign-in-form {
   top: -10%;
   right: 48%;
   transform: translateY(-50%);
-  background-image: linear-gradient(-45deg, #61FFB3 0%, #a5fed3 100%);
+  background-image: linear-gradient(-45deg, #ff6161 0%, #e95fe2 100%);
   transition: 1.8s ease-in-out;
   border-radius: 50%;
   z-index: 6;
