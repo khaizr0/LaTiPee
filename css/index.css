@@ -166,13 +166,13 @@ nav {
 }
 
 .product{
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .product .product-title{
     font-weight: 500;
-    margin-top: 25px;
+    margin-top: 10px;
 }
 
 .section div img{
@@ -204,7 +204,74 @@ nav {
     cursor: pointer;
 }
 
-footer{
+
+.directlink {
+    height: 30px;
+    background-color: #f47474;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+}
+
+.directlink a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: thin;
+}
+
+.seller {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+.shipper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 65%;
+}
+.login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+
+footer {
+    display: flex;
     background: #FF6B6B;
-    height: 200px;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+.about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+.contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: thin;
+}
+footer ul {
+    list-style: none;
 }
