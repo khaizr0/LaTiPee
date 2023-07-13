@@ -8,18 +8,10 @@ input:focus {
     outline: none;
 }
 
-header {
-    background-color: #FF5A44;
-    padding: 10px;
-    height: 200px;
-}
-
-header .banner{
-    font-size: 30px;
-    font-weight: 400;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    margin-top: 80px;
+header .banner {
+    height: 15em;
+    background: url("/img/banner.png") no-repeat center center;
+    background-size: cover;
 }
 
 nav {
