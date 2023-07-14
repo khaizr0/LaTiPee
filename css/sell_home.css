@@ -23,33 +23,34 @@
 
     header {
       background: var(--primary-color);
-      padding: 20px;
+      padding: 30px;
       color: white;
       text-align: left;
       font-weight: 800;
     }
 
-    nav ul {
+    header nav ul {
       list-style-type: none;
       padding: 0;
       margin: 0;
     }
 
-    nav li {
+    header nav li {
       display: inline;
       margin-right: 10px;
       text-decoration: none;
       padding: 0 10px;
       color: black;
     }
-
-    nav li a {
-      padding: 5px 10px;
-      background-color: var(--link-background-color);
-      text-decoration: none;
-      color: var(--link-color);
+    header nav ul li img {
+      width: 200px;
     }
-
+    .sellercenter {
+      position: absolute;
+      padding-top: 15px;
+      font-size: 25px;
+      font-weight: 800;
+    }
     .container {
       background-color: var(--secondary-color);
       border-radius: 10px;
@@ -79,3 +80,70 @@
     tr:last-child td {
       border-bottom: none;
     }
+
+main{
+  padding: 20px;
+  padding-bottom: 30px;
+}
+.table-content {
+  border: 1px solid #000000;
+  border-radius: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.table-content .table-header {
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-top: 20px;
+}
+.sell-fill {
+  padding: 100px;
+  border: 1px dotted #000000;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  background: #FF6B6B;
+  height: 100px;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  padding-left: 20px;
+}
+.about h3 {
+  padding-right: 30px;
+}
+.contact h3 {
+  padding-right: 30px;
+}
+.about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 6px;
+  padding-left: 30px;
+}
+.contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 6px;
+  padding-left: 30px;
+}
+
+footer a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: thin;
+}
+footer ul {
+  list-style: none;
+}

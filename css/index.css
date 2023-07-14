@@ -39,8 +39,8 @@ nav {
 }
 
 .search input {
-    width: 70%;
-    padding: 11px;
+    width: 50%;
+    padding: 12px;
     border: none;
 }
 
@@ -52,7 +52,7 @@ nav {
     width: 5%;
     margin-left: -4px;
     border: none;
-    padding: 11px;
+    padding: 12px;
     cursor: pointer;
     background-color: #FFD600;
 }
@@ -159,14 +159,17 @@ nav {
 
 .product{
     margin-left: 30px;
-    margin-right: 30px;
+    margin-right: 5px;
 }
 
-.product .product-title{
+.product-tab h3 {
+    padding-top: 20px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    font-size: 20px;
     font-weight: 500;
-    margin-top: 10px;
+    
 }
-
 .section div img{
     width: 100%;
 }
@@ -174,6 +177,12 @@ nav {
 .product-name{
     margin: 0;
     margin-top: -20px;
+    font-weight: 400;
+    text-align: left;
+}
+.product-price{
+    margin: 0;
+    margin-top: 5px;
     font-weight: 400;
     text-align: left;
 }
