@@ -121,72 +121,49 @@ nav {
     padding-bottom: 20px;
     font-weight: 500;
 }
-
 .selection span{
     cursor: pointer;
 }
 
+.product {
+    padding: 20px;
+}
 .section {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: -30px;
+    gap: 5px;
+    padding-bottom: 1em;
 }
-
 .section div {
-    background-color: #F8F8F8;
-    padding-top: 20px;
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-bottom: 30px;
-    text-align: center;
-    width: 70%;
-    margin-top: 12%;
-    border-radius: 12px;
+    background-color: #fff;
+    padding: 1px;
+    text-align: left;
+    cursor: pointer;
 }
-.section-flex {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.section-flex div {
-    flex-basis: 25%; /* Chia 4 cột bằng nhau */
-    background-color: #e0e0e0;
+.section div h3 {
+    margin: 0;
     padding: 10px;
-    text-align: center;
-}
-
-.product{
-    margin-left: 30px;
-    margin-right: 5px;
-}
-
-.product-tab h3 {
-    padding-top: 20px;
-    padding-bottom: 5px;
-    padding-left: 40px;
-    font-size: 20px;
     font-weight: 500;
 }
-.section div img{
-    width: 100%;
+.item-product {
+    border: 0.2px solid rgb(192, 192, 192);
 }
-
-.product-name{
-    margin: 0;
-    margin-top: -20px;
-    font-weight: 400;
-    text-align: left;
+.product-price {
+    color: rgb(237, 89, 66);
 }
-.product-price{
-    margin: 0;
-    margin-top: 5px;
-    font-weight: 400;
-    text-align: left;
-    color: red;
+.product-tab {
+    position: relative;
+    padding: 30px;
+    background: url("/img/product-tab.png") no-repeat center center;
 }
-
+.product-tab h1 {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    color: white;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+}
 .more-product{
     margin-top: 30px;
     justify-content: center;
