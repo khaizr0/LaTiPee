@@ -144,12 +144,46 @@
     }
 
     footer {
-      position: fixed;
-      left: 0;
-      bottom: 0;
+      position: absolute;
       width: 100%;
-      padding: 30px;
-      background: var(--primary-color);
-      color: white;
-      text-align: center;
+      bottom: 0;
+      display: flex;
+      background: #FF6B6B;
+      height: 100px;
+      justify-content: space-between;
+      align-items: center;
     }
+    .footer-logo {
+      padding-left: 20px;
+    }
+    .about h3 {
+      padding-right: 30px;
+    }
+    .contact h3 {
+      padding-right: 30px;
+    }
+    .about {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 6px;
+      padding-left: 30px;
+    }
+    .contact {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 6px;
+      padding-left: 30px;
+    }
+    
+    footer a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 13px;
+      font-weight: thin;
+    }
+    footer ul {
+      list-style: none;
+    }
+    
