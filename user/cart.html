@@ -3,17 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ Hàng & Thanh Toán</title>
+    <title>Giỏ Hàng</title>
+    <link rel="stylesheet" href="/css/cart.css">
 </head>
 <body>
     <header>
-
+        <header>
+            <nav>
+              <ul>
+                <li><img src="/img/LaTiPee Logo.png"></li>
+                <li class="header-text">Shopping Cart</li>
+              </ul>
+            </nav>
+          </header>
     </header>
     <main>
-
+        <div class="container">
+            <div class="payment_details">
+            <h1>Thông tin thanh toán</h1>
+            <div class="details_card">
+                <div class="name_address">
+                <div class="username">
+                    <input type="text" placeholder="Tên người đặt" />
+                </div>
+                <div class="address">
+                    <input type="text" onkeyup="change()" id="put" placeholder="Địa chỉ nhà" />
+                </div>
+                <div class="delivery-option">
+                    <p>Lựa chọn dịch vụ vận chuyển</p>
+                    
+                </div>
+                </div>
+                <div class="proced_payment">
+                <a href="">Xác nhận thanh toán</a>
+                </div>
+            </div>
+            </div>
+            <div class="order_summary">
+            <h1>Order Summary</h1>
+            <div class="summary_card">
+                <div class="card_item">
+                <div class="product_img">
+                    <img src=https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=643&q=80" alt="" />
+                </div>
+                <div class="product_info">
+                    <h1>Nike Shoes</h1>
+                    <p>Lorem Ipsum is simply dummy text.</p>
+                    <div class="close-btn">
+                    <i class="fa fa-close"></i>
+                    </div>
+                    <div class="product_rate_info">
+                    <h1>$ 200</h1>
+                    <span class="pqt-minus">-</span>
+                    <span class="pqt">1</span>
+                    <span class="pqt-plus">+</span>
+                    </div>
+                </div>
+                </div>
+                <div class="card_item">
+                <div class="product_img">
+                    <img src="https://images.unsplash.com/photo-1543512214-318c7553f230?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="" />
+                </div>
+                <div class="product_info">
+                    <h1>Amazon Prime</h1>
+                    <p>Lorem Ipsum is simply dummy text.</p>
+                    <div class="close-btn">
+                    <i class="fa fa-close"></i>
+                    </div>
+                    <div class="product_rate_info">
+                    <h1>$ 160</h1>
+                    <span class="pqt-minus">-</span>
+                    <span class="pqt">1</span>
+                    <span class="pqt-plus">+</span>
+                    </div>
+                </div>
+                </div>
+                <hr />
+                <div class="order_price">
+                <p>Tạm tính</p>
+                <h4>$400</h4>
+                </div>
+                <div class="order_service">
+                <p>Phí vận chuyển</p>
+                <h4>$10</h4>
+                </div>
+                <div class="order_total">
+                <p>Tổng cộng</p>
+                <h4>$370</h4>
+                </div>
+            </div>
+            </div>
+        </div>
     </main>
     <footer>
-        
-    </footer>
-</body>
+        <div class="about">
+            <h3>Giới thiệu:</h3>
+            <ul>
+                <li><a href="#">Về chúng tôi</a></li>
+                <li><a href="#">Điều khoản sử dụng</a></li>
+                <li><a href="#">Chính sách bảo mật</a></li>
+            </ul>
+        </div>
+        <div class="contact">
+            <h3>Liên Hệ:</h3>
+            <ul>
+                <li><a href="#">Hotline: 1900 0000</a></li>
+                <li><a href="#">Email: Hotro.Lazipee.vn@gmail.com</a></li>
+                <li><a href="#">Địa chỉ: 180 Cao Lỗ, Phường 4, Quận 8, TP.HCM</a></li>
+            </ul>
+        </div>
+</footer>
 </html>
