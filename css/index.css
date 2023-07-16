@@ -9,7 +9,7 @@ input:focus {
 }
 
 header .banner {
-    height: 15em;
+    height: 20em;
     background: url("/img/banner.png") no-repeat center center;
     background-size: cover;
 }
@@ -151,18 +151,19 @@ nav {
 .product-price {
     color: rgb(237, 89, 66);
 }
+.item-product img {
+    width: 100%;
+}
 .product-tab {
     position: relative;
     padding: 30px;
-    background: url("/img/product-tab.png") no-repeat center center;
+    background: url("/img/product-tab.png");
 }
 .product-tab h1 {
-    font-size: 20px;
-    font-weight: 500;
     text-align: center;
     color: white;
     font-weight: 800;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 .more-product{
     margin-top: 30px;

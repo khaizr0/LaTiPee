@@ -5,7 +5,6 @@
   --secondary-color: #F0F0F0;
   --table-header-background: #f2f2f2;
   --table-border-color: #ddd;
-  --footer-color: white;
 }
 
 *{
@@ -80,9 +79,46 @@ th {
 tr:last-child td {
   border-bottom: none;
 }
-
 footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  display: flex;
   background: var(--primary-color);
-  padding: 20px;
-  color: var(--footer-color);
-  text-align: center;}
+  height: 100px;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  padding-left: 20px;
+}
+.about h3 {
+  padding-right: 30px;
+}
+.contact h3 {
+  padding-right: 30px;
+}
+.about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 6px;
+  padding-left: 30px;
+}
+.contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 6px;
+  padding-left: 30px;
+}
+
+footer a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: thin;
+}
+footer ul {
+  list-style: none;
+}

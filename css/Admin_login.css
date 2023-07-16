@@ -29,7 +29,7 @@ input {
 .panels-container .left-panel .content p, h3 {
   color: black;
 }
-.signin-signup {
+.signin {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -53,10 +53,6 @@ form {
   grid-row: 1 / 2;
 }
 
-form.sign-up-form {
-  opacity: 0;
-  z-index: 1;
-}
 
 form.sign-in-form {
   z-index: 2;
@@ -208,15 +204,14 @@ form.sign-in-form {
     min-height: 800px;
     height: 100vh;
   }
-  .signin-signup {
+  .signin {
     width: 100%;
     top: 95%;
     transform: translate(-50%, -100%);
     transition: 1s 0.8s ease-in-out;
   }
 
-  .signin-signup,
-  .container.sign-up-mode .signin-signup {
+  .signin {
     left: 50%;
   }
 
@@ -278,31 +273,9 @@ form.sign-in-form {
     top: initial;
     transition: 2s ease-in-out;
   }
-
-  .container.sign-up-mode:before {
-    transform: translate(-50%, 100%);
-    bottom: 32%;
-    right: initial;
-  }
-
-  .container.sign-up-mode .left-panel .image,
-  .container.sign-up-mode .left-panel .content {
-    transform: translateY(-300px);
-  }
-
-  .container.sign-up-mode .right-panel .image,
-  .container.sign-up-mode .right-panel .content {
-    transform: translateY(0px);
-  }
-
   .right-panel .image,
   .right-panel .content {
     transform: translateY(300px);
-  }
-
-  .container.sign-up-mode .signin-signup {
-    top: 5%;
-    transform: translate(-50%, 0);
   }
 }
 
@@ -323,11 +296,6 @@ form.sign-in-form {
 
   .container:before {
     bottom: 72%;
-    left: 50%;
-  }
-
-  .container.sign-up-mode:before {
-    bottom: 28%;
     left: 50%;
   }
 }

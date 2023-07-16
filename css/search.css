@@ -5,9 +5,6 @@
       --text-color: #333;
       --link-background-color: white;
       --button-background-color: orange;
-    }
-
-    :root {
       --background-color: #FFFFFF;
       --primary-color: #FF6B6B;
       --secondary-color: #f0f0f0;
@@ -128,7 +125,7 @@
       background-color: var(--secondary-color);
       padding: 20px;
       border-radius: 10px;
-      text-align: center;
+      text-align: left;
     }
 
     .gallery-item img {
