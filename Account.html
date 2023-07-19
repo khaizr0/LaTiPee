@@ -14,12 +14,12 @@
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
-          <form action="#" class="sign-in-form">
+          <form action="#" onsubmit="Login()" class="sign-in-form">
             <img src="/img/LaTiPee RemoveBG.png" width="150">
             <h2 class="title">Đăng Nhập</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="email" placeholder="Email" />
+              <input type="email" id="username" placeholder="Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
@@ -77,5 +77,6 @@
     </div>
 
     <script src="/Js/app.js"></script>
+    <script src="/Js/login.js"></script>
   </body>
 </html>

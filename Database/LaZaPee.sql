@@ -1,11 +1,24 @@
 ﻿CREATE DATABASE LaZaPee
 GO
+
+USE LaZaPee
+GO
 -- Quản lý tài khoản users
 CREATE TABLE Users (
   UserID INT PRIMARY KEY IDENTITY,
-  UserName VARCHAR(255) NOT NULL,
+  UserName NVARCHAR(255) NOT NULL,
   Password VARCHAR(255) NOT NULL,
   Email VARCHAR(255) NOT NULL
+  -- Thêm các trường thông tin khác cho người dùng
+);
+GO
+CREATE TABLE Shipper (
+  ShipperID INT PRIMARY KEY IDENTITY,
+  name NVARCHAR(255) NOT NULL,
+  Password VARCHAR(255) NOT NULL,
+  Email VARCHAR(255) NOT NULL,
+  identifier VARCHAR(10) NOT NULL,
+  numberPhone CHAR(10) NOT NULL
   -- Thêm các trường thông tin khác cho người dùng
 );
 GO
@@ -13,7 +26,6 @@ GO
 CREATE TABLE Categories (
   CategoryID INT PRIMARY KEY IDENTITY,
   CategoryName NVARCHAR(255) NOT NULL,
-  Description NVARCHAR(MAX)NOT NULL
 );
 GO
 -- Sản phẩm
@@ -74,14 +86,15 @@ GO
 CREATE TABLE ShippingProcess (
   ProcessID INT PRIMARY KEY IDENTITY,
   OrderID INT NOT NULL,
+  
   Status NVARCHAR(255) NOT NULL,
   -- Thêm các trường thông tin khác về quy trình giao hàng
   FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
 GO
 -- Thống kê doanh thu
-CREATE TABLE Revenue (
-  RevenueID INT PRIMARY KEY IDENTITY,
+CREATE TABLE Sales (
+  SalesID INT PRIMARY KEY IDENTITY,
   UserID INT NOT NULL,
   OrderID INT NOT NULL,
   Amount DECIMAL(10, 2) NOT NULL,
