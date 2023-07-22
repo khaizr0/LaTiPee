@@ -14,40 +14,44 @@
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
-          <form action="#" onsubmit="Login()" class="sign-in-form">
+          
+          <!--login-->
+          <form class="sign-in-form">
             <img src="/img/LaTiPee RemoveBG.png" width="150">
             <h2 class="title">Đăng Nhập</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="email" id="username" placeholder="Email" />
+              <input type="text" id="userLogin" placeholder="Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Mật Khấu" />
+              <input type="password" id="passLogin" placeholder="Mật Khấu" />
             </div>
-            <input type="submit" value="Đăng Nhập" class="btn solid" />
+            <input type="submit" class="btn solid" value="đăng Nhập"/>
             <a href="/Forgot.html" class="Forgot-Pass">Quên mật khẩu?</a>
           </form>
+        
+          <!--signUp-->
           <form action="#" class="sign-up-form">
             <img src="/img/LaTiPee RemoveBG.png" width="150">
             <h2 class="title">Đăng kí</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Tên đăng nhập" />
+              <input type="text" id="userSignUp" placeholder="Tên đăng nhập" />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" />
+              <input type="email" id="emailSignUp" placeholder="Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Mật Khẩu" />
+              <input type="password" id="passSignUp" placeholder="Mật Khẩu" />
             </div>
             <input type="submit" class="btn" value="ĐĂNG KÍ" />
           </form>
+
         </div>
       </div>
-
       <div class="panels-container">
         <div class="panel left-panel">
           <div class="content">
@@ -77,6 +81,6 @@
     </div>
 
     <script src="/Js/app.js"></script>
-    <script src="/Js/login.js"></script>
+    <script src="/Js/Login_signUp.js"></script>
   </body>
 </html>
