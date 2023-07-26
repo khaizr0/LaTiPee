@@ -8,7 +8,8 @@ CREATE TABLE Users (
   UserID INT PRIMARY KEY IDENTITY,
   UserName NVARCHAR(255) NOT NULL,
   Password VARCHAR(255) NOT NULL,
-  Email VARCHAR(255) NOT NULL
+  Email VARCHAR(255) NOT NULL,
+  TYPE INT NOT NULL
   -- Thêm các trường thông tin khác cho người dùng
 );
 GO

@@ -10,7 +10,7 @@ const getUser = async () => {
     return data;
 };
 //tạo event và đối chiếu data để thực hiện login
-btnLogin.addEventListener('submit', (e) => {
+btnLogin.addEventListener('click', (e) => {
     e.preventDefault();
     const userLogin = document.querySelector("#userLogin").value;
     const passLogin = document.querySelector("#passLogin").value;
@@ -24,8 +24,10 @@ btnLogin.addEventListener('submit', (e) => {
   });
 });
 
+
+
 //signUp
-const signUpForm = document.querySelector(".sign-up-form");
+const signUpForm = document.querySelector(".btn");
 
 const createUser = async (user) => {
   const response = await fetch(userApi, {
@@ -39,11 +41,11 @@ const createUser = async (user) => {
   return response.json();
 };
 
-signUpForm.addEventListener('submit', async (e) => {
+signUpForm.addEventListener('click', async (e) => {
     e.preventDefault();
-    const username = document.querySelector("#username").value;
-    const email = document.querySelector("#email").value;
-    const password = document.querySelector("#password").value;
+    const username = document.querySelector("#userSignUp").value;
+    const email = document.querySelector("#emailSignUp").value;
+    const password = document.querySelector("#passSignUp").value;
 
     const newUser = {
         userName: username,
