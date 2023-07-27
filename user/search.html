@@ -7,51 +7,72 @@
     <link rel="stylesheet" href="/css/search.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <nav>
-          <ul>
-            <li><a href="/index.html" style="background-color: #fff;">LATIPEE</a></li>
-          </ul>
-        </nav>
-        <div class="search-bar">
+    <nav class="directlink">
+      <div class="seller">
+          <a href="/seller/Home.html">Trang bán hàng</a>
+      </div>
+      <div class="shipper">
+          <a href="/Shipper.html">Giao hàng cùng LaZiPee</a>
+      </div>
+      <div class="login">
+          <a href="/Account.html">Đăng Nhập / Đăng Kí</a>
+      </div>
+  </nav>
+  <nav>
+      <div class="logo">
+          <img src="/img/logo.png">
+      </div>
+
+      <div class="search">
           <input type="text" placeholder="Tìm kiếm sản phẩm">
-          <button style="background: orange;"><i class="fa fa-search" aria-hidden="true"></i></button>
-        </div>
-        <div class="icons">
-          <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-          <a href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
-        </div>
-      </header>
-      
+          <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+      <div class="icons">
+          <div class="cart-icon"> 
+              <a href="">
+                  <img src="/img/cart.png" alt="Giỏ hàng">
+              </a>
+          </div>
+
+          <div class="user-icon">
+              <a href="">
+                  <img src="/img/user.png" alt="Người dùng">
+              </a>
+          </div>
+      </div>
+  </nav>
+  </header>
       
       <div class="container">
         <div class="slider">
           <div class="slider-content">
             <div class="slider-item">
               <h4>Thương hiệu</h4>
-              <!-- Nội dung thương hiệu -->
+
             </div>
             <div class="slider-item">
               <h4>Danh mục sản phẩm</h4>
-              <!-- Nội dung danh mục sản phẩm -->
+
             </div>
             <div class="slider-item">
               <h4>Giá tiền</h4>
-              <!-- Nội dung giá tiền -->
+
             </div>
           </div>
         </div>
+        
         <div class="gallery">
           <div class="gallery-item">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqToTRrxOFD5i028-943TzNd8tgfQLp-EgQ&usqp=CAU" alt="Product Image">
             <h4>Iphone 9</h4>
-          </div>
-          <div class="gallery-item">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqToTRrxOFD5i028-943TzNd8tgfQLp-EgQ&usqp=CAU" alt="Product Image">
-            <h4>Iphone 9</h4>
+            <h5>Giá Tiền</h5>
           </div>
         </div>
       </div>
