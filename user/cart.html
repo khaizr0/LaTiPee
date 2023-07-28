@@ -27,11 +27,6 @@
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         <div class="icons">
-            <div class="cart-icon"> 
-                <a href="">
-                    <img src="/img/cart.png" alt="Giỏ hàng">
-                </a>
-            </div>
   
             <div class="user-icon">
                 <a href="">
@@ -43,11 +38,12 @@
     </header>
  <main>
 <div class="shopping-cart-wrapper">
+  <h3 class="title">Giỏ Hàng</h3>
   <table class="table is-fullwidth shopping-cart">
     <thead>
       <tr>
         <th><abbr title="Position"></abbr></th>
-        <th></th>
+        <th>Tên sản phẩm</th>
         <th>Giá tiền</th>
         <th>Số lượng</th>
         <th>Giá thành</th>
@@ -57,19 +53,43 @@
   </table>
   <div class="totals">
     <div class="totals-item">
-      <label>Thành tiền dự kiến</label>
+      <label>Thành tiền dự kiến:</label>
       <div class="totals-value" id="cart-subtotal">￥0</div>
     </div>
     <div class="totals-item">
-      <label>Phí vận chuyển</label>
+      <label>Phí vận chuyển:</label>
       <div class="totals-value" id="cart-shipping">￥0</div>
     </div>
     <div class="totals-item totals-item-total">
-      <label>Thành Tiền</label>
+      <label>Thành Tiền:</label>
       <div class="totals-value" id="cart-total">￥0</div>
     </div>
   </div>
+  <div class="payment">
+    <div class="payment-info">
+      <h5>Thông tin đặt hàng</h5>
+      <div class="address-manual">
+        <h6>Tên người đặt</h6>
+        <input type="text" placeholder="Nhập tên ở đây">
+        <h6>Địa chỉ nhận hàng</h6>
+        <input type="text" placeholder="Nhập địa chỉ ở đây">
+        <h6>Số Điện thoại người đặt</h6>
+        <input type="text" placeholder="Sô Điện thoại">
+      </div>
+    </div>
+    <div class="payment-choose">
+      <div class="payment-method">
+        <h5>Hình thức thanh toán</h5>
+        <input type="radio" name="payment" id="payment-method-1" value="1" checked>
+        <label for="payment-method-1">Thanh toán qua <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" width="40px"></label>
+      </div>
+    </div>
+  </div>
   <button class="checkout">Thanh Toán</button>
+  <button class="comeback">
+    <i class="fas fa-arrow-left"></i>
+    Tiếp tục mua sắm
+  </button>
 </div>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script  src="/Js/cart.js"></script>

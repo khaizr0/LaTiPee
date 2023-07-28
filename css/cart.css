@@ -117,6 +117,10 @@ main {
    margin-top: 15px;
    padding: 20px;
  }
+.totals {
+  border-bottom: 1px solid #ddd;
+  padding-top: 5px;
+}
  .totals .totals-item{
    width: 100%;
    margin-bottom: 10px;
@@ -141,7 +145,7 @@ main {
  }
  
  .checkout:hover{
-   background-color: #494;
+   background-color: #FF6B6B;
  }
 
  /*header*/
@@ -199,32 +203,20 @@ main {
   cursor: pointer;
 }
 
-.cart-icon img {
-  width: 35px;
-}
-
 .user-icon img {
   width: 35px;
 }
+ 
 /* Footer */
 footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
+  margin-top: 20px;
   display: flex;
   background: #FF6B6B;
   height: 100px;
   justify-content: space-between;
   align-items: center;
-}
-.footer-logo {
-  padding-left: 20px;
-}
-.about h3 {
-  padding-right: 30px;
-}
-.contact h3 {
-  padding-right: 30px;
+  padding-right: 6px;
+  padding-left: 30px;
 }
 .about {
   display: flex;
@@ -249,4 +241,70 @@ footer a {
 }
 footer ul {
   list-style: none;
+}
+/* Path: css\cart.css */
+.totals-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.totals-item label {
+  font-weight: bold;
+}
+.comeback{
+  border: 0;
+  margin-top: 20px;
+  padding: 6px 25px;
+  background-color: #da2626;
+  color: #fff;
+  font-size: 25px;
+  border-radius: 3px;
+}
+
+.comeback:hover{
+  background-color: #6bc4ff;
+}
+.shopping-cart {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+}
+.title {
+font-family: 'Roboto', sans-serif;
+font-style: normal;
+font-weight: 300;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+font-size: 30px;
+font-weight: 600;
+}
+.payment h5 {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+.payment h6 {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+.payment input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+  background-color: #eaf5f5;
 }

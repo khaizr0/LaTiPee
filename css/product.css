@@ -22,68 +22,69 @@
       background-color: var(--background-color);
     }
 
-    header {
-      background: var(--primary-color);
-      padding: 20px;
-      color: white;
-      text-align: left;
-      font-weight: 800;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
 
-    nav ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav li {
-      display: inline;
-      margin-right: 10px;
-      text-decoration: none;
-      padding: 0 10px;
-      color: var(--text-color);
-    }
-
-    nav li a {
-      padding: 5px 10px;
-      background-color: var(--link-background-color);
-      text-decoration: none;
-      color: var(--text-color);
-    }
-
-    .search-bar {
-      background-color: var(--link-background-color);
-      display: flex;
-      align-items: center;
-      border-radius: 5px;
-      padding: 5px;
-    }
-
-    .search-bar input[type="text"] {
-      border: none;
-      outline: none;
-      flex: 1;
-      padding: 5px;
-    }
-
-    .search-bar i {
-      margin: 5px;
-      color: var(--text-color);
-    }
-
-    .icons {
-      display: flex;
-    }
-
-    .icons i {
-      font-size: 24px;
-      margin-left: 20px;
-      color: var(--text-color);
-    }
-
+     header nav {
+       height: 75px;
+       background-color: #FF6B6B;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       padding-right: 16px;
+     }
+     
+      header .logo {
+       cursor: pointer;
+       margin-right: auto;
+     }
+     
+      header .logo img{
+       width: 200px;
+     }
+     
+    header .search {
+       position: relative;
+       flex-grow: 1;
+       text-align: center;
+     }
+     
+    header .search input {
+       width: 50%;
+       padding: 12px;
+       border: none;
+     }
+     
+    header  .search input::placeholder {
+       font-style: normal;
+     }
+     
+    header .search button{
+       width: 7%;
+       margin-left: -4px;
+       border: none;
+       padding: 12px;
+       cursor: pointer;
+       background-color: #FFD600;
+     }
+     
+    header .icons {
+       display: flex;
+       align-items: center;
+       margin-right: 15px;
+     }
+     
+    header .icons div {
+       margin-left: 25px;
+       cursor: pointer;
+     }
+     
+    header .cart-icon img {
+       width: 35px;
+     }
+     
+    header .user-icon img {
+       width: 35px;
+     }
+      
     .product-container {
       margin: 0 10%;
       display: flex;
