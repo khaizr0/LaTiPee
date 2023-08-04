@@ -151,13 +151,15 @@ main {
  /*header*/
  nav {
   height: 75px;
-  background-color: #FF6B6B;
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-right: 16px;
 }
-
+.menu {
+  background-image: linear-gradient(#f74646, #fd5a5a);
+}
 .logo {
   cursor: pointer;
   margin-right: auto;
@@ -189,7 +191,7 @@ main {
   border: none;
   padding: 12px;
   cursor: pointer;
-  background-color: #FFD600;
+  background-color: #f7f446;
 }
 
 .icons {
@@ -203,20 +205,23 @@ main {
   cursor: pointer;
 }
 
+.cart-icon img {
+  width: 35px;
+}
+
 .user-icon img {
   width: 35px;
 }
- 
 /* Footer */
 footer {
-  margin-top: 20px;
   display: flex;
-  background: #FF6B6B;
+  background-image: linear-gradient(#f74646, #fd5a5a);
   height: 100px;
   justify-content: space-between;
   align-items: center;
   padding-right: 6px;
   padding-left: 30px;
+  margin-top: 10px;
 }
 .about {
   display: flex;

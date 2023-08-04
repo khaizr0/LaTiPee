@@ -117,8 +117,36 @@ table {border: none;}
     padding-bottom: 10px;
 }
 
-
-footer{
+footer {
+    display: flex;
     background: #FF6B6B;
-    height: 200px;
+    height: 12KO0px;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+.about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+.contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: thin;
+}
+footer ul {
+    list-style: none;
 }

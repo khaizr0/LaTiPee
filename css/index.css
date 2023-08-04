@@ -1,28 +1,25 @@
 body{
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: sans-serif;
 }
 
 input:focus {
     outline: none;
 }
 
-header .banner {
-    height: 20em;
-    background: url("/img/banner.png") no-repeat center center;
-    background-size: cover;
-}
 
 nav {
     height: 75px;
-    background-color: #FF6B6B;
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-right: 16px;
 }
-
+.menu {
+    background-image: linear-gradient(#f74646, #fd5a5a);
+}
 .logo {
     cursor: pointer;
     margin-right: auto;
@@ -54,7 +51,7 @@ nav {
     border: none;
     padding: 12px;
     cursor: pointer;
-    background-color: #FFD600;
+    background-color: #f7f446;
 }
 
 .icons {
@@ -76,9 +73,50 @@ nav {
     width: 35px;
 }
 
+.clear {
+    clear: both;
+}
+
+
+.wrap {
+    width: 1366px;
+    margin: 0 auto;
+}
+#slider {
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 1366px;
+    height: 200px;
+    text-align: center;
+}
+  
+#slider ul {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 200px;
+}
+#slider li {
+    list-style: none;
+}
+#slider ul li {
+    position: relative;
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 1366px;
+    height: 200px;
+}
+
+
 .category{
     background-color: #E3E3E3;
     height: 190px;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .selection {
@@ -99,7 +137,7 @@ nav {
 }
 
 .category1{
-    background: linear-gradient(260.45deg, #3CA7E2 0%, #F3FFA7 95.39%);
+    background: linear-gradient(260.45deg, #2E3192 , #1BFFFF);
 }
 
 .category2{
@@ -107,11 +145,11 @@ nav {
 }
 
 .category3{
-    background: linear-gradient(260.96deg, #FF06C8 0%, #968DFF 100%);
+    background: linear-gradient(260.96deg, #ffafbd, #ffc3a0);
 }
 
 .category4{
-    background: linear-gradient(260.96deg, #3DE79F 0%, #05FF00 100%);
+    background: linear-gradient(260.96deg, #cc502a 0%, #ce7b1d 100%);
 }
 
 .category h3{
@@ -186,7 +224,7 @@ nav {
 
 .directlink {
     height: 30px;
-    background-color: #f47474;
+    background-color: #f74646;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -207,12 +245,7 @@ nav {
     padding-right: 6px;
     padding-left: 30px;
 }
-.shipper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 65%;
-}
+
 .login {
     display: flex;
     justify-content: space-between;
@@ -223,7 +256,7 @@ nav {
 
 footer {
     display: flex;
-    background: #FF6B6B;
+    background-image: linear-gradient(#f74646, #fd5a5a);
     height: 100px;
     justify-content: space-between;
     align-items: center;

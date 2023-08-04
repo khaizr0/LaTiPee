@@ -2,7 +2,6 @@ Frontend
 - seller: thêm xác nhận đơn hàng, đóng gói 
 - thêm quên mật khẩu
 - icon search nhạt 1 tý
-- Giỏ hàng: 
 - index: thêm hover cho đăng nhập/đăng kí
 - dashboard: footer,
 - shipper: chỉnh lại trạng thái đơn hàng

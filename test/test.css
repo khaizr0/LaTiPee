@@ -1,0 +1,47 @@
+
+body {
+  margin: 0;
+  padding: 0px;
+  line-height: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+}
+
+
+li {
+  list-style: none;
+}
+.clear {
+  clear: both;
+}
+.wrap {
+  width: 1280px;
+  margin: 0 auto;
+}
+#slider {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 1280px;
+  height: 200px;
+  text-align: center;
+}
+
+#slider ul {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 200px;
+}
+
+#slider ul li {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 1280px;
+  height: 200px;
+}
