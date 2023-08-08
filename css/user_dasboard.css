@@ -15,7 +15,7 @@ main{
 
 nav {
     height: 75px;
-    background-color: #FF6B6B;
+    background-image: linear-gradient(#f74646, #fd5a5a);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -119,8 +119,8 @@ table {border: none;}
 
 footer {
     display: flex;
-    background: #FF6B6B;
-    height: 12KO0px;
+    background-image: linear-gradient(#f74646, #fd5a5a);
+    height: 120px;
     justify-content: space-between;
     align-items: center;
     padding-right: 6px;
