@@ -3,71 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sản phẩm</title>
+    <title>Document</title>
     <link rel="stylesheet" href="/css/product.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 <body>
     <header>
-      <nav>
-        <div class="logo">
-            <img src="/img/logo.png">
-        </div>
-  
-        <div class="search">
-            <input type="text" placeholder="Tìm kiếm sản phẩm">
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-        <div class="icons">
-            <div class="cart-icon"> 
-                <a href="">
-                    <img src="/img/cart.png" alt="Giỏ hàng">
-                </a>
+        <div class="menu">
+        <nav>
+            <div class="logo">
+                <img src="/img/logo.png">
             </div>
-  
-            <div class="user-icon">
-                <a href="">
-                    <img src="/img/user.png" alt="Người dùng">
-                </a>
+            <div class="search">
+                <input type="text" placeholder="Tìm kiếm sản phẩm">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
+            <div class="icons">
+                <div class="cart-icon"> 
+                    <a href="">
+                        <img src="/img/cart.png" alt="Giỏ hàng">
+                    </a>
+                </div>
+                <div class="user-icon">
+                    <a href="">
+                        <img src="/img/user.png" alt="Người dùng">
+                    </a>
+                </div>
+            </div>
+        </nav>
         </div>
-    </nav>
-      </header>
-      
-      <div class="product-container">
-        <div class="product-section">
-          <div class="product-image">
-            <!-- Product image goes here -->
-            <img src="https://pos.nvncdn.net/f2169f-49462/ps/20220914_7kzoNwMUWVNOggptAqkSKXKz.png" alt="Product Image">
+    </header>
+    <main>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card mb-10">
+                <div class="card-header">
+                </div>
+                <div class="card-body store-body">
+                  <div class="product-info">
+                    <div class="product-gallery">
+                      <div class="product-gallery-thumbnails">
+                        <ol class="thumbnails-list list-unstyled">
+                          <li><img src="https://via.placeholder.com/350x350/ffcf5b" class="img-responsive" alt=""></li>
+                          <li><img src="https://via.placeholder.com/350x350/f16a22" alt=""></li>
+                          <li><img src="https://via.placeholder.com/350x350/d3ffce" alt=""></li>
+                          <li><img src="https://via.placeholder.com/350x350/7937fc" alt=""></li>
+                          <li><img src="https://via.placeholder.com/350x350/930000" alt=""></li>
+                        </ol>
+                      </div>
+                      <div class="product-gallery-featured">
+                        <img src="https://via.placeholder.com/350x350/ffcf5b" class="img-responsive" alt="">
+                      </div>
+                  <div class="product-payment-details">
+                    <p class="last-sold text-muted"><small>145 sản phẩm đã bán</small></p>
+                    <h4 class="product-title mb-2">Iphone 14 Pro Max</h4>
+                    <h2 class="product-price display-4">29.990.000 đ</h2>
+                    <p class="mb-0"><i class="fa fa-truck"></i> Giao hàng bởi người bán</p>
+                    <div class="text-muted mb-2"><small>Liên hệ người bán hàng để biết thêm thông tin chi tiết</small></div>
+                    <div class="mb-2">
+                        <form>
+                          <div class="form-group">
+                            <label for="productSelect">Loại Sản Phẩm</label>
+                            <select class="form-control" id="productSelect">
+                              <option value="product1">Sản Phẩm 1</option>
+                              <option value="product2">Sản Phẩm 2</option>
+                              <option value="product3">Sản Phẩm 3</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="quantityInput">Số Lượng</label>
+                            <input type="number" class="form-control" id="quantityInput" placeholder="Nhập số lượng">
+                          </div>
+                          <button type="button" class="btn btn-outline-secondary"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                        </form>
+                      </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="product-details">
-            <h3>iPhone 14 Pro Max 128GB | Chính hãng VN/A</h3>
-            <p>Giá: 34.999.999 VNĐ</p>
-            <div class="quantity">
-              <p>Số lượng:</p>
-              <input type="number" value="1" min="1">
-            </div>
-            <div class="btn">
-              <button>Thêm vào giỏ hàng</button>
-              <button>Loại bỏ</button>
-            </div>
-            
-          </div>
-          
         </div>
-        
-      </div>
+        <div class="product-type">
+            <h3>Product type</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+        </div>
         <div class="description">
-          <h4>Chi tiết sản phẩm</h4>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ngoài một thiết kế đẹp, bảng màu của mỗi thế hệ iPhone cũng luôn là điều mà người dùng quan tâm nhiều nhất. Ở iPhone 14 Pro Max, Apple đã đem đến 4 phiên bản màu khác nhau bao gồm: Đen, Vàng, Bạc và Tím. Không tính đến 3 phiên bản màu quen thuộc thì điểm nhấn ở thế hệ iPhone 14 Pro series chính là màu Tím (Deep Purple). Tùy chọn màu này mang vẻ đẹp trầm lắng nhưng vẫn toát lên được sự sang trọng đặc trưng cho thiết bị.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nếu nói sự thay đổi ngoạn mục nhất ắt hẳn phải nói đến việc Apple đã chính thức nói 'lời tạm biệt' với notch tai thỏ và chuyển sang sử dụng màn hình dạng đục lỗ với tên gọi Dynamic Island. Đây không chỉ là điều mà nhiều iFans mong đợi từ lâu mà còn là bước ngoặt trong việc nâng cấp và phát triển các công nghệ màn hình mới cho những thế hệ iPhone trong tương lai.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Đây là một trong những bài test về pin nặng nhất bởi phải sử dụng liên tục dưới màn hình sáng tối đa, tuy nhiên kết quả mà iPhone 14 Pro Max mang lại làm mình khá bất ngờ. Tổng thời lượng dùng là 8 tiếng 39 phút, thấp hơn đôi chút so với mức 10 tiếng ở thời điểm mới ra mắt tuy nhiên thì trải qua 6 tháng sử dụng dưới cường độ cao nên việc hao hụt pin của máy vẫn xảy ra nhưng nhìn chung thì kết quả này thật sự vẫn nằm ở mức tốt và hơn hẳn nhiều đối thủ khác trong cùng phân khúc.</p>
+            <h3>Product description</h3>
+            <p>Lorem ipsum
         </div>
-        <div class="review">
-          <h4>Review sản phẩm</h4>
-        </div>
+
+        <div class=" mt-4">
+            <h1>Đánh Giá sản phẩm</h1>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="product1.jpg" class="card-img product-img">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">Người dùng A</h5>
+                        <p class="type">màu đỏ</p>
+                        <p class="card-text">Nhận xét rất tích cực về sản phẩm này. Tôi rất hài lòng với chất lượng và giá cả.</p>
+                        <div class="rating">
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="product2.jpg" class="card-img product-img">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">Người dùng B</h5>
+                        <p class="type">màu đỏ</p>
+                        <p class="card-text">Sản phẩm này khá tốt, nhưng tôi nghĩ nó có thể cải thiện ở một số điểm nhất định.</p>
+                        <div class="rating">
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+        <script src="/Js/product.js"></script>
+      </main>
+      <footer class=" text-white">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="footer-logo">
+                <img src="/img/LaTiPee Logo.png" width="200px" alt="Logo">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="about">
+                <h3>Giới thiệu:</h3>
+                <ul>
+                  <li><a href="#">Về chúng tôi</a></li>
+                  <li><a href="#">Điều khoản sử dụng</a></li>
+                  <li><a href="#">Chính sách bảo mật</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="contact">
+                <h3>Liên Hệ:</h3>
+                <ul>
+                  <li><a href="#">Hotline: 1900 0000</a></li>
+                  <li><a href="#">Email: Hotro.Lazipee.vn@gmail.com</a></li>
+                  <li><a href="#">Địa chỉ: 180 Cao Lỗ, Phường 4, Quận 8, TP.HCM</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      </footer>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 </body>
 </html>
