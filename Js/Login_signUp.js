@@ -2,9 +2,9 @@ const userApi = 'http://localhost:3000/user';
 
 //Login
 //lấy data từ front và getUser từ json
-const btnLogin = document.querySelector(".btn.solid");
+var btnLogin = document.querySelector(".btn.solid");
 
-const getUser = async () => {
+var getUser = async () => {
     const res = await fetch(userApi);
     const data = await res.json();
     return data;
@@ -12,8 +12,8 @@ const getUser = async () => {
 //tạo event và đối chiếu data để thực hiện login
 btnLogin.addEventListener('click', (e) => {
     e.preventDefault();
-    const userLogin = document.querySelector("#userLogin").value;
-    const passLogin = document.querySelector("#passLogin").value;
+    var userLogin = document.querySelector("#userLogin").value;
+    var passLogin = document.querySelector("#passLogin").value;
     getUser().then((data) => {const user = data.find((user) => user.userName == userLogin && user.passWord == passLogin);
     if (user) {
         alert("Đăng nhập thành công");
@@ -25,12 +25,11 @@ btnLogin.addEventListener('click', (e) => {
 });
 
 
-
 //signUp
-const signUpForm = document.querySelector(".btn");
+var signUpForm = document.querySelector("#btn-signup");
 
-const createUser = async (user) => {
-  const response = await fetch(userApi, {
+var createUser = async (user) => {
+  var response = await fetch(userApi, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -43,26 +42,25 @@ const createUser = async (user) => {
 
 signUpForm.addEventListener('click', async (e) => {
     e.preventDefault();
-    const username = document.querySelector("#userSignUp").value;
-    const email = document.querySelector("#emailSignUp").value;
-    const password = document.querySelector("#passSignUp").value;
+    var username = document.querySelector("#userSignUp").value;
+    var email = document.querySelector("#emailSignUp").value;
+    var password = document.querySelector("#passSignUp").value;
 
-    const newUser = {
+    var newUser = {
         userName: username,
         userEmail: email,
         passWord: password
     };
 
     try {
-        const allUsers = await getUser();
-        const checkUser = allUsers.find((user) => user.userName == username || user.userEmail == email);
+        var allUsers = await getUser();
+        var checkUser = allUsers.find((user) => user.userName == username || user.userEmail == email);
     if (checkUser) {
         alert("Tên đăng nhập hoặc email đã tồn tại. Vui lòng chọn tên đăng nhập và email khác!");
     } 
     else {
-        const createdUser = await createUser(newUser);
+        var createdUser = await createUser(newUser);
         alert("Đăng kí thành công!");
-        window.location.href = "index.html";
     }
     } 
     catch (error) {
@@ -70,7 +68,3 @@ signUpForm.addEventListener('click', async (e) => {
     alert("Đăng kí không thành công!");
   }
 });
-
-
-
-

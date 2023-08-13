@@ -29,6 +29,19 @@
       "userEmail": "dhs@gmail.com",
       "passWord": "123",
       "id": 5
+    },
+    {
+      "userName": "ewfx",
+      "userEmail": "hjkafs@gmail.com",
+      "passWord": "123",
+      "id": 6
     }
+  ],
+  "Products":[
+  { 
+    "imageURL": "product.png",
+    "name": "tên sản phẩm",
+    "price": 100000
+  }
   ]
 }
