@@ -35,13 +35,45 @@
       "userEmail": "hjkafs@gmail.com",
       "passWord": "123",
       "id": 6
+    },
+    {
+      "userName": "admin123",
+      "userEmail": "caophankhai123@gmail.com",
+      "passWord": "123456",
+      "id": 7
     }
   ],
-  "Products":[
-  { 
-    "imageURL": "product.png",
-    "name": "tên sản phẩm",
-    "price": 100000
-  }
+  "Products": [
+    {
+      "imageURL": "product.png",
+      "name": "tên sản phẩm",
+      "price": 100000
+    },
+    {
+      "imageURL": "product.png",
+      "name": "tên sản phẩm",
+      "price": 100000
+    },
+    {
+      "imageURL": "product.png",
+      "name": "tên sản phẩm",
+      "price": 100000
+    },
+    {
+      "imageURL": "product.png",
+      "name": "tên sản phẩm",
+      "price": 100000
+    },
+    {
+      "imageURL": "product.png",
+      "name": "tên sản phẩm",
+      "price": 100000
+    },
+    {
+      "imageURL": "product.png",
+      "name": "tên sản phẩm",
+      "price": 100000
+    }
+    
   ]
 }
