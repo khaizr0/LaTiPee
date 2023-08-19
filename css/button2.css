@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #dfdfdf;
+  }
+  
+  select:focus {
+    outline: none;
+  }
+  
+  nav {
+    height: 75px;
+    background-color: #61FFB3;
+    display: flex;
+    align-items: center;
+    padding-right: 16px;
+  }
+  
+  .logo {
+    cursor: pointer;
+    margin-right: -10px;
+  }
+  
+  .logo img {
+    width: 200px;
+  }
+  
+  .title-nav span {
+    color: #030303;
+    font-weight: 700;
+    font-size: 22px;
+  }
+  
+  .container {
+    width: 100%; 
+    margin: 0;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .item-name {
+    flex: 1;
+  }
+  
+  .item-info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+  }
+  
+  .item-price,
+  .item-description {
+    margin-bottom: 5px;
+  }
+  
+  .item-buttons {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .delete-button,
+  .restore-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .delete-button:hover{
+      background-color: #d60000; 
+  }
+  .restore-button:hover {
+    background-color: #067032; 
+  }
+  .item-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+  }
+  
+  .item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+  }
+  
+  .restore-button {
+    background-color: #00aa00;
+  }
+  
+  
