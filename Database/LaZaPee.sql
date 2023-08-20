@@ -1,4 +1,7 @@
-﻿CREATE DATABASE LaZaPee
+﻿use master
+go 
+
+CREATE DATABASE LaZaPee
 GO
 
 USE LaZaPee
@@ -18,13 +21,22 @@ CREATE TABLE Categories (
 GO
 CREATE TABLE Products (
   ProductID INT PRIMARY KEY IDENTITY,
-  ProductName NVARCHAR(255) NOT NULL,
   CategoryID INT NOT NULL,
+  ShopID INT NOT NULL, 
+  ProductName NVARCHAR(255) NOT NULL,
+  Product_Type NVARCHAR(MAX),
   Description NVARCHAR(MAX) NOT NULL,
-  IMAGE VARCHAR(max)NOT NULL,
   Status BIT NOT NULL,
   Price DECIMAL(10,0) NOT NULL, check (Price >= 0),
+  FOREIGN KEY (ShopID) REFERENCES Users(UserID),
   FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
+);
+GO
+CREATE TABLE PRODUCT_IMAGE(
+	ImageID INT Primary key,
+	ProductID INT NOT NULL,
+	ImageURL VARCHAR(MAX),
+	FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 GO
 CREATE TABLE Orders (
@@ -33,7 +45,7 @@ CREATE TABLE Orders (
   ProductID INT NOT NULL,
   Quantity INT NOT NULL,
   OrderDate DATETIME NOT NULL,
-  Status NVARCHAR(255),
+  Status BIT NOT NULL,
   FOREIGN KEY (UserID) REFERENCES Users(UserID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -44,6 +56,7 @@ CREATE TABLE Reviews (
   ProductID INT NOT NULL,
   Rating INT NOT NULL,
   Comment NVARCHAR(MAX) NOT NULL,
+  ImageURL VARCHAR(MAX),
   FOREIGN KEY (UserID) REFERENCES Users(UserID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
