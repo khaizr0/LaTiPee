@@ -1,46 +1,22 @@
 {
   "user": [
     {
-      "id": 1,
-      "userName": "admin1",
-      "passWord": "123",
-      "Email": "abc@gmail.com"
-    },
-    {
-      "id": 2,
-      "userName": "admin2",
-      "passWord": "123",
-      "Email": "abc@gmail.com"
-    },
-    {
-      "id": 3,
-      "userName": "admin3",
-      "passWord": "123",
-      "Email": "abc@gmail.com"
-    },
-    {
-      "userName": "sss",
-      "userEmail": "",
-      "passWord": "sss",
-      "id": 4
-    },
-    {
       "userName": "admin21",
       "userEmail": "dhs@gmail.com",
       "passWord": "123",
-      "id": 5
+      "id": 1
     },
     {
       "userName": "ewfx",
       "userEmail": "hjkafs@gmail.com",
       "passWord": "123",
-      "id": 6
+      "id": 2
     },
     {
       "userName": "admin123",
       "userEmail": "caophankhai123@gmail.com",
       "passWord": "123456",
-      "id": 7
+      "id": 3
     }
   ],
   "Products": [

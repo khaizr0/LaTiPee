@@ -287,3 +287,48 @@ footer a {
 footer ul {
     list-style: none;
 }
+
+@media (max-width: 768px) {
+    .search input {
+        width: 70%;
+    }
+    .search button {
+        width: 15%; 
+    }
+
+    .logo img {
+        width: 150px; 
+    }
+
+
+    .category {
+        height: auto; 
+        padding: 20px 0; 
+    }
+    .selection {
+        flex-direction: column; 
+        margin: 0; 
+    }
+    .selection div {
+        margin: 5px 0; 
+    }
+
+    .section {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+    }
+
+
+    footer {
+        flex-direction: column; 
+        padding: 20px 0; 
+        height: 100%;
+    }
+
+    .about, .contact {
+        margin: 10px 0; 
+    }
+    #slider {
+        display: none;
+    }
+}
