@@ -1,6 +1,9 @@
 const userApi = 'http://localhost:3000/user';
+//add nodemailer
+const nodemailer = require('nodemailer');
 
-//resetpass
+
+
 var btnforgot = document.querySelector(".btn.solid");
 
 //take email info from front and getUser from json

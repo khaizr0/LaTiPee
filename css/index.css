@@ -287,7 +287,11 @@ footer a {
 footer ul {
     list-style: none;
 }
-
+@media (max-width: 1365px) {
+    #slider {
+        display: none;
+    }
+}
 @media (max-width: 768px) {
     .search input {
         width: 70%;
@@ -329,6 +333,11 @@ footer ul {
         margin: 10px 0; 
     }
     #slider {
+        display: none;
+    }
+}
+@media (max-width: 600px) {
+    .logo {
         display: none;
     }
 }
