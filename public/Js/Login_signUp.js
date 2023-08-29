@@ -13,10 +13,10 @@ btnLogin.addEventListener('click', (e) => {
     e.preventDefault();
     var userLogin = document.querySelector("#userLogin").value;
     var passLogin = document.querySelector("#passLogin").value;
-    getUser().then((data) => {const user = data.find((user) => user.userName == userLogin && user.passWord == passLogin);
+    getUser().then((data) => {const user = data.find((user) => user.userName == userLogin && user.password == passLogin);
     if (user) {
         alert("Đăng nhập thành công");
-        window.location.href = "index.html";
+        window.location.href = "http://localhost:3000";
     } else {
         alert("Đăng nhập không thành công");
     }

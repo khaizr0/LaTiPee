@@ -33,6 +33,10 @@ app.get('/login', (req, res, next) => {
   res.render('login');
 });
 
+app.post('/login', async (req, res, next) => {
+ 
+});
+
 app.post('/forgot-password', async (req, res, next) => {
   const { email } = req.body;
 
