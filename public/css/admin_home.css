@@ -1,0 +1,135 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #dfdfdf;
+}
+
+select:focus {
+    outline: none;
+}
+
+nav {
+    height: 75px;
+    background-color: #61FFB3;
+    display: flex;
+    align-items: center;
+    padding-right: 16px;
+}
+
+.logo {
+    cursor: pointer;
+    margin-right: -10px;
+}
+
+.logo img{
+    width: 200px;
+}
+
+.title-nav span{
+    color: #030303;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.table-content{
+    height: 600px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-top: 55px;
+}
+
+.table-header h3{
+    margin: 0;
+    font-weight: 500;
+}
+
+.table-header{
+    padding-top: 10px;
+    padding-left: 25px;
+}
+
+.table-body{
+    margin-top: 10px;
+}
+
+.table-body table{
+    width: 100%;
+}
+
+.table-body table thead{
+    background: #F5F5F5;
+    height: 35px;
+}
+
+.table-body table thead tr{
+    border-color: #F5F5F5;
+}
+
+.table-body table tbody tr{
+    background: #E9F4DB;
+}
+
+.table-body table tbody tr td{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.table-body table tbody tr td select{
+    border: none;
+    width: 80%;
+    height: 35px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.table-body table tbody tr td img{
+    width: 100px;
+    height: 60px;
+}
+
+.accept{
+    background: #79EFFF;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+footer {
+    display: flex;
+    background: #61FFB3;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+.about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+.contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    padding-left: 30px;
+}
+footer a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 13px;
+  font-weight: thin;
+}
+footer ul {
+  list-style: none;
+}

@@ -1,0 +1,158 @@
+body {
+    font-family: 'Open sans', Arial, sans-serif;
+    margin: 0;
+  }
+  
+header nav {
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 16px;
+}
+header .menu {
+    background-image: linear-gradient(#f74646, #fd5a5a);
+  }
+header .logo {
+    cursor: pointer;
+    margin-right: auto;
+}
+
+header .logo img{
+    width: 200px;
+}
+
+header .search {
+    position: relative;
+    flex-grow: 1;
+    text-align: center;
+}
+
+header .search input {
+    width: 50%;
+    padding: 12px;
+    border: none;
+}
+
+header .search input::placeholder {
+    font-style: normal;
+}
+
+header .search button{
+    width: 5%;
+    margin-left: -4px;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    background-color: #f7f446;
+}
+
+header .icons {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+header .icons div {
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+header .cart-icon img {
+    width: 35px;
+}
+
+header .user-icon img {
+    width: 35px;
+}
+
+ .product-payment-details {
+    width: 70%;
+  }
+  
+ .product-gallery {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .product-gallery-featured {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 15px 0;
+  }
+  
+  .product-gallery-thumbnails .thumbnails-list li {
+    margin-bottom: 5px;
+    cursor: pointer;
+    position: relative;
+    width: 70px;
+    height: 70px;
+  }
+  
+  .thumbnails-list li img {
+    display: flex;
+    width: 100%;
+  }
+
+/* Existing styles */
+
+/* Additional styles to match your provided example */
+footer {
+    display: flex;
+    background-image: linear-gradient(#f74646, #fd5a5a);
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .footer-logo img {
+    padding-left: 20px;
+    padding-top: 20px;
+  }
+  
+  .about h3,
+  .contact h3 {
+    padding-right: 10px;
+  }
+  
+  .about,
+  .contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+  }
+  
+  footer a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: thin;
+  }
+  
+  footer ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .footer-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .about ul,
+  .contact ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .about ul li,
+  .contact ul li {
+    margin-bottom: 5px;
+  }
+  
+  
+  
+  
