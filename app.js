@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const axios = require('axios');
 const app = express();
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,8 +35,64 @@ app.get('/login', (req, res, next) => {
   res.render('login');
 });
 
+//đăng nhập
 app.post('/login', async (req, res, next) => {
- 
+    const { userName, password } = req.body;
+
+    try {
+        const response = await axios.get(`http://localhost:8000/users?userName=${userName}`);
+        const user = response.data[0];
+
+        if (!user) {
+            return res.status(400).send('Tên đăng nhập không tồn tại');
+        }
+        const checkPass = await bcrypt.compare(password, user.password);
+
+        if (!checkPass) {
+            return res.status(400).send('Mật khẩu không chính xác');
+        }
+        res.render('index')
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Có lỗi xảy ra');
+    }
+});
+
+// Đăng ký
+app.post('/signup', async (req, res, next) => {
+  const { userName, email, password } = req.body;
+
+  try {
+      const userCheck = await axios.get(`http://localhost:8000/users?userName=${userName}`);
+      if (userCheck.data.length > 0) {
+          return res.status(400).send('Tên đăng nhập đã tồn tại');
+      }
+
+      const emailCheck = await axios.get(`http://localhost:8000/users?email=${email}`);
+      if (emailCheck.data.length > 0) {
+          return res.status(400).send('Email đã tồn tại');
+      }
+
+      const saltRounds = 10; 
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+      const newUser = {
+          userName,
+          email, 
+          password: hashedPassword  
+      };
+
+      const createUserResponse = await axios.post(`http://localhost:8000/users`, newUser); 
+      if (createUserResponse.status === 201) {
+          res.status(201).send('Đăng kí thành công');
+      } else {
+          throw new Error('Không thể tạo người dùng mới');
+      }
+  } catch (error) {
+      console.log(error);
+      res.status(500).send('Có lỗi xảy ra khi đăng ký');
+  }
 });
 
 app.post('/forgot-password', async (req, res, next) => {

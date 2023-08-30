@@ -17,12 +17,18 @@
       "email": "caophankhai123@gmail.com",
       "password": "1234567890",
       "id": 3
+    },
+    {
+      "userName": "cautengi",
+      "email": "cautengi@gmail.com",
+      "password": "$2b$10$2qwWKeWlWAFZteDfC2XigusaFFB6B7vhp4OtD5pryePqDdfPFyaTW",
+      "id": 4
     }
   ],
   "Products": [
     {
       "imageURL": "product.png",
-      "name": "tên sản phẩm",
+      "name": "sản phẩm 1",
       "price": 100000
     },
     {

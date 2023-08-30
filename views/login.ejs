@@ -15,40 +15,40 @@
       <div class="forms-container">
         <div class="signin-signup">
           
-          <!--login-->
-          <form class="sign-in-form">
-            <img src="/img/LaTiPee RemoveBG.png" width="150">
-            <h2 class="title">Đăng Nhập</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" id="userLogin" placeholder="Tên Đăng Nhập" />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" id="passLogin" placeholder="Mật Khấu" />
-            </div>
-            <button class="btn solid">Đăng Nhập</button>
-            <a href="/Forgot.html" class="Forgot-Pass">Quên mật khẩu?</a>
-          </form>
-        
-          <!--signUp-->
-          <form class="sign-up-form">
-            <img src="/img/LaTiPee RemoveBG.png" width="150">
-            <h2 class="title">Đăng kí</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" id="userSignUp" placeholder="Tên đăng nhập" />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-envelope"></i>
-              <input type="email" id="emailSignUp" placeholder="Email" />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" id="passSignUp" placeholder="Mật Khẩu" />
-            </div>
-            <button id="btn-signup" class="btn">Đăng ký</button>
-          </form>
+          <!--login-->         
+            <form action="/login" method="POST" class="sign-in-form">
+              <img src="/img/LaTiPee RemoveBG.png" width="150">
+              <h2 class="title">Đăng Nhập</h2>
+              <div class="input-field">
+                  <i class="fas fa-user"></i>
+                  <input type="text" name="userName" id="userLogin" placeholder="Tên Đăng Nhập" />
+              </div>
+              <div class="input-field">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" name="password" id="passLogin" placeholder="Mật Khấu" />
+              </div>
+              <button class="btn solid">Đăng Nhập</button>
+              <a href="/Forgot.html" class="Forgot-Pass">Quên mật khẩu?</a>
+            </form>
+
+            <!--signUp-->
+            <form action="/signup" method="POST"class="sign-up-form">
+              <img src="/img/LaTiPee RemoveBG.png" width="150">
+              <h2 class="title">Đăng kí</h2>
+              <div class="input-field">
+                  <i class="fas fa-user"></i>
+                  <input type="text" name="userName" id="userSignUp" placeholder="Tên đăng nhập" />
+              </div>
+              <div class="input-field">
+                  <i class="fas fa-envelope"></i>
+                  <input type="email" name="email" id="emailSignUp" placeholder="Email" />
+              </div>
+              <div class="input-field">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" name="password" id="passSignUp" placeholder="Mật Khẩu" />
+              </div>
+              <button id="btn-signup" class="btn">Đăng ký</button>
+</form>
 
         </div>
       </div>
@@ -81,6 +81,5 @@
     </div>
 
     <script src="/Js/app.js"></script>
-    <script src="/Js/Login_signUp.js"></script>
   </body>
 </html>
