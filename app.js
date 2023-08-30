@@ -28,12 +28,40 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/admin', (req, res, next) => {
+  res.render('Admin-login');
+});
+
 app.get('/forgot-password', (req, res, next) => {
   res.render('forgot-password');
 });
 app.get('/login', (req, res, next) => {
-  res.render('login');
+  res.render('login-signup-user');
 });
+//login (admin)
+app.post('/admin', async (req, res, next) => {
+  const { userName, password } = req.body;
+
+  try {
+    const response = await axios.get(`http://localhost:8000/users?userName=${userName}`);
+    const admin = response.data.find(user => user.userName === userName && user.admin === 'y');
+
+    if (!admin) {
+      return res.status(400).send('Tên đăng nhập không tồn tại hoặc không phải là admin');
+    }
+
+    const checkPass = await bcrypt.compare(password, admin.password);
+
+    if (!checkPass) {
+      return res.status(400).send('Mật khẩu không chính xác');
+    }
+    res.render('Admin')
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Có lỗi xảy ra');
+  }
+  });
 
 //đăng nhập
 app.post('/login', async (req, res, next) => {
@@ -180,8 +208,12 @@ app.post('/reset-password/:id/:token', async (req, res, next) => {
       return;
     }
 
+    // Mã hoá mật khẩu mới
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     // Cập nhật mật khẩu mới trong JSON Server
-    await axios.patch(`http://localhost:8000/users/${id}`, { password });
+    await axios.patch(`http://localhost:8000/users/${id}`, { password: hashedPassword });
 
     res.send('mật khẩu đã được cập nhật thành công, vui lòng đăng nhập lại');
   } catch (error) {
@@ -189,5 +221,8 @@ app.post('/reset-password/:id/:token', async (req, res, next) => {
     res.send(error.message);
   }
 });
+
+
+
 
 app.listen(3000, () => console.log('🚀 @ http://localhost:3000'));

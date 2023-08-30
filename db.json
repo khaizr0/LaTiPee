@@ -1,28 +1,26 @@
 {
   "users": [
     {
-      "userName": "admin21",
-      "email": "dhs@gmail.com",
-      "password": "123",
-      "id": 1
-    },
-    {
-      "userName": "ewfx",
-      "email": "hjkafs@gmail.com",
-      "password": "123",
-      "id": 2
-    },
-    {
       "userName": "admin123",
       "email": "caophankhai123@gmail.com",
-      "password": "1234567890",
-      "id": 3
+      "password": "$2b$10$U4pas5F.3bMM6OtHGAMA/elY9VxcDy49hWaRJv06Wpns9OYEK4sd6",
+      "id": 1,
+      "admin": "y",
+      "status": "1"
     },
     {
       "userName": "cautengi",
       "email": "cautengi@gmail.com",
       "password": "$2b$10$2qwWKeWlWAFZteDfC2XigusaFFB6B7vhp4OtD5pryePqDdfPFyaTW",
-      "id": 4
+      "id": 2,
+      "status": "1"
+    },
+    {
+      "userName": "test1",
+      "email": "12312312@gmail.conm",
+      "password": "$2b$10$ilOKhVCgTf2iy.do.a3YHOAHB7T2fuAzpwqkchn/CFTuGqUo4Icra",
+      "id": 3,
+      "status": "0"
     }
   ],
   "Products": [
