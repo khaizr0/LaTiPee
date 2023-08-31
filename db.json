@@ -1,6 +1,14 @@
 {
   "users": [
     {
+      "userName": "SuperAdmin",
+      "email": "capekhaivn@gmail.com",
+      "password": "$2b$10$alcxQDV3WxBFlHK89JwuTODjrOpZpLtmK00sfPFAE4gG88yICzXt.",
+      "id": "superadmin",
+      "admin": "y",
+      "status": "1"
+    },
+    {
       "userName": "admin123",
       "email": "caophankhai123@gmail.com",
       "password": "$2b$10$U4pas5F.3bMM6OtHGAMA/elY9VxcDy49hWaRJv06Wpns9OYEK4sd6",
@@ -27,102 +35,16 @@
     {
       "imageURL": "product.png",
       "name": "sản phẩm 1",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "sản phẩm 1",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "sản phẩm 1",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "laptop gaming",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "laptop",
-      "price": 100000
-    },
-    {
-      "imageURL": "product.png",
-      "name": "tên sản phẩm",
-      "price": 100000
+      "shopName": "shop 1",
+      "shopID": 1,
+      "price": 100000,
+      "id": 1,
+      "status": "0",
+      "description": "mô tả sản phẩm 1",
+      "date": "2021-05-25",
+      "category": "dientu",
+      "quantity": 10,
+      "sold": 0
     }
   ]
 }

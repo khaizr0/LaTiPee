@@ -58,16 +58,35 @@ const transporter = nodemailer.createTransport({
 });
 
 
-app.get('/admin', (req, res, next) => {
+app.get('/login/admin', (req, res, next) => {
   res.render('Admin-login');
 });
 
-app.get('/forgot-password', (req, res, next) => {
+app.get('/forgot', (req, res, next) => {
   res.render('forgot-password');
 });
 app.get('/login', (req, res, next) => {
   res.render('login-signup-user');
 });
+
+app.get('/admin', async (req, res, next) => {
+  try {
+      // Fetch user data from JSON server or your database
+      const userResponse = await axios.get('http://localhost:8000/users');
+      const users = userResponse.data;
+
+      // Fetch product data from JSON server or your database
+      const productResponse = await axios.get('http://localhost:8000/Products');
+      const products = productResponse.data;
+
+      // Render admin.ejs with user and product data
+      res.render('admin', { users: users, products: products });
+  } catch (error) {
+      console.error("Error fetching data:", error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
 
 app.post('/loadMoreProducts', async (req, res) => {
   try {
@@ -95,7 +114,7 @@ app.post('/search', async (req, res) => {
 });
 
 //login (admin)
-app.post('/admin', async (req, res, next) => {
+app.post('/login/admin', async (req, res, next) => {
   const { userName, password } = req.body;
 
   try {
@@ -111,13 +130,67 @@ app.post('/admin', async (req, res, next) => {
     if (!checkPass) {
       return res.status(400).send('Mật khẩu không chính xác');
     }
-    res.render('Admin')
+    res.redirect('/admin');
 
   } catch (error) {
     console.log(error);
     res.status(500).send('Có lỗi xảy ra');
   }
   });
+
+// admin (function)
+app.post('/admin/update-user-status', async (req, res, next) => {
+  const { userId, newStatus, newType } = req.body;
+
+  try {
+      const response = await axios.get(`http://localhost:8000/users?id=${userId}`);
+      const user = response.data[0];
+
+      if (!user) {
+          return res.status(404).send('User not found');
+      }
+
+      // Update user's status and type (newType) in JSON Server or your database
+      // For example, you can use axios.patch to update the user's status and type
+
+      // Assuming you have an API endpoint to update the user's status and type
+      const updateUserResponse = await axios.patch(`http://localhost:8000/users/${userId}`, {
+          status: newStatus,
+          // You might want to update the user type as well
+          // admin: newType
+      });
+
+      if (updateUserResponse.status === 200) {
+          res.status(200).send('User account updated successfully');
+      } else {
+          throw new Error('Failed to update user account');
+      }
+  } catch (error) {
+      console.error("Error updating user account:", error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+app.post('/admin/update-product-status', async (req, res, next) => {
+  const { productId, newStatus } = req.body;
+
+  try {
+      // Replace this with your actual update logic
+      // For example, you might use axios.patch to update the product's status
+      const updateProductResponse = await axios.patch(`http://localhost:8000/Products/${productId}`, {
+          status: newStatus,
+      });
+
+      if (updateProductResponse.status === 200) {
+          res.status(200).send('Product status updated successfully');
+      } else {
+          throw new Error('Failed to update product status');
+      }
+  } catch (error) {
+      console.error("Error updating product status:", error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
 
 //đăng nhập
 app.post('/login', async (req, res, next) => {
@@ -135,7 +208,7 @@ app.post('/login', async (req, res, next) => {
         if (!checkPass) {
             return res.status(400).send('Mật khẩu không chính xác');
         }
-        res.render('index')
+        res.redirect('/');
         
     } catch (error) {
         console.log(error);
@@ -179,7 +252,7 @@ app.post('/signup', async (req, res, next) => {
   }
 });
 
-app.post('/forgot-password', async (req, res, next) => {
+app.post('/forgot', async (req, res, next) => {
   const { email } = req.body;
 
     try {
@@ -213,7 +286,7 @@ app.post('/forgot-password', async (req, res, next) => {
       res.send('Error sending email.');
     } else {
       console.log('Email sent: ' + info.response);
-      res.send('Password reset link has been sent to your email...');
+      res.render('email-sent-success');
     }
   });
 

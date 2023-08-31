@@ -7,6 +7,7 @@
     <title>Admin Center</title>
     <link rel="stylesheet" href="/css/admin_home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/img/LaTiPee-small.png">
 </head>
 <body>
     <nav>
@@ -32,35 +33,36 @@
                         <th>Loại tài khoản</th>
                         <th>Giao dịch gần đây</th>
                         <th>Trạng thái tài khoản</th>
+                        <th></th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Trần Văn A</td>
-                            <td>adawda@gmail.com</td>
-                            <td>Khách hàng</td>
-                            <td>05/07/2023</td>
-                            <td>
-                                <select>
-                                    <option>Hoạt động</option>
-                                    <option>Bị cấm</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Trần Văn B</td>
-                            <td>adawda@gmail.com</td>
-                            <td>Khách hàng</td>
-                            <td>05/07/2023</td>
-                            <td>
-                                <select>
-                                    <option>Hoạt động</option>
-                                    <option>Bị cấm</option>
-                                </select>
-                            </td>
-                        </tr>
+                        <% users.forEach(user => { %>
+                            <tr data-user-id="<%= user.id %>">
+                                <td><%= user.userName %></td>
+                                <td><%= user.email %></td>
+                                <td><%= user.admin === 'y' ? 'Quản Trị Viên' : 'Người Dùng' %></td>
+                                <td><%= user.lastTransactionDate %></td>
+                                <td>
+                                    <% if (user.userName !== 'SuperAdmin') { %>
+                                        <select class="account-status-select">
+                                            <option <%= user.status === '1' ? 'selected' : '' %> value="1">Hoạt động</option>
+                                            <option <%= user.status === '0' ? 'selected' : '' %> value="0">Bị cấm</option>
+                                        </select>
+                                    <% } else { %>
+                                        <%= user.status === '1' ? 'Hoạt động' : 'Bị cấm' %>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if (user.userName !== 'SuperAdmin') { %>
+                                        <button class="save-button" data-user-id="<%= user.id %>">Lưu</button>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>
+            
         </div>
 
         <div class="table-content table-content-product">
@@ -77,25 +79,31 @@
                         <th>Ngày đăng</th>
                         <th>Chủ shop</th>
                         <th>Trạng thái bài đăng</th>
+                        <th></th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <img src="/img/product.png" alt="">
-                            </td>
-                            <td>Sữa rửa mặt</td>
-                            <td>sửa rửa mặt thiên nhiên được làm bằng sửa kết hợp với hỗn hợpa ưdwauidawoid tốt cho sức khoẻ người dùng</td>
-                            <td>400</td>
-                            <td>27/07/2023</td>
-                            <td>ABC SHOP</td>
-                            <td>
-                                <select>
-                                    <option>Cho phép</option>
-                                    <option>Đình chỉ</option>
-                                    <option>Xoá</option>
-                                </select>
-                            </td>
-                        </tr>
+                        <% products.forEach(product => { %>
+                            <tr>
+                                <td>
+                                    <img src="<%= product.imageURL %>" alt="<%= product.name %>">
+                                </td>
+                                <td><%= product.name %></td>
+                                <td><%= product.description %></td>
+                                <td><%= product.sold %></td>
+                                <td><%= product.date %></td>
+                                <td><%= product.shopName %></td>
+                                <td>
+                                    <select class="product-status-select">
+                                        <option <%= product.status === 'Cho phép' ? 'selected' : '' %> value="1">Cho phép</option>
+                                        <option <%= product.status === 'Đình chỉ' ? 'selected' : '' %> value="0">Đình chỉ</option>
+                                        <option <%= product.status === 'Xoá' ? 'selected' : '' %> value="2">Xoá</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="save-product-button" data-product-id="<%= product.id %>">Lưu</button>
+                                </td>
+                            </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>
@@ -120,5 +128,67 @@
                 <li><a href="#">Hotline: 1900 0000</a></li>
                 <li><a href="#">Email:
     </footer>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(() => {
+        $('.account-status-select').on('change', function () {
+            const userId = $(this).closest('tr').data('user-id');
+            const newStatus = $(this).val();
+            const newType = ''; // Implement a way to get the new account type here
+
+            $.ajax({
+                url: '/admin/update-user-status',
+                method: 'POST',
+                data: { userId, newStatus, newType },
+                success: function (response) {
+                    console.log(response); // Handle success, update UI if needed
+                },
+                error: function (error) {
+                    console.error(error); // Handle error
+                }
+            });
+        });
+
+        $('.save-button').on('click', function () {
+            const userId = $(this).data('user-id');
+            const newStatus = $(this).closest('tr').find('.account-status-select').val();
+            const newType = ''; // Implement a way to get the new account type here
+
+            $.ajax({
+                url: '/admin/update-user-status',
+                method: 'POST',
+                data: { userId, newStatus, newType },
+                success: function (response) {
+                    console.log(response); // Handle success, update UI if needed
+                },
+                error: function (error) {
+                    console.error(error); // Handle error
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(() => {
+        $('.save-product-button').on('click', function () {
+            const productId = $(this).data('product-id');
+            const newStatus = $(this).closest('tr').find('.product-status-select').val();
+
+            $.ajax({
+                url: '/admin/update-product-status',
+                method: 'POST',
+                data: { productId, newStatus },
+                success: function (response) {
+                    console.log(response); // Handle success, update UI if needed
+                },
+                error: function (error) {
+                    console.error(error); // Handle error
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
