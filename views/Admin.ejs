@@ -94,11 +94,11 @@
                                 <td><%= product.shopName %></td>
                                 <td>
                                     <select class="product-status-select">
-                                        <option <%= product.status === 'Cho phép' ? 'selected' : '' %> value="1">Cho phép</option>
-                                        <option <%= product.status === 'Đình chỉ' ? 'selected' : '' %> value="0">Đình chỉ</option>
-                                        <option <%= product.status === 'Xoá' ? 'selected' : '' %> value="2">Xoá</option>
+                                        <option <%= product.status === 'Cho phép' ? 'selected' : '' %> value="Cho phép">Cho phép</option>
+                                        <option <%= product.status === 'Đình chỉ' ? 'selected' : '' %> value="Đình chỉ">Đình chỉ</option>
+                                        <option <%= product.status === 'Xoá' ? 'selected' : '' %> value="Xoá">Xoá</option>
                                     </select>
-                                </td>
+                                </td>   
                                 <td>
                                     <button class="save-product-button" data-product-id="<%= product.id %>">Lưu</button>
                                 </td>
@@ -173,8 +173,9 @@
 <script>
     $(document).ready(() => {
         $('.save-product-button').on('click', function () {
-            const productId = $(this).data('product-id');
-            const newStatus = $(this).closest('tr').find('.product-status-select').val();
+            const saveButton = $(this);
+            const productId = saveButton.data('product-id');
+            const newStatus = saveButton.closest('tr').find('.product-status-select').val();
 
             $.ajax({
                 url: '/admin/update-product-status',
@@ -182,6 +183,10 @@
                 data: { productId, newStatus },
                 success: function (response) {
                     console.log(response); // Handle success, update UI if needed
+                    
+                    // Update the select options to reflect the new status
+                    const selectElement = saveButton.closest('tr').find('.product-status-select');
+                    selectElement.val(newStatus);
                 },
                 error: function (error) {
                     console.error(error); // Handle error
