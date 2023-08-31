@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mua - Bán</title>
+    <link rel="stylesheet" href="/css/sell_home.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="icon" type="image/x-icon" href="/img/LaTiPee-small.png">
+</head>
+<body>
+    <header>
+        <nav>
+          <ul>
+            <li><img src="/img/LaTiPee Logo.png"></li>
+            <li class="sellercenter">Seller Center</li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <div class="sell-static">
+            <div class="sell-static-header">
+                <h3>Thống kê bán hàng</h3>
+            </div>
+            <div class="sell-static-left">
+                <div class="sell-static-left-top">
+                    <div class="sell-static-left-top-left">
+                        <h3>100</h3>
+                        <p>Sản phẩm đã bán</p>
+                    </div>
+                    <div class="sell-static-left-top-right">
+                        <h3>100</h3>
+                        <p>Sản phẩm đang bán</p>
+                    </div>
+                </div>
+                <div class="sell-static-left-bottom">
+                    <div class="sell-static-left-bottom-left">
+                        <h3>100</h3>
+                        <p>Đơn hàng đã bán</p>
+                    </div>
+                    <div class="sell-static-left-bottom-right">
+                        <h3>100</h3>
+                        <p>Đơn hàng đang giao</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sell-static-right">
+                <div class="sell-static-right-top">
+                    <h3>100</h3>
+                    <p>Sản phẩm đã bán</p>
+                </div>
+                <div class="sell-static-right-bottom">
+                    <h3>100</h3>
+                    <p>Sản phẩm đang bán</p>
+                </div>
+            </div>
+        </div>
+        <div class="sell-fill">
+            <div class="sell-header">
+                <h3>Đăng bán sản phẩm</h3>
+            </div>
+            <div class="sell-body">
+                <form action="#" method="post">
+                    <div class="sell-form">
+                        <div class="sell-form-left">
+                            <div class="sell-form-left-top">
+                                <div class="sell-form-left-top-left">
+                                    <label for="product-name">Tên sản phẩm: </label>
+                                    <input type="text" name="product-name" id="product-name" placeholder="Nhập tên sản phẩm">
+                                </div>
+                                <div class="sell-form-left-top-right">
+                                    <label for="product-price">Giá tiền: </label>
+                                    <input type="text" name="product-price" id="product-price" placeholder="Nhập giá tiền">
+                                </div>
+                            </div>
+                            <div class="sell-form-left-bottom">
+                                <label for="product-description">Mô tả sản phẩm: </label>
+                                <textarea name="product-description" id="product-description" cols="30" rows="10" placeholder="Nhập mô tả sản phẩm"></textarea>
+                            </div>
+                        </div>
+                        <div class="sell-form-right">
+                            <div class="sell-form-right-top">
+                                <label for="product-image">Hình ảnh sản phẩm: </label>
+                                <input type="file" name="product-image" id="product-image">
+                            </div>
+                            <div class="sell-form-right-bottom">
+                                <label for="product-quantity">Số lượng: </label>
+                                <input type="text" name="product-quantity" id="product-quantity" placeholder="Nhập số lượng">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sell-form-submit">
+                        <input type="submit" value="Đăng bán">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-content">
+            <div class="table-header">
+                <h3>Thông tin sản phẩm</h3>
+            </div>
+            <div class="table-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá tiền</th>
+                            <th>Số lượng</th>
+                            <th>Mô tả sản phẩm</th>
+                            <th>Ngày đăng bán</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
+                            </td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
+                            <td>
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
+                            </td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
+                            <td>
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
+                            </td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
+                            <td>
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
+                            </td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
+                            <td>
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
+                            </td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
+                            <td>
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="table-content">
+            <div class="table-header">
+                <h3>Thông tin đơn hàng Giao</h3>
+            </div>
+            <div class="table-body">
+                <table>
+                    <thead>
+                        <th>Đơn hàng số #</th>
+                        <th>Người Đặt</th>
+                        <th>Sản phẩm</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày đặt hàng</th>
+                        <th>Tổng cộng</th>
+                        <th>Trạng thái đơn hàng</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#0001</td>
+                            <td>Trần Văn A</td>
+                            <td>Sản Phẩm 1</td>
+                            <td>Xuân La, Tây Hồ, Hà Nội</td>
+                            <td>05/07/2023</td>
+                            <td>250.000đ</td>
+                            <td>Đang giao hàng</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </main>
+
+      <footer>
+        <div class="footer-logo">
+            <img src="/img/LaTiPee Logo.png" width="200px">
+        </div>
+        <div class="about">
+            <h3>Giới thiệu:</h3>
+            <ul>
+                <li><a href="#">Về chúng tôi</a></li>
+                <li><a href="#">Điều khoản sử dụng</a></li>
+                <li><a href="#">Chính sách bảo mật</a></li>
+            </ul>
+        </div>
+        <div class="contact">
+            <h3>Liên Hệ:</h3>
+            <ul>
+                <li><a href="#">Hotline: 1900 0000</a></li>
+                <li><a href="#">Email: Hotro.Lazipee.vn@gmail.com</a></li>
+                <li><a href="#">Địa chỉ: 180 Cao Lỗ, Phường 4, Quận 8, TP.HCM</a></li>
+            </ul>
+        </div>
+</footer>
+</body>
+</html>

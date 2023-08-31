@@ -2,11 +2,12 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const axios = require('axios');
-const app = express();
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const sql = require('mssql');
+const session = require('express-session');
 
+const app = express();
 
 // const dbConfig = {
 //   user : 'Talent/0392956804',
@@ -33,6 +34,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
+//session middleware
+app.use(session({
+  secret: 'abc123',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // Set to true in a production environment with HTTPS
+    maxAge: 3600000, // Set the session to expire after a certain time (1 hour in this case)
+  },
+}));
 
 const JWT_SECRET = 'some super secret...';
 
@@ -45,6 +56,19 @@ const transporter = nodemailer.createTransport({
       pass: 'bfsjnqexelavxnhi',
     },
   });
+
+  const authenticateAdmin = (req, res, next) => {
+    console.log("Session user:", req.session.user); // Debugging
+    if (req.session && req.session.user && req.session.user.admin === 'y') {
+      return next();
+    } else {
+      console.log("Admin authentication failed"); // Debugging
+      res.redirect('/login/admin');
+    }
+  };
+
+
+
   app.get('/', async (req, res) => {
     try {
         const response = await axios.get('http://localhost:8000/Products?_start=0&_limit=8');
@@ -58,8 +82,14 @@ const transporter = nodemailer.createTransport({
 });
 
 
+
+
+
 app.get('/login/admin', (req, res, next) => {
   res.render('Admin-login');
+});
+app.get('/seller', (req, res, next) => {
+  res.render('Seller-homepage');
 });
 
 app.get('/forgot', (req, res, next) => {
@@ -69,21 +99,21 @@ app.get('/login', (req, res, next) => {
   res.render('login-signup-user');
 });
 
-app.get('/admin', async (req, res, next) => {
+app.get('/admin', authenticateAdmin, async (req, res, next) => {
   try {
-      // Fetch user data from JSON server or your database
-      const userResponse = await axios.get('http://localhost:8000/users');
-      const users = userResponse.data;
+    // Fetch user data from JSON server or your database
+    const userResponse = await axios.get('http://localhost:8000/users');
+    const users = userResponse.data;
 
-      // Fetch product data from JSON server or your database
-      const productResponse = await axios.get('http://localhost:8000/Products');
-      const products = productResponse.data;
+    // Fetch product data from JSON server or your database
+    const productResponse = await axios.get('http://localhost:8000/Products');
+    const products = productResponse.data;
 
-      // Render admin.ejs with user and product data
-      res.render('admin', { users: users, products: products });
+    // Render admin.ejs with user and product data
+    res.render('admin', { users: users, products: products });
   } catch (error) {
-      console.error("Error fetching data:", error);
-      res.status(500).send('Internal Server Error');
+    console.error("Error fetching data:", error);
+    res.status(500).send('Internal Server Error');
   }
 });
 
@@ -124,19 +154,27 @@ app.post('/login/admin', async (req, res, next) => {
     if (!admin) {
       return res.status(400).send('Tên đăng nhập không tồn tại hoặc không phải là admin');
     }
+    if (admin.status === '0') {
+      return res.status(403).send('Tài khoản của bạn đã bị cấm');
+    }
 
     const checkPass = await bcrypt.compare(password, admin.password);
 
     if (!checkPass) {
       return res.status(400).send('Mật khẩu không chính xác');
     }
+
+    // Set user data in the session
+    req.session.user = admin;
+
+    // Redirect to admin dashboard
     res.redirect('/admin');
 
   } catch (error) {
     console.log(error);
     res.status(500).send('Có lỗi xảy ra');
   }
-  });
+});
 
 // admin (function)
 app.post('/admin/update-user-status', async (req, res, next) => {
@@ -191,6 +229,12 @@ app.post('/admin/update-product-status', async (req, res, next) => {
   }
 });
 
+//check user after login
+
+
+
+
+
 
 //đăng nhập
 app.post('/login', async (req, res, next) => {
@@ -203,6 +247,10 @@ app.post('/login', async (req, res, next) => {
         if (!user) {
             return res.status(400).send('Tên đăng nhập không tồn tại');
         }
+        if (user.status === '0') {
+          return res.status(403).send('Tài khoản của bạn đã bị cấm, vui lòng liên hệ đội ngũ hỗ trợ nếu bạn cần giúp đỡ');
+        }
+
         const checkPass = await bcrypt.compare(password, user.password);
 
         if (!checkPass) {

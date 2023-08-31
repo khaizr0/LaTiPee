@@ -52,11 +52,6 @@
                                         <%= user.status === '1' ? 'Hoạt động' : 'Bị cấm' %>
                                     <% } %>
                                 </td>
-                                <td>
-                                    <% if (user.userName !== 'SuperAdmin') { %>
-                                        <button class="save-button" data-user-id="<%= user.id %>">Lưu</button>
-                                    <% } %>
-                                </td>
                             </tr>
                         <% }); %>
                     </tbody>
@@ -83,7 +78,7 @@
                     </thead>
                     <tbody>
                         <% products.forEach(product => { %>
-                            <tr>
+                            <tr data-product-id="<%= product.id %>">
                                 <td>
                                     <img src="<%= product.imageURL %>" alt="<%= product.name %>">
                                 </td>
@@ -98,9 +93,6 @@
                                         <option <%= product.status === 'Đình chỉ' ? 'selected' : '' %> value="Đình chỉ">Đình chỉ</option>
                                         <option <%= product.status === 'Xoá' ? 'selected' : '' %> value="Xoá">Xoá</option>
                                     </select>
-                                </td>   
-                                <td>
-                                    <button class="save-product-button" data-product-id="<%= product.id %>">Lưu</button>
                                 </td>
                             </tr>
                         <% }); %>
@@ -150,46 +142,23 @@
                 }
             });
         });
-
-        $('.save-button').on('click', function () {
-            const userId = $(this).data('user-id');
-            const newStatus = $(this).closest('tr').find('.account-status-select').val();
-            const newType = ''; // Implement a way to get the new account type here
-
-            $.ajax({
-                url: '/admin/update-user-status',
-                method: 'POST',
-                data: { userId, newStatus, newType },
-                success: function (response) {
-                    console.log(response); // Handle success, update UI if needed
-                },
-                error: function (error) {
-                    console.error(error); // Handle error
-                }
-            });
-        });
     });
 </script>
 <script>
     $(document).ready(() => {
-        $('.save-product-button').on('click', function () {
-            const saveButton = $(this);
-            const productId = saveButton.data('product-id');
-            const newStatus = saveButton.closest('tr').find('.product-status-select').val();
+        $('.product-status-select').on('change', function () {
+            const productId = $(this).closest('tr').data('product-id'); // Corrected attribute name
+            const newStatus = $(this).val();
 
             $.ajax({
                 url: '/admin/update-product-status',
                 method: 'POST',
-                data: { productId, newStatus },
+                data: { productId, newStatus }, // Corrected parameter name
                 success: function (response) {
-                    console.log(response); // Handle success, update UI if needed
-                    
-                    // Update the select options to reflect the new status
-                    const selectElement = saveButton.closest('tr').find('.product-status-select');
-                    selectElement.val(newStatus);
+                    console.log(response);
                 },
                 error: function (error) {
-                    console.error(error); // Handle error
+                    console.error(error);
                 }
             });
         });
