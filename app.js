@@ -241,10 +241,6 @@ app.post('/admin/update-product-status', async (req, res, next) => {
   }
 });
 
-//check user after login
-
-
-
 
 
 
