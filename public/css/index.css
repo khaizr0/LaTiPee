@@ -17,6 +17,12 @@ nav {
     align-items: center;
     padding-right: 16px;
 }
+.login p {
+    color: #fff;
+    font-size: 13px;
+    font-weight: thin;
+    padding-right: 10px;
+}
 .menu {
     background-image: linear-gradient(#f74646, #fd5a5a);
 }

@@ -19,7 +19,12 @@
             <a href="/seller">Trang bán hàng</a>
         </div>
         <div class="login">
-            <a href="/login">Đăng Nhập / Đăng Kí</a>
+            <% if (user) { %>
+                <p>Hello, <%= user.userName %>!</p>
+                <a href="/logout">Logout</a>
+            <% } else { %>
+                <a href="/login">Đăng Nhập / Đăng Kí</a>
+            <% } %>
         </div>
     </nav>
     <div class="menu">

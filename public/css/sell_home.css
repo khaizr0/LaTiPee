@@ -21,6 +21,11 @@
       background-color: var(--background-color);
     }
 
+    .seller-nav p {
+      font-size: 20px;
+      font-weight: 800;
+      padding-bottom: 20px;
+    }
     header {
       background: var(--primary-color);
       padding: 10px;

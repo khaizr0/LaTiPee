@@ -73,23 +73,34 @@ const transporter = nodemailer.createTransport({
     try {
         const response = await axios.get('http://localhost:8000/Products?_start=0&_limit=8');
         let products = response.data;
-        console.log(products); 
-        res.render('index', { products: products });
+        res.render('index', { products: products, user: req.session.user });
     } catch (error) {
         console.error("Error loading products:", error);
         res.status(500).send('Internal Server Error');
     }
 });
 
-
-
+app.get('/logout', (req, res) => {
+  req.session.user = null; // Clear user data from the session
+  res.redirect('/'); // Redirect to home page or another page
+});
 
 
 app.get('/login/admin', (req, res, next) => {
   res.render('Admin-login');
 });
-app.get('/seller', (req, res, next) => {
-  res.render('Seller-homepage');
+app.get('/seller', async (req, res, next) => {
+  try {
+    // Fetch product data from JSON server or your database
+    const productResponse = await axios.get('http://localhost:8000/Products');
+    const products = productResponse.data;
+
+    // Render the seller homepage with product data
+    res.render('seller-homepage', { products: products, user: req.session.user });
+  } catch (error) {
+    console.error("Error fetching product data:", error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 app.get('/forgot', (req, res, next) => {
@@ -97,6 +108,9 @@ app.get('/forgot', (req, res, next) => {
 });
 app.get('/login', (req, res, next) => {
   res.render('login-signup-user');
+});
+app.get('/dasboard', (req, res, next) => {
+  res.render('user-dasboard');
 });
 
 app.get('/admin', authenticateAdmin, async (req, res, next) => {
@@ -212,8 +226,6 @@ app.post('/admin/update-product-status', async (req, res, next) => {
   const { productId, newStatus } = req.body;
 
   try {
-      // Replace this with your actual update logic
-      // For example, you might use axios.patch to update the product's status
       const updateProductResponse = await axios.patch(`http://localhost:8000/Products/${productId}`, {
           status: newStatus,
       });
@@ -256,6 +268,7 @@ app.post('/login', async (req, res, next) => {
         if (!checkPass) {
             return res.status(400).send('Mật khẩu không chính xác');
         }
+        req.session.user = user; // Store user data in the session
         res.redirect('/');
         
     } catch (error) {
@@ -398,6 +411,36 @@ app.post('/reset-password/:id/:token', async (req, res, next) => {
     res.send(error.message);
   }
 });
+
+//seller
+app.post('/dasboard/update-product-status-user', async (req, res, next) => {
+  const { productId, newStatus } = req.body;
+
+  try {
+      // Fetch the product from the Products array based on the productId
+      const productResponse = await axios.get(`http://localhost:8000/Products/${productId}`);
+      const product = productResponse.data;
+
+      if (!product) {
+          return res.status(404).send('Product not found');
+      }
+
+      // Update product's statusUser in JSON Server or your database
+      const updateProductResponse = await axios.patch(`http://localhost:8000/Products/${productId}`, {
+          statusUser: newStatus, // Update the statusUser field
+      });
+
+      if (updateProductResponse.status === 200) {
+          res.status(200).send('Product status updated successfully');
+      } else {
+          throw new Error('Failed to update product status');
+      }
+  } catch (error) {
+      console.error("Error updating product status:", error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
 
 
 
