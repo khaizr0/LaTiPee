@@ -5,6 +5,28 @@ const axios = require('axios');
 const app = express();
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const sql = require('mssql');
+
+
+// const dbConfig = {
+//   user : 'Talent/0392956804',
+//   password : '',
+//   server: 'localhost', 
+//   database: 'LaZaPee',
+//   options: {
+//     encrypt: true,  
+//     trustServerCertificate: true  
+//   }
+// };
+
+// // Dùng để lưu pool kết nối
+// let sqlPool; 
+
+// sql.connect(dbConfig).then(pool => {
+//     console.log("Connected to SQL Server");
+//     sqlPool = pool;
+// }).catch(err => console.error('SQL Connection Error:', err));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,10 +45,18 @@ const transporter = nodemailer.createTransport({
       pass: 'bfsjnqexelavxnhi',
     },
   });
-
-app.get('/', (req, res) => {
-  res.render('index');
+  app.get('/', async (req, res) => {
+    try {
+        const response = await axios.get('http://localhost:8000/Products?_start=0&_limit=8');
+        let products = response.data;
+        console.log(products); 
+        res.render('index', { products: products });
+    } catch (error) {
+        console.error("Error loading products:", error);
+        res.status(500).send('Internal Server Error');
+    }
 });
+
 
 app.get('/admin', (req, res, next) => {
   res.render('Admin-login');
@@ -38,6 +68,32 @@ app.get('/forgot-password', (req, res, next) => {
 app.get('/login', (req, res, next) => {
   res.render('login-signup-user');
 });
+
+app.post('/loadMoreProducts', async (req, res) => {
+  try {
+    const { offset } = req.body;
+    const response = await axios.get(`http://localhost:8000/Products?_start=${offset}&_limit=8`);
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error loading more products:", error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.post('/search', async (req, res) => {
+  try {
+      const keyword = req.body.keyword;
+      const response = await axios.get(`http://localhost:8000/Products`);
+      const products = response.data.filter(product => 
+          product.name.toLowerCase().includes(keyword.toLowerCase())
+      );
+      res.json(products);
+  } catch (error) {
+      console.error("Error during search:", error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
 //login (admin)
 app.post('/admin', async (req, res, next) => {
   const { userName, password } = req.body;
