@@ -1,45 +1,8 @@
 var shipping = 15.0;
+
 $(function() {
-  var jsonData = [
-    {
-      title: "Item 1",
-      price: 38,
-      quantity: 1,
-      total: 38
-    },
-    {
-      title: "Item 2",
-      price: 23.5,
-      quantity: 1,
-      total: 23.5
-    },
-    {
-      title: "Item 3",
-      price: 100,
-      quantity: 1,
-      total: 100
-    },
-    {
-      title: "Item 4",
-      price: 45,
-      quantity: 1,
-      total: 45
-    },
-    {
-      title: "Item 5",
-      price: 66,
-      quantity: 1,
-      total: 66
-    },
-    {
-      title: "Item 6",
-      price: 199,
-      quantity: 1,
-      total: 199
-    }
-  ];
   var html = "<tbody>";
-  $.each(jsonData, function() {
+  $.each(orders, function(index, order) {
     html +=
       '<tr class="cart-item">' +
       "        <td>" +
@@ -47,20 +10,18 @@ $(function() {
       "        </td>" +
       "        <td>" +
       "          " +
-      this.title +
+      order.product +
       "        </td>" +
       "        <td>$" +
-      this.price +
+      order.total +
       "</td>" +
       "        <td>" +
-      '          <input class="input is-primary cart-item-qty" style="width:100px" type="number" min="1" value="' +
-      this.quantity +
-      '" data-price="' +
-      this.price +
+      '          <input class="input is-primary cart-item-qty" style="width:100px" type="number" min="1" value="1" data-price="' +
+      order.total +
       '">' +
       "        </td>" +
       '        <td class="cart-item-total">$' +
-      this.total +
+      order.total +
       "</td>" +
       "        <td>" +
       '          <a class="button is-small">Remove</a>' +
@@ -69,7 +30,7 @@ $(function() {
   });
   html += "</tbody>";
   $(".shopping-cart").append(html);
-  
+
   recalculateCart();
 
   $(".cart-item-check").change(function() {
@@ -88,13 +49,12 @@ $(function() {
   });
 
   $(".button").click(function() {
-    var parent = $(this)
-      .parent()
-      .parent();
+    var parent = $(this).parent().parent();
     parent.remove();
     recalculateCart();
   });
 });
+
 function recalculateCart() {
   var subTotal = 0;
   var grandTotal = 0;

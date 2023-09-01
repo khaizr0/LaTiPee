@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="CodeHim">
+    <title>Giỏ Hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/cart.css">
+  
+  </head>
+  <body>
+    <header>
+      <div class="menu">
+      <nav>
+          <div class="logo">
+              <img src="/img/logo.png">
+          </div>
+          <div class="search">
+              <input type="text" placeholder="Tìm kiếm sản phẩm">
+              <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+          <div class="icons">
+              <div class="cart-icon"> 
+                  <a href="">
+                      <img src="/img/cart.png" alt="Giỏ hàng">
+                  </a>
+              </div>
+              <div class="user-icon">
+                  <a href="">
+                      <img src="/img/user.png" alt="Người dùng">
+                  </a>
+              </div>
+          </div>
+      </nav>
+      </div>
+      </header>
+ <main>
+<div class="shopping-cart-wrapper">
+  <h3 class="title">Giỏ Hàng</h3>
+  <table class="table is-fullwidth shopping-cart">
+    <thead>
+      <tr>
+        <th><abbr title="Position"></abbr></th>
+        <th>Tên sản phẩm</th>
+        <th>Giá tiền</th>
+        <th>Số lượng</th>
+        <th>Giá thành</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% orders.forEach(order => { %>
+        <tr class="cart-item">
+          <td>
+            <input type="checkbox" class="cart-item-check" checked />
+          </td>
+          <td>
+            <%= order.product %>
+          </td>
+          <td>$<%= order.total %></td>
+          <td>
+            <input class="input is-primary cart-item-qty" style="width:100px" type="number" min="1" value="1" data-price="<%= order.total %>">
+          </td>
+          <td class="cart-item-total">$<%= order.total %></td>
+          <td>
+            <a class="button is-small">Remove</a>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <div class="payment">
+    <div class="payment-info">
+      <h5>Thông tin đặt hàng</h5>
+      <div class="address-manual">
+        <h6>Tên người đặt</h6>
+        <input type="text" placeholder="Nhập tên ở đây">
+        <h6>Địa chỉ nhận hàng</h6>
+        <input type="text" placeholder="Nhập địa chỉ ở đây">
+        <h6>Số Điện thoại người đặt</h6>
+        <input type="text" placeholder="Sô Điện thoại">
+      </div>
+    </div>
+    <div class="payment-choose">
+      <div class="payment-method">
+        <h5>Hình thức thanh toán</h5>
+        <input type="radio" name="payment" id="payment-method-1" value="1" checked>
+        <label for="payment-method-1">Thanh toán qua <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" width="40px"></label>
+        <br>
+        <input type="radio" name="payment" id="payment-method-2" value="2" checked>
+        <label for="payment-method-2">Thanh toán khi nhận hàng</label>
+      </div>
+    </div>
+  </div>
+  <button class="checkout">Thanh Toán</button>
+  <button class="comeback">
+    <i class="fas fa-arrow-left"></i>
+    Tiếp tục mua sắm
+  </button>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script>
+  var orders = '<%- JSON.stringify(orders) %>';
+</script>
+<script  src="/Js/cart.js"></script>
+ </main>
+ <footer>
+  <div class="footer-logo">
+      <img src="/img/LaTiPee Logo.png" width="200px">
+  </div>
+  <div class="about">
+      <h3>Giới thiệu:</h3>
+      <ul>
+          <li><a href="#">Về chúng tôi</a></li>
+          <li><a href="#">Điều khoản sử dụng</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+      </ul>
+  </div>
+  <div class="contact">
+      <h3>Liên Hệ:</h3>
+      <ul>
+          <li><a href="#">Hotline: 1900 0000</a></li>
+          <li><a href="#">Email: Hotro.Lazipee.vn@gmail.com</a></li>
+          <li><a href="#">Địa chỉ: 180 Cao Lỗ, Phường 4, Quận 8, TP.HCM</a></li>
+      </ul>
+  </div>
+</footer>
+  </body>
+</html>

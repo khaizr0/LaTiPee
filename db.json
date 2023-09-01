@@ -11,7 +11,7 @@
     {
       "userName": "admin123",
       "email": "caophankhai123@gmail.com",
-      "password": "$2b$10$U4pas5F.3bMM6OtHGAMA/elY9VxcDy49hWaRJv06Wpns9OYEK4sd6",
+      "password": "$2b$10$rDWIGrVP6e5nb1pizK8aR.NLa9D1QxcFzbxSvhN9wotoe2ss1tfIe",
       "id": 1,
       "admin": "y",
       "status": "1"
@@ -36,7 +36,7 @@
       "imageURL": "product.png",
       "name": "sản phẩm 1",
       "shopName": "shop 1",
-      "shopID": 1,
+      "ShopID": 1,
       "price": 100000,
       "id": 1,
       "statusUser": "Xoá",
@@ -51,7 +51,9 @@
   "Orders": [
     {
       "id": 1,
+      "ShopID": 1,
       "userID": 1,
+      "product": "Đơn hàng 1",
       "userName": "admin123",
       "date": "2021-05-25",
       "status": "Đang giao",

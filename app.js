@@ -71,14 +71,18 @@ const transporter = nodemailer.createTransport({
 
   app.get('/', async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:8000/Products?_start=0&_limit=8');
-        let products = response.data;
-        res.render('index', { products: products, user: req.session.user });
+      const userSession = req.session.user;
+  
+      // Fetch product data from JSON server or your database
+      const response = await axios.get('http://localhost:8000/Products?_start=0&_limit=8');
+      let products = response.data;
+  
+      res.render('index', { products: products, user: userSession });
     } catch (error) {
-        console.error("Error loading products:", error);
-        res.status(500).send('Internal Server Error');
+      console.error("Error loading products:", error);
+      res.status(500).send('Internal Server Error');
     }
-});
+  });
 
 app.get('/logout', (req, res) => {
   req.session.user = null; // Clear user data from the session
@@ -91,17 +95,30 @@ app.get('/login/admin', (req, res, next) => {
 });
 app.get('/seller', async (req, res, next) => {
   try {
+    const userSession = req.session.user;
+
+    if (!userSession) {
+      // Redirect to login page or handle unauthorized access
+      return res.redirect('/login');
+    }
+
     // Fetch product data from JSON server or your database
     const productResponse = await axios.get('http://localhost:8000/Products');
-    const products = productResponse.data;
+    const products = productResponse.data.filter(product => product.ShopID === userSession.userId);
 
-    // Render the seller homepage with product data
-    res.render('seller-homepage', { products: products, user: req.session.user });
+    // Fetch order data from JSON server or your database
+    const orderResponse = await axios.get('http://localhost:8000/Orders');
+    const orders = orderResponse.data.filter(order => order.ShopID === userSession.userId);
+
+    // Render the seller homepage with product and order data
+    res.render('seller-homepage', { products: products, orders: orders, user: userSession });
   } catch (error) {
-    console.error("Error fetching product data:", error);
+    console.error("Error fetching data:", error);
     res.status(500).send('Internal Server Error');
   }
 });
+
+
 
 app.get('/forgot', (req, res, next) => {
   res.render('forgot-password');
@@ -201,15 +218,8 @@ app.post('/admin/update-user-status', async (req, res, next) => {
       if (!user) {
           return res.status(404).send('User not found');
       }
-
-      // Update user's status and type (newType) in JSON Server or your database
-      // For example, you can use axios.patch to update the user's status and type
-
-      // Assuming you have an API endpoint to update the user's status and type
       const updateUserResponse = await axios.patch(`http://localhost:8000/users/${userId}`, {
           status: newStatus,
-          // You might want to update the user type as well
-          // admin: newType
       });
 
       if (updateUserResponse.status === 200) {
@@ -242,36 +252,41 @@ app.post('/admin/update-product-status', async (req, res, next) => {
 });
 
 
-
-
 //đăng nhập
 app.post('/login', async (req, res, next) => {
-    const { userName, password } = req.body;
+  const { userName, password } = req.body;
 
-    try {
-        const response = await axios.get(`http://localhost:8000/users?userName=${userName}`);
-        const user = response.data[0];
+  try {
+    const response = await axios.get(`http://localhost:8000/users?userName=${userName}`);
+    const user = response.data[0];
 
-        if (!user) {
-            return res.status(400).send('Tên đăng nhập không tồn tại');
-        }
-        if (user.status === '0') {
-          return res.status(403).send('Tài khoản của bạn đã bị cấm, vui lòng liên hệ đội ngũ hỗ trợ nếu bạn cần giúp đỡ');
-        }
-
-        const checkPass = await bcrypt.compare(password, user.password);
-
-        if (!checkPass) {
-            return res.status(400).send('Mật khẩu không chính xác');
-        }
-        req.session.user = user; // Store user data in the session
-        res.redirect('/');
-        
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Có lỗi xảy ra');
+    if (!user) {
+      return res.status(400).send('Tên đăng nhập không tồn tại');
     }
+    if (user.status === '0') {
+      return res.status(403).send('Tài khoản của bạn đã bị cấm');
+    }
+
+    const checkPass = await bcrypt.compare(password, user.password);
+
+    if (!checkPass) {
+      return res.status(400).send('Mật khẩu không chính xác');
+    }
+
+    // Store both username and userID in the session
+    req.session.user = {
+      userName: user.userName,
+      userId: user.id,
+    };
+
+    res.redirect('/');
+    // ...
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Có lỗi xảy ra');
+  }
 });
+
 
 // Đăng ký
 app.post('/signup', async (req, res, next) => {
@@ -434,6 +449,27 @@ app.post('/dasboard/update-product-status-user', async (req, res, next) => {
   } catch (error) {
       console.error("Error updating product status:", error);
       res.status(500).send('Internal Server Error');
+  }
+});
+
+//cart
+app.get('/cart', async (req, res) => {
+  try {
+    const userSession = req.session.user;
+
+    if (!userSession) {
+      // Redirect to login page if user is not logged in
+      return res.redirect('/login');
+    }
+
+    // Fetch order data from JSON server or your database
+    const orderResponse = await axios.get('http://localhost:8000/Orders');
+    const orders = orderResponse.data.filter(order => order.userID === userSession.userId);
+
+    res.render('cart', { orders: orders, user: userSession });
+  } catch (error) {
+    console.error("Error loading cart:", error);
+    res.status(500).send('Internal Server Error');
   }
 });
 

@@ -1,6 +1,6 @@
     :root{
       --background-color: #FFFFFF;
-      --primary-color: #FF6B6B;
+      --primary-color: linear-gradient(#f74646, #fd5a5a);;
       --secondary-color: #F0F0F0;
       --link-background-color: #fff;
       --link-color: black;
@@ -45,7 +45,7 @@
       margin-right: 10px;
       text-decoration: none;
       padding: 0 10px;
-      color: black;
+      color: rgb(0, 0, 0);
     }
     header nav ul li img {
       width: 200px;
@@ -175,7 +175,7 @@ footer {
   width: 100%;
   bottom: 0;
   display: flex;
-  background: #FF6B6B;
+  background: linear-gradient(#f74646, #fd5a5a);;
   height: 100px;
   justify-content: space-between;
   align-items: center;

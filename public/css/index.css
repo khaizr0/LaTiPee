@@ -27,7 +27,6 @@ nav {
     background-image: linear-gradient(#f74646, #fd5a5a);
 }
 .logo {
-    cursor: pointer;
     margin-right: auto;
 }
 
@@ -229,7 +228,7 @@ nav {
 
 
 .directlink {
-    height: 30px;
+    height: 35px;
     background-color: #f74646;
     display: flex;
     justify-content: space-between;

@@ -159,16 +159,18 @@
                         <th>Gửi hàng cho đơn vị vận chuyển</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>#0001</td>
-                            <td>Trần Văn A</td>
-                            <td>Sản Phẩm 1</td>
-                            <td>Xuân La, Tây Hồ, Hà Nội</td>
-                            <td>05/07/2023</td>
-                            <td>250.000đ</td>
-                            <td>Đang giao hàng</td>
-                            <td><button>Đã gửi</button></td>
-                        </tr>
+                        <% orders.forEach(order => { %>
+                            <tr>
+                                <td>#<%= order.id %></td>
+                                <td><%= order.userName %></td>
+                                <td><%= order.product %></td>
+                                <td><%= order.address %></td>
+                                <td><%= order.date %></td>
+                                <td><%= order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
+                                <td><%= order.status %></td>
+                                <td><button>Đã gửi</button></td>
+                            </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>
