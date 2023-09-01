@@ -8,24 +8,23 @@ const session = require('express-session');
 
 const app = express();
 
-// const dbConfig = {
-//   user : 'Talent/0392956804',
-//   password : '',
-//   server: 'localhost', 
-//   database: 'LaZaPee',
-//   options: {
-//     encrypt: true,  
-//     trustServerCertificate: true  
-//   }
-// };
+const dbConfig = {
+  driver: "mssql",
+  server: "localhost",
+  database: "LaTiPee",
+  user: "Talent/0392956804",
+  password: "your_password",
+  port: 1433,
+  trustServerCertificate: true,
+};
 
-// // Dùng để lưu pool kết nối
-// let sqlPool; 
+// Dùng để lưu pool kết nối
+let sqlPool; 
 
-// sql.connect(dbConfig).then(pool => {
-//     console.log("Connected to SQL Server");
-//     sqlPool = pool;
-// }).catch(err => console.error('SQL Connection Error:', err));
+sql.connect(dbConfig).then(pool => {
+    console.log("Connected to SQL Server");
+    sqlPool = pool;
+}).catch(err => console.error('SQL Connection Error:', err));
 
 
 app.use(express.json());
@@ -65,8 +64,6 @@ const transporter = nodemailer.createTransport({
       res.redirect('/login/admin');
     }
   };
-
-
 
 app.get('/', async (req, res) => {
   try {
