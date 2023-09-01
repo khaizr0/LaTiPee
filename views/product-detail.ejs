@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product.name %></title>
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <header>
+        <div class="menu">
+        <nav>
+            <div class="logo">
+                <img src="/img/logo.png">
+            </div>
+            <div class="search">
+                <input type="text" placeholder="Tìm kiếm sản phẩm">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="icons">
+                <div class="cart-icon"> 
+                    <a href="">
+                        <img src="/img/cart.png" alt="Giỏ hàng">
+                    </a>
+                </div>
+                <div class="user-icon">
+                    <a href="">
+                        <img src="/img/user.png" alt="Người dùng">
+                    </a>
+                </div>
+            </div>
+        </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card mb-10">
+                <div class="card-header">
+                </div>
+                <div class="card-body store-body">
+                  <div class="product-info">
+                    <div class="product-gallery">
+                      <div class="product-gallery-thumbnails">
+                        <ol class="thumbnails-list list-unstyled">
+                          <li><img src="https://via.placeholder.com/350x350/ffcf5b" class="img-responsive" alt=""></li>
+                          <li><img src="https://via.placeholder.com/350x350/f16a22" alt=""></li>
+                          <li><img src="https://via.placeholder.com/350x350/d3ffce" alt=""></li>
+                          <li><img src="https://via.placeholder.com/350x350/7937fc" alt=""></li>
+                          <li><img src="https://via.placeholder.com/350x350/930000" alt=""></li>
+                        </ol>
+                      </div>
+                      <div class="product-gallery-featured">
+                        <% if (product.imageURL) { %>
+                          <img src="<%= product.imageURL %>" alt="<%= product.name %>">
+                      <% } else { %>
+                          <p>Không có hình ảnh cho sản phẩm này</p>
+                      <% } %>                      </div>
+                  <div class="product-payment-details">
+                    <h1 class="product-title mb-2"><%= product.name %></h1>
+                    
+                    <span class="product-price display-4"><%= product.price %> VND</span>
+                    <p class="mb-0"><i class="fa fa-truck"></i> Giao hàng bởi người bán</p>
+                    <div class="text-muted mb-2"><small>Liên hệ người bán hàng để biết thêm thông tin chi tiết</small></div>
+                    <div class="mb-2">
+                        <form>
+                          <div class="form-group">
+                            <label for="productSelect">Loại Sản Phẩm</label>
+                            <select class="form-control" id="productSelect">
+                              <option value="product1">Sản Phẩm 1</option>                        
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="quantityInput">Số Lượng</label>
+                            <input type="number" class="form-control" id="quantityInput" placeholder="Nhập số lượng">
+                          </div>
+                          <button type="button" class="btn btn-outline-secondary"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                        </form>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-type">
+            <h3>Product type</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+        </div>
+        <div class="description">
+            <h3>Product description</h3>
+            <p><%= product.description %></p>
+        </div>
+
+        <div class=" mt-4">
+            <h1>Đánh Giá sản phẩm</h1>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="product1.jpg" class="card-img product-img">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">Người dùng A</h5>
+                        <p class="type">màu đỏ</p>
+                        <p class="card-text">Nhận xét rất tích cực về sản phẩm này. Tôi rất hài lòng với chất lượng và giá cả.</p>
+                        <div class="rating">
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="product2.jpg" class="card-img product-img">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">Người dùng B</h5>
+                        <p class="type">màu đỏ</p>
+                        <p class="card-text">Sản phẩm này khá tốt, nhưng tôi nghĩ nó có thể cải thiện ở một số điểm nhất định.</p>
+                        <div class="rating">
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+        <script src="/Js/product.js"></script>
+      </main>
+      <footer class=" text-white">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="footer-logo">
+                <img src="/img/LaTiPee Logo.png" width="200px" alt="Logo">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="about">
+                <h3>Giới thiệu:</h3>
+                <ul>
+                  <li><a href="#">Về chúng tôi</a></li>
+                  <li><a href="#">Điều khoản sử dụng</a></li>
+                  <li><a href="#">Chính sách bảo mật</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="contact">
+                <h3>Liên Hệ:</h3>
+                <ul>
+                  <li><a href="#">Hotline: 1900 0000</a></li>
+                  <li><a href="#">Email: Hotro.Lazipee.vn@gmail.com</a></li>
+                  <li><a href="#">Địa chỉ: 180 Cao Lỗ, Phường 4, Quận 8, TP.HCM</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      </footer>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+</body>
+</html>

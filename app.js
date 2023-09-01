@@ -2,8 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const axios = require('axios');
-const bcrypt = require('bcrypt');
-const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 const sql = require('mssql');
 const session = require('express-session');
 
@@ -69,20 +68,40 @@ const transporter = nodemailer.createTransport({
 
 
 
-  app.get('/', async (req, res) => {
-    try {
-      const userSession = req.session.user;
+app.get('/', async (req, res) => {
+  try {
+    const userSession = req.session.user;
   
-      // Fetch product data from JSON server or your database
-      const response = await axios.get('http://localhost:8000/Products?_start=0&_limit=8');
-      let products = response.data;
+    // Fetch product data from JSON server or your database
+    const response = await axios.get('http://localhost:8000/Products?_start=0&_limit=8');
+    let products = response.data;
+
+    res.render('index', { products: products, user: userSession });
+  } catch (error) {
+    console.error("Error loading products:", error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.get('/product/:productId', async (req, res, next) => {
+  const productId = req.params.productId;
   
-      res.render('index', { products: products, user: userSession });
-    } catch (error) {
-      console.error("Error loading products:", error);
-      res.status(500).send('Internal Server Error');
-    }
-  });
+  try {
+      // Lấy dữ liệu sản phẩm từ API hoặc cơ sở dữ liệu của bạn
+      const response = await axios.get(`http://localhost:8000/Products/${productId}`);
+      const product = response.data;
+
+      if (!product) {
+          return res.status(404).send('Sản phẩm không tồn tại');
+      }
+  
+      // Render trang EJS với dữ liệu sản phẩm
+      res.render('product-detail', { product: product });
+  } catch (error) {
+      console.error("Error fetching product details:", error);
+      res.status(500).send('Lỗi máy chủ');
+  }
+});
 
 app.get('/logout', (req, res) => {
   req.session.user = null; // Clear user data from the session

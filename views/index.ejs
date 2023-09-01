@@ -38,7 +38,7 @@
         </div>
         <div class="icons">
             <div class="cart-icon"> 
-                <a href="/cart">
+                <a href="">
                     <img src="/img/cart.png" alt="Giỏ hàng">
                 </a>
             </div>
@@ -57,10 +57,10 @@
               <div class="sliderblock">
                 <div id="slider">
                   <ul>
-                    <li><img src="/img/banner/iphone-14-pro.jpg" alt="Images1" /></li>
-                    <li><img src="/img/banner/samsung-banner.png" alt="Images1" height="100%" /></li>
-                    <li><img src="/img/banner/NEEM-BANNER.webp" alt="Images1" height="100%" /></li>
-                    <li><img src="/img/banner/applepay.png" alt="Images1" height="100%" /></li>
+                    <li><img src="/img/iphone-14-pro.jpg" alt="Images1" /></li>
+                    <li><img src="/img/samsung-banner.png" alt="Images1" /></li>
+                    <li><img src="http://fpoimg.com/1366x200?text=Preview&bg_color=4c4c4c&text_color=ffffff" alt="Images1" /></li>
+                    <li><img src="http://fpoimg.com/1366x200?text=Preview&bg_color=38badb&text_color=ffffff" alt="Images1" /></li>
                   </ul>
                 </div>
                 <div class="clear"></div>
@@ -92,13 +92,16 @@
             <section class="section" >
                 <% products.forEach(product => { %>
                     <div class="item-product">
-                        <img src="/img/<%= product.imageURL %>" alt="">
-                        <div>
-                            <h3 class="product-name"><%= product.name %></h3>
-                            <h3 class="product-price"><%= product.price %>đ</h3>
-                        </div>
+                        <a href="/product/<%= product.id %>">
+                            <img src="/img/<%= product.imageURL %>" alt="">
+                            <div>
+                                <h3 class="product-name"><%= product.name %></h3>
+                                <h3 class="product-price"><%= product.price %>đ</h3>
+                            </div>
+                        </a>
                     </div>
                 <% }) %>
+                
             </section>
             
             <div class="more-product">
@@ -109,30 +112,27 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
         <script>
             $(document).ready(function() {
-                // ... (các sự kiện khác)
-        
                 $('.search button').click(function(e) {
-                    e.preventDefault();  // Ngăn không cho form gửi thông thường
+                    e.preventDefault();
                     const keyword = $('.search input').val();
                     $.post('/search', { keyword: keyword }, function(products) {
                         // Xóa sản phẩm hiện tại trên trang
                         $('.section').empty();
-        
+                
                         // Thêm sản phẩm tìm được vào trang
                         products.forEach(product => {
                             let productItem = `
                                 <div class="item-product">
+                                    <a href="/product/${product.id}" class="product-link">
                                     <img src="/img/${product.imageURL}" alt="">
                                     <div>
                                         <h3 class="product-name">${product.name}</h3>
                                         <h3 class="product-price">${product.price}đ</h3>
                                     </div>
+                                    </a>
                                 </div>`;
                             $('.section').append(productItem);
                         });
-        
-                        // Đặt lại offset
-                        offset = products.length;
                     });
                 });
             });
@@ -142,24 +142,25 @@
             let currentOffset = 8; // Vì bạn đã hiển thị 8 sản phẩm đầu tiên
           
             $('#loadMoreBtn').on('click', function() {
-              $.post('/loadMoreProducts', { offset: currentOffset }, function(products) {
-                products.forEach(product => {
-                  const productItem = `
-                      <div class="item-product">
-                          <img src="/img/${product.imageURL}" alt="">
-                          <div>
-                              <h3 class="product-name">${product.name}</h3>
-                              <h3 class="product-price">${product.price}đ</h3>
-                          </div>
-                      </div>
-                  `;
-          
-                  $('.section').append(productItem);
+                $.post('/loadMoreProducts', { offset: currentOffset }, function(products) {
+                    products.forEach(product => {
+                        const productItem = `
+                            <div class="item-product">
+                                <a href="/product/${product.id}" class="product-link">
+                                <img src="/img/${product.imageURL}" alt="">
+                                <div>
+                                    <h3 class="product-name">${product.name}</h3>
+                                    <h3 class="product-price">${product.price}đ</h3>
+                                </div>
+                                </a>
+                            </div>`;
+                
+                        $('.section').append(productItem);
+                    });
+                    currentOffset += 8;
                 });
-          
-                currentOffset += 8;  // Tăng offset sau mỗi lần nhấn
-              });
             });
+
           </script>
         <script src="/Js/slider.js" type="text/javascript"></script>
     </main>
