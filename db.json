@@ -46,6 +46,51 @@
       "category": "dientu",
       "quantity": 10,
       "sold": 0
+    },
+    {
+      "imageURL": "product.png",
+      "name": "sản phẩm 2",
+      "shopName": "shop 1",
+      "ShopID": 1,
+      "price": 100000,
+      "id": 1,
+      "statusUser": "Xoá",
+      "status": "Cho phép",
+      "description": "mô tả sản phẩm 1",
+      "date": "2021-05-25",
+      "category": "dientu",
+      "quantity": 10,
+      "sold": 0
+    },
+    {
+      "imageURL": "product.png",
+      "name": "sản phẩm 3",
+      "shopName": "shop 1",
+      "ShopID": 1,
+      "price": 100000,
+      "id": 1,
+      "statusUser": "Xoá",
+      "status": "Cho phép",
+      "description": "mô tả sản phẩm 1",
+      "date": "2021-05-25",
+      "category": "dientu",
+      "quantity": 10,
+      "sold": 0
+    },
+    {
+      "imageURL": "product.png",
+      "name": "sản phẩm 4",
+      "shopName": "shop 1",
+      "ShopID": 1,
+      "price": 100000,
+      "id": 1,
+      "statusUser": "Xoá",
+      "status": "Cho phép",
+      "description": "mô tả sản phẩm 1",
+      "date": "2021-05-25",
+      "category": "dientu",
+      "quantity": 10,
+      "sold": 0
     }
   ],
   "Orders": [
