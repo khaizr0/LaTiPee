@@ -11,9 +11,9 @@ const app = express();
 const dbConfig = {
   driver: "mssql",
   server: "localhost",
-  database: "LaTiPee",
-  user: "Talent/0392956804",
-  password: "your_password",
+  database: "LaZaPee",
+  user: "sa",
+  password: "Caophankhai2808@",
   port: 1433,
   trustServerCertificate: true,
 };
