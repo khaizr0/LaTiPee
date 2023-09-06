@@ -37,27 +37,27 @@
                     </thead>
                     <tbody>
                         <% users.forEach(user => { %>
-                            <tr data-user-id="<%= user.id %>">
-                                <td><%= user.userName %></td>
-                                <td><%= user.email %></td>
-                                <td><%= user.admin === 'y' ? 'Quản Trị Viên' : 'Người Dùng' %></td>
-                                <td><%= user.lastTransactionDate %></td>
-                                <td>
-                                    <% if (user.userName !== 'SuperAdmin') { %>
-                                        <select class="account-status-select">
-                                            <option <%= user.status === '1' ? 'selected' : '' %> value="1">Hoạt động</option>
-                                            <option <%= user.status === '0' ? 'selected' : '' %> value="0">Bị cấm</option>
-                                        </select>
-                                    <% } else { %>
-                                        <%= user.status === '1' ? 'Hoạt động' : 'Bị cấm' %>
-                                    <% } %>
-                                </td>
-                            </tr>
+                          <tr data-user-id="<%= user.UserID %>">
+                            <td><%= user.UserName %></td>
+                            <td><%= user.Email %></td>
+                            <td>
+                              <%= user.AllowAdmin === 'Y' ? 'Quản Trị Viên' : 'Người Dùng' %>
+                            </td>
+                            <td></td>
+                            <td>
+                                    <!-- Select dropdown for account status -->
+                                    <select class="account-status-select" data-user-id="<%= user.UserID %>" <%= user.UserName === 'SuperAdmin' ? 'disabled' : '' %>>
+                                        <option <%= user.Status === 1 ? 'selected' : '' %> value="1">Hoạt động</option>
+                                        <option <%= user.Status === 0 ? 'selected' : '' %> value="0">Bị cấm</option>
+                                    </select>
+                                    <!-- Button to save the user status -->
+                                    <button class="save-user-status" data-user-id="<%= user.UserID %>" <%= user.UserName === 'SuperAdmin' ? 'disabled' : '' %>>Save</button>
+                            </td>                              
+                          </tr>
                         <% }); %>
                     </tbody>
                 </table>
             </div>
-            
         </div>
 
         <div class="table-content table-content-product">
@@ -78,21 +78,21 @@
                     </thead>
                     <tbody>
                         <% products.forEach(product => { %>
-                            <tr data-product-id="<%= product.id %>">
+                            <tr data-product-id="<%= product.ProductID %>">
                                 <td>
-                                    <img src="<%= product.imageURL %>" alt="<%= product.name %>">
+                                    <img src="<%= product.ImageURL %>" alt="<%= product.ProductName %>">
                                 </td>
-                                <td><%= product.name %></td>
-                                <td><%= product.description %></td>
-                                <td><%= product.sold %></td>
-                                <td><%= product.date %></td>
-                                <td><%= product.shopName %></td>
+                                <td><%= product.ProductName %></td>
+                                <td><%= product.Description %></td>
+                                <td><%= product.Sold %></td>
+                                <td><%= product.Date %></td>
+                                <td><%= product.ShopName %></td>
                                 <td>
                                     <select class="product-status-select">
-                                        <option <%= product.status === 'Cho phép' ? 'selected' : '' %> value="Cho phép">Cho phép</option>
-                                        <option <%= product.status === 'Đình chỉ' ? 'selected' : '' %> value="Đình chỉ">Đình chỉ</option>
-                                        <option <%= product.status === 'Xoá' ? 'selected' : '' %> value="Xoá">Xoá</option>
+                                        <option <%= product.Status === 1 ? 'selected' : '' %> value="1">Cho phép</option>
+                                        <option <%= product.Status === 0 ? 'selected' : '' %> value="0">Đình chỉ</option>
                                     </select>
+                                    <button class="save-product-status" data-product-id="<%= product.ProductID %>">Save</button>
                                 </td>
                             </tr>
                         <% }); %>
@@ -125,15 +125,36 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(() => {
-        $('.account-status-select').on('change', function () {
-            const userId = $(this).closest('tr').data('user-id');
-            const newStatus = $(this).val();
-            const newType = ''; // Implement a way to get the new account type here
+      // Handle "Save" button click for user account statuses
+      $('.save-user-status').on('click', function () {
+        const userId = $(this).data('user-id');
+        const newStatus = $(this).siblings('.account-status-select').val();
+  
+        $.ajax({
+          url: '/admin/update-user-status', // Update the URL to match your route in app.js
+          method: 'POST',
+          data: { userId, newStatus },
+          success: function (response) {
+            console.log(response); // Handle success, update UI if needed
+          },
+          error: function (error) {
+            console.error(error); // Handle error
+          }
+        });
+      });
+    });
+</script>
+<script>
+    $(document).ready(() => {
+        // Handle "Save" button click for product statuses
+        $('.save-product-status').on('click', function () {
+            const productId = $(this).data('product-id');
+            const newStatus = $(this).siblings('.product-status-select').val();
 
             $.ajax({
-                url: '/admin/update-user-status',
+                url: '/admin/update-product-status',
                 method: 'POST',
-                data: { userId, newStatus, newType },
+                data: { productId, newStatus },
                 success: function (response) {
                     console.log(response); // Handle success, update UI if needed
                 },
@@ -144,25 +165,6 @@
         });
     });
 </script>
-<script>
-    $(document).ready(() => {
-        $('.product-status-select').on('change', function () {
-            const productId = $(this).closest('tr').data('product-id'); // Corrected attribute name
-            const newStatus = $(this).val();
 
-            $.ajax({
-                url: '/admin/update-product-status',
-                method: 'POST',
-                data: { productId, newStatus }, // Corrected parameter name
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (error) {
-                    console.error(error);
-                }
-            });
-        });
-    });
-</script>
 </body>
 </html>

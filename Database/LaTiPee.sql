@@ -1,10 +1,10 @@
 ﻿use master
 go 
 
-CREATE DATABASE LaZaPee
+CREATE DATABASE LaTiPee
 GO
 
-USE LaZaPee
+USE LaTiPee
 GO
 CREATE TABLE Users (
   UserID INT PRIMARY KEY IDENTITY,
@@ -13,7 +13,8 @@ CREATE TABLE Users (
   Email VARCHAR(255) NOT NULL,
   PhoneNumber CHAR(10) NOT NULL,
   HomeAddress NVARCHAR(255) NOT NULL,
-  TYPE INT NOT NULL
+  AllowAdmin VARCHAR(1) NOT NULL,
+  Status INT NOT NULL
 );
 GO
 CREATE TABLE Categories (
@@ -29,6 +30,7 @@ CREATE TABLE Products (
   Product_Type NVARCHAR(MAX),
   Description NVARCHAR(MAX) NOT NULL,
   Status BIT NOT NULL,
+  AdminStatus BIT NOT NULL,
   Price DECIMAL(10,0) NOT NULL, check (Price >= 0),
   FOREIGN KEY (ShopID) REFERENCES Users(UserID),
   FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
@@ -44,10 +46,16 @@ GO
 CREATE TABLE Orders (
   OrderID INT PRIMARY KEY IDENTITY,
   UserID INT NOT NULL,
+  ShopID INT NOT NULL,
   ProductID INT NOT NULL,
   Quantity INT NOT NULL,
   OrderDate DATETIME NOT NULL,
+  Total DECIMAL(10,0) NOT NULL,
   Status BIT NOT NULL,
+  Address NVARCHAR(255) NOT NULL,
+  UsersOrderName NVARCHAR(255) NOT NULL,
+  ShipmentName NVARCHAR(255) NOT NULL,
+  ShipmentID NVARCHAR(255) NOT NULL,
   FOREIGN KEY (UserID) REFERENCES Users(UserID),
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -72,3 +80,10 @@ CREATE TABLE Promotions (
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 GO
+-- Insert data into the Categories table
+INSERT INTO Categories (CategoryName)
+VALUES
+    ( 'Điện Tử'),
+    ('Gia Dụng'),
+	('Sắc Đẹp'),
+    ('Thời Trang');
