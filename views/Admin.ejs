@@ -70,7 +70,7 @@
                         <th></th>
                         <th>Tên sản phẩm</th>
                         <th>Chi tiết sản phẩm</th>
-                        <th>lượt mua</th>
+                        <th>Lượt mua</th>
                         <th>Ngày đăng</th>
                         <th>Chủ shop</th>
                         <th>Trạng thái bài đăng</th>
@@ -86,20 +86,24 @@
                                 <td><%= product.Description %></td>
                                 <td><%= product.Sold %></td>
                                 <td><%= product.Date %></td>
-                                <td><%= product.ShopName %></td>
                                 <td>
-                                    <select class="product-status-select">
-                                        <option <%= product.Status === 1 ? 'selected' : '' %> value="1">Cho phép</option>
-                                        <option <%= product.Status === 0 ? 'selected' : '' %> value="0">Đình chỉ</option>
-                                    </select>
-                                    <button class="save-product-status" data-product-id="<%= product.ProductID %>">Save</button>
+                                    <% const shopUser = users.find(user => user.UserID === product.ShopID); %>
+                                    <%= shopUser ? shopUser.UserName : 'Unknown' %>
                                 </td>
+                                <td>
+                                    <select class="product-status-select" data-product-id="<%= product.ProductID %>">
+                                        <option <%= product.AdminStatus === 1 ? 'selected' : '' %> value="1">Cho phép</option>
+                                        <option <%= product.AdminStatus === 0 ? 'selected' : '' %> value="0">Đình chỉ</option>
+                                    </select>
+                                    <button class="save-product-status" data-product-id="<%= product.ProductID %>">Save</button>                                  
+                                </td>                                
                             </tr>
                         <% }); %>
                     </tbody>
                 </table>
             </div>
         </div>
+        
     </main>
 
     <footer>
@@ -146,25 +150,25 @@
 </script>
 <script>
     $(document).ready(() => {
-        // Handle "Save" button click for product statuses
+        // Handle "Save" button click for AdminStatus
         $('.save-product-status').on('click', function () {
-            const productId = $(this).data('product-id');
-            const newStatus = $(this).siblings('.product-status-select').val();
-
-            $.ajax({
-                url: '/admin/update-product-status',
-                method: 'POST',
-                data: { productId, newStatus },
-                success: function (response) {
-                    console.log(response); // Handle success, update UI if needed
-                },
-                error: function (error) {
-                    console.error(error); // Handle error
-                }
-            });
+          const productId = $(this).data('product-id');
+          const newAdminStatus = $(this).siblings('.product-status-select').val();
+      
+          $.ajax({
+            url: '/admin/update-product-status',
+            method: 'POST',
+            data: { productId, newAdminStatus },
+            success: function (response) {
+              console.log(response);
+            },
+            error: function (error) {
+              console.error(error);
+            }
+          });
         });
-    });
+      });
+             
 </script>
-
 </body>
 </html>

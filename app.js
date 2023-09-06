@@ -286,29 +286,6 @@ app.post('/login/admin', async (req, res, next) => {
 
 // admin (function)
 // Update user status in the SQL database
-// Update user status in the SQL database
-app.post('/admin/update-user-status', async (req, res, next) => {
-  const { userId, newStatus } = req.body;
-
-  try {
-    // Update the Status field in your SQL database for the specified user
-    const query = `UPDATE Users SET Status = @status WHERE UserID = @userId`;
-    const result = await sqlPool.request()
-      .input('userId', sql.Int, userId)
-      .input('status', sql.Int, newStatus)
-      .query(query);
-
-    if (result.rowsAffected[0] === 1) {
-      res.status(200).send('User account status updated successfully');
-    } else {
-      throw new Error('Failed to update user account status');
-    }
-  } catch (error) {
-    console.error("Error updating user account status:", error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
 
 
 // Update product status in the SQL database
@@ -336,26 +313,28 @@ app.post('/admin/update-user-status', async (req, res, next) => {
 
 // Update product status in the SQL database
 app.post('/admin/update-product-status', async (req, res, next) => {
-  const { productId, newStatus } = req.body;
+  const { productId, newAdminStatus } = req.body;
 
   try {
-      // Update the Status field in your SQL database for the specified product
-      const query = `UPDATE Products SET Status = @status WHERE ProductID = @productId`;
-      const result = await sqlPool.request()
-          .input('productId', sql.Int, productId)
-          .input('status', sql.Bit, newStatus === 'Cho phép' ? 1 : 0)
-          .query(query);
+    // Update the AdminStatus field in your SQL database for the specified product
+    const query = `UPDATE Products SET AdminStatus = @adminStatus WHERE ProductID = @productId`;
+    const result = await sqlPool.request()
+      .input('productId', sql.Int, productId)
+      .input('adminStatus', sql.Bit, newAdminStatus === '1' ? 1 : 0)
+      .query(query);
 
-      if (result.rowsAffected[0] === 1) {
-          res.status(200).send('Product status updated successfully');
-      } else {
-          throw new Error('Failed to update product status');
-      }
+    if (result.rowsAffected[0] === 1) {
+      res.status(200).send('Product status updated successfully');
+    } else {
+      throw new Error('Failed to update product status');
+    }
   } catch (error) {
-      console.error("Error updating product status:", error);
-      res.status(500).send('Internal Server Error');
+    console.error("Error updating product status:", error);
+    res.status(500).send('Internal Server Error');
   }
 });
+
+
 
 
 //đăng nhập

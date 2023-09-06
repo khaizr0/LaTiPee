@@ -20,5 +20,5 @@ INSERT INTO Orders (UserID, ShopID, ProductID, Quantity, OrderDate, Total, Statu
 VALUES
     (1, 2, 3, 2, '2023-09-06 14:30:00', 100, 1, '123 Main St, City', 'John Doe', 'Shipping Company A', 'XYZ12345'),
     (2, 1, 4, 1, '2023-09-06 15:45:00', 50, 1, '456 Elm St, Town', 'Jane Smith', 'Shipping Company B', 'ABC67890'),
-    (3, 2, 2, 3, '2023-09-06 16:00:00', 150, 1, '789 Oak St, Village', 'Bob Johnson', 'Shipping Company C', 'PQR54321');
+    (2, 2, 2, 3, '2023-09-06 16:00:00', 150, 1, '789 Oak St, Village', 'Bob Johnson', 'Shipping Company C', 'PQR54321');
 
