@@ -1,4 +1,11 @@
-﻿
+﻿use master
+go 
+
+CREATE DATABASE LaTiPee
+GO
+
+USE LaTiPee
+GO
 
 -- Insert 
 INSERT INTO Users (UserName, Password, Email, PhoneNumber, HomeAddress, AllowAdmin, Status)

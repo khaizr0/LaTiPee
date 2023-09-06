@@ -13,7 +13,7 @@ const dbConfig = {
   server: "localhost",
   database: "LaTiPee",
   user: "sa",
-  password: "Caophankhai///",
+  password: "Caophankhai2808@",
   port: 1433,
   trustServerCertificate: true,
 };
@@ -112,7 +112,20 @@ const transporter = nodemailer.createTransport({
       res.status(500).send('Internal Server Error');
     }
   });
-  
+
+  app.get('/404', async (req, res) => {
+    res.render('404');
+  });
+
+  app.get('/dasboard', async (req, res) => {
+    try {
+      const userSession = req.session.user;
+      res.render('user-dasboard', { user: userSession });
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 
   app.get('/product/:productId', async (req, res, next) => {
     const productId = req.params.productId;
@@ -130,7 +143,7 @@ const transporter = nodemailer.createTransport({
       const product = productResult.recordset[0];
   
       if (!product) {
-        return res.status(404).send('Sản phẩm không tồn tại');
+        return res.status(404).redirect('/404');
       }
   
       // Render the product-detail page with product data
@@ -561,7 +574,7 @@ app.post('/dasboard/update-product-status-user', async (req, res, next) => {
       const product = productResponse.data;
 
       if (!product) {
-          return res.status(404).send('Product not found');
+          return res.status(404).redirect('/404');
       }
 
       // Update product's statusUser in JSON Server or your database
