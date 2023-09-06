@@ -6,7 +6,6 @@
     <title>Mua - Bán</title>
     <link rel="stylesheet" href="/css/sell_home.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <link rel="icon" type="image/x-icon" href="/img/LaTiPee-small.png">
 </head>
 <body>
     <header>
@@ -18,11 +17,6 @@
         </nav>
       </header>
       <main>
-        <nav class="seller-nav">
-            <% if (user) { %>
-              <p>Chào mừng bạn trở lại, <%= user.userName %>!</p>
-            <% } %>
-          </nav>
         <div class="sell-static">
             <div class="sell-static-header">
                 <h3>Thống kê bán hàng</h3>
@@ -100,8 +94,7 @@
                 </form>
             </div>
         </div>
-
-        <div class="table-content" id="product-info">
+        <div class="table-content">
             <div class="table-header">
                 <h3>Thông tin sản phẩm</h3>
             </div>
@@ -119,30 +112,96 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% products.forEach(product => { %>
-                          <tr data-product-id="<%= product.id %>">
+                        <tr>
                             <td>
-                              <img src="<%= product.imageURL %>" alt="<%= product.name %>" width="20">
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
                             </td>
-                            <td><%= product.name %></td>
-                            <td><%= product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
-                            <td><%= product.quantity %></td>
-                            <td><%= product.description %></td>
-                            <td><%= product.date %></td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
                             <td>
-                                <select class="product-status-select-user">
-                                    <option <%= product.statusUser === 'Ngừng Bán' ? 'selected' : '' %> value="Ngừng Bán">Ngừng Bán</option>
-                                    <option <%= product.statusUser === 'Đang Bán' ? 'selected' : '' %> value="Đang Bán">Đang Bán</option>
-                                    <option <%= product.statusUser === 'Xoá' ? 'selected' : '' %> value="Xoá">Xoá</option>
-                                </select>                 
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
                             </td>
-                          </tr>
-                        <% }); %>
-                      </tbody>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
+                            </td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
+                            <td>
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
+                            </td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
+                            <td>
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
+                            </td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
+                            <td>
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
+                            </td>
+                            <td>iPhone 14 Pro</td>
+                            <td>700</td>
+                            <td>20</td>
+                            <td>Không có mô tả</td>
+                            <td>05/07/2023</td>
+                            <td>
+                                <select>
+                                    <option>Ngừng Bán</option>
+                                    <option>Đăng Bán</option>
+                                    <option>Xoá</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
-        <div class="table-content" id="order-shipment info">
+        <div class="table-content">
             <div class="table-header">
                 <h3>Thông tin đơn hàng Giao</h3>
             </div>
@@ -156,21 +215,17 @@
                         <th>Ngày đặt hàng</th>
                         <th>Tổng cộng</th>
                         <th>Trạng thái đơn hàng</th>
-                        <th>Gửi hàng cho đơn vị vận chuyển</th>
                     </thead>
                     <tbody>
-                        <% orders.forEach(order => { %>
-                            <tr>
-                                <td>#<%= order.id %></td>
-                                <td><%= order.userName %></td>
-                                <td><%= order.product %></td>
-                                <td><%= order.address %></td>
-                                <td><%= order.date %></td>
-                                <td><%= order.total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></td>
-                                <td><%= order.status %></td>
-                                <td><button>Đã gửi</button></td>
-                            </tr>
-                        <% }); %>
+                        <tr>
+                            <td>#0001</td>
+                            <td>Trần Văn A</td>
+                            <td>Sản Phẩm 1</td>
+                            <td>Xuân La, Tây Hồ, Hà Nội</td>
+                            <td>05/07/2023</td>
+                            <td>250.000đ</td>
+                            <td>Đang giao hàng</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -198,27 +253,5 @@
             </ul>
         </div>
 </footer>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery library -->
-
-<script>
-    $(document).ready(() => {
-        $('.product-status-select-user').on('change', function () {
-            const productId = $(this).closest('tr').data('product-id');
-            const newStatus = $(this).val();
-    
-            $.ajax({
-                url: '/dasboard/update-product-status-user',
-                method: 'POST',
-                data: { productId, newStatus },
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (error) {
-                    console.error(error);
-                }
-            });
-        });
-    });
-</script>
 </body>
 </html>

@@ -1,9 +1,6 @@
 ﻿use master
 go 
 
-CREATE DATABASE LaTiPee
-GO
-
 USE LaTiPee
 GO
 

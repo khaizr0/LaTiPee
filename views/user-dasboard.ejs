@@ -34,22 +34,30 @@
                     <thead>
                         <th>Đơn hàng số #</th>
                         <th>Sản phẩm</th>
+                        <th>Tên người đặt</th>
                         <th>Địa chỉ</th>
                         <th>Ngày đặt hàng</th>
                         <th>Tổng cộng</th>
-                        <th>Trạng thái đơn hàng</th>
                         <th>Đơn vị vận chuyển</th>
                         <th>Mã đơn vận chuyển</th>
+                        <th>Hành Động</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>#0001</td>
-                            <td>Sản Phẩm 1</td>
-                            <td>Xuân La, Tây Hồ, Hà Nội</td>
-                            <td>05/07/2023</td>
-                            <td>250.000đ</td>
-                            <td>Đang giao hàng</td>
-                        </tr>
+                        <% for (const order of orders) { %>
+                            <tr>
+                                <td>#<%= order.OrderID %></td>
+                                <td><%= order.ProductName %></td>
+                                <td><%= order.UsersOrderName %></td>
+                                <td><%= order.Address %></td>
+                                <td><%= order.OrderDate.toDateString() %></td>
+                                <td><%= order.Total %>đ</td>
+                                <td><%= order.ShipmentName %></td>
+                                <td><%= order.ShipmentID %></td>
+                                <td>
+                                    <button>Đã Giao Hàng</button>
+                                </td>
+                            </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>

@@ -55,10 +55,11 @@ const transporter = nodemailer.createTransport({
     },
   });
 
+  // Middleware to authenticate admin
   const authenticateAdmin = async (req, res, next) => {
     try {
       if (!req.session || !req.session.user) {
-        return res.status(403).send('Unauthorized');
+        return res.status(403).redirect('/login/admin');
       }
   
       const userName = req.session.user.userName;
@@ -95,6 +96,12 @@ const transporter = nodemailer.createTransport({
     }
   };
   
+  const authenticateUser = (req, res, next) => {
+    if (!req.session || !req.session.user) {
+      return res.status(403).redirect('/login');
+    }
+    next();
+  };
 
   app.get('/', async (req, res) => {
     try {
@@ -117,15 +124,7 @@ const transporter = nodemailer.createTransport({
     res.render('404');
   });
 
-  app.get('/dasboard', async (req, res) => {
-    try {
-      const userSession = req.session.user;
-      res.render('user-dasboard', { user: userSession });
-    } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send('Internal Server Error');
-    }
-  });
+  
 
   app.get('/product/:productId', async (req, res, next) => {
     const productId = req.params.productId;
@@ -213,8 +212,42 @@ app.get('/forgot', (req, res, next) => {
 app.get('/login', (req, res, next) => {
   res.render('login-signup-user');
 });
-app.get('/dasboard', (req, res, next) => {
-  res.render('user-dasboard');
+
+//FOr user
+app.get('/dasboard', authenticateUser, async (req, res) => {
+  try {
+    const userSession = req.session.user;
+
+    // Fetch user's orders with associated product names from the SQL database
+    const pool = await sql.connect(dbConfig);
+    const ordersResult = await pool.request()
+      .input('userId', sql.Int, userSession.userId)
+      .query(`
+        SELECT O.*, P.ProductName
+        FROM Orders O
+        INNER JOIN Products P ON O.ProductID = P.ProductID
+        WHERE O.UserID = @userId
+      `);
+
+    const orders = ordersResult.recordset;
+
+    res.render('user-dasboard', { orders: orders, user: userSession });
+  } catch (error) {
+    console.error("Error loading user dashboard:", error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+//For Seller
+app.get('/seller', authenticateUser, async (req, res) => {
+  try {
+    const userSession = req.session.user;
+    
+    res.render('seller-homepage', { user: userSession });
+  } catch (error) {
+    console.error("Error loading seller dashboard:", error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 app.get('/admin', authenticateAdmin, async (req, res, next) => {
@@ -565,43 +598,12 @@ app.post('/reset-password/:id/:token', async (req, res, next) => {
 });
 
 //seller
-app.post('/dasboard/update-product-status-user', async (req, res, next) => {
-  const { productId, newStatus } = req.body;
 
-  try {
-      // Fetch the product from the Products array based on the productId
-      const productResponse = await axios.get(`http://localhost:8000/Products/${productId}`);
-      const product = productResponse.data;
-
-      if (!product) {
-          return res.status(404).redirect('/404');
-      }
-
-      // Update product's statusUser in JSON Server or your database
-      const updateProductResponse = await axios.patch(`http://localhost:8000/Products/${productId}`, {
-          statusUser: newStatus, // Update the statusUser field
-      });
-
-      if (updateProductResponse.status === 200) {
-          res.status(200).send('Product status updated successfully');
-      } else {
-          throw new Error('Failed to update product status');
-      }
-  } catch (error) {
-      console.error("Error updating product status:", error);
-      res.status(500).send('Internal Server Error');
-  }
-});
 
 //cart
-app.get('/cart', async (req, res) => {
+app.get('/cart', authenticateUser, async (req, res) => {
   try {
     const userSession = req.session.user;
-
-    if (!userSession) {
-      // Redirect to login page if user is not logged in
-      return res.redirect('/login');
-    }
 
     // Fetch user's orders from the SQL database
     const pool = await sql.connect(dbConfig);
