@@ -130,7 +130,7 @@ const transporter = nodemailer.createTransport({
       const userSession = req.session.user;
   
       const sqlPool = await sql.connect(dbConfig);
-      const result = await sqlPool.request().query('SELECT TOP 8 ProductID, CategoryID,ShopID, ProductName,ProductTypeID,Description,Status, AdminStatus, Price FROM Products  ');
+      const result = await sqlPool.request().query('SELECT TOP 8 ProductID, CategoryID,ShopID, ProductName,ProductTypeID,Description,Status, AdminStatus, Price, ImageURL FROM Products  ');
       const products = result.recordset;
           
   
