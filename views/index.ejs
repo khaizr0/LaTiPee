@@ -94,8 +94,8 @@
                 <% products.forEach(product => { %>
                     <div class="item-product">
                         <a class="product-link" href="/product/<%= product.ProductID %>">
+                            <img src="<%= product.ImageURL %>" alt="">
                             <div>
-                                <img src="/img/<%= product.ImageURL %>" alt="">
                                 <h3 class="product-name"><%= product.ProductName %></h3>
                                 <h3 class="product-price"><%= product.Price %>đ</h3>
                             </div>
@@ -105,9 +105,9 @@
                 
             </section>
             
-            <form class="more-product" method="POST" action="/loadMoreProducts">
+            <div class="more-product" method="POST" action="/loadMoreProducts">
                 <button id="loadMoreBtn">Xem Thêm...</button>
-            </form>
+        </div>
         </div>
           
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
@@ -147,6 +147,7 @@
 
             $(document).ready(function() {
                 $('#loadMoreBtn').click(function() {
+
                     $.post('/loadMoreProducts', { offset: currentOffset }, function(newProducts) {
                         newProducts.forEach(product => {
                             let productItem = `

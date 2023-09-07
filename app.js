@@ -16,25 +16,25 @@ const fs = require('fs');
 
 const app = express();
 
-const dbConfig = {
-  driver: "mssql",
-  server: "localhost",
-  database: "LaZaPee",
-  user: "sa",
-  password: "Caophankhai2808@",
-  port: 1433,
-  trustServerCertificate: true,
-};
-
 // const dbConfig = {
 //   driver: "mssql",
 //   server: "localhost",
 //   database: "LaZaPee",
 //   user: "sa",
-//   password: "123",
+//   password: "Caophankhai2808@",
 //   port: 1433,
 //   trustServerCertificate: true,
 // };
+
+const dbConfig = {
+  driver: "mssql",
+  server: "localhost",
+  database: "LaZaPee",
+  user: "sa",
+  password: "123",
+  port: 1433,
+  trustServerCertificate: true,
+};
 // Dùng để lưu pool kết nối
 let sqlPool; 
 
@@ -292,21 +292,23 @@ app.post('/search', async (req, res) => {
   }
 });
 
-  app.post('/loadMoreProducts', async (req, res) => {
-      try {
-          const { offset } = req.body;
-          const pool = await sql.connect(dbConfig);
-          const response = await pool.request()
-              .input('currentOffset', sql.Int, offset)
-              .query('SELECT * FROM Products WHERE Products.ProductID > @currentOffset ORDER BY Products.ProductID ASC LIMIT 8');
-          
-          const products = response.recordset;
-          res.send(products);
-      } catch (error) {
-          console.error("Error loading more products:", error);
-          res.status(500).send('Internal Server Error');
-      }
-  });
+
+app.post('/loadMoreProducts', async (req, res) => {
+  try {
+      const { offset } = req.body;
+      const pool = await sql.connect(dbConfig);
+      const response = await pool.request()
+          .input('currentOffset', sql.Int, offset)
+          .query('SELECT * FROM Products WHERE Products.ProductID > @currentOffset ORDER BY Products.ProductID ASC OFFSET 0 ROWS FETCH NEXT 8 ROWS ONLY');
+      
+      const products = response.recordset;
+      res.send(products);
+  } catch (error) {
+      console.error("Error loading more products:", error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
   
 // Update product status in the SQL database
 app.post('/admin/update-user-status', async (req, res, next) => {
