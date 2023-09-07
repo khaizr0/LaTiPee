@@ -32,10 +32,10 @@
         <div class="logo">
             <img src="/img/logo.png">
         </div>
-        <div class="search">
-            <input type="text" placeholder="Tìm kiếm sản phẩm">
+        <form class="search" method="POST" action="/search">
+            <input type="text" placeholder="Tìm kiếm sản phẩm" name="keyword">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
+        </form>
         <div class="icons">
             <div class="cart-icon"> 
                 <a href="/cart">
@@ -105,60 +105,66 @@
                 
             </section>
             
-            <div class="more-product">
+            <form class="more-product" method="POST" action="/loadMoreProducts">
                 <button id="loadMoreBtn">Xem Thêm...</button>
-            </div>
+            </form>
         </div>
           
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
         <script>
+            const limit = 8;
+
             $(document).ready(function() {
-                $('.search button').click(function(e) {
-                    e.preventDefault();
-                    const keyword = $('.search input').val();
-                    $.post('/search', { keyword: keyword }, function(products) {
-                        // Xóa sản phẩm hiện tại trên trang
-                        $('.section').empty();
-                
-                        // Thêm sản phẩm tìm được vào trang
-                        products.forEach(product => {
-                            let productItem = `
-                                <div class="item-product">
-                                    <a href="/product/${product.id}" class="product-link">
-                                    <img src="/img/${product.imageURL}" alt="">
-                                    <div>
-                                        <h3 class="product-name">${product.name}</h3>
-                                        <h3 class="product-price">${product.price}đ</h3>
-                                    </div>
-                                    </a>
-                                </div>`;
-                            $('.section').append(productItem);
-                        });
-                    });
+            $('.search button').click(function(e) {
+                e.preventDefault();
+                const keyword = $('.search input').val();
+                $.post('/search', { keyword: keyword }, function(products) {
+                // Xóa sản phẩm hiện tại trên trang
+                $('.section').empty();
+
+                // Thêm sản phẩm tìm được vào trang
+                products.slice(0, limit).forEach(product => {
+                    let productItem = `
+                    <div class="item-product">
+                        <a href="/product/${product.ProductID}" class="product-link">
+                        <img src="/img/${product.ImageURL}" alt="">
+                        <div>
+                            <h3 class="product-name">${product.ProductName}</h3>
+                            <h3 class="product-price">${product.Price}đ</h3>
+                        </div>
+                        </a>
+                    </div>`;
+                    $('.section').append(productItem);
                 });
+                });
+            });
             });
         </script>
         
         <script>
-            let currentOffset = 8; // Vì bạn đã hiển thị 8 sản phẩm đầu tiên
-          
-            $('#loadMoreBtn').on('click', function() {
-                $.post('/loadMoreProducts', { offset: currentOffset }, function(products) {
-                    products.forEach(product => {
-                        const productItem = `
+                    
+            let currentOffset = 8;
+
+            $(document).ready(function() {
+                $('#loadMoreBtn').click(function() {
+                    $.post('/loadMoreProducts', { offset: currentOffset }, function(newProducts) {
+                        newProducts.forEach(product => {
+                            let productItem = `
                             <div class="item-product">
-                                <a href="/product/${product.id}" class="product-link">
+                                <a href="/product/${product.ProductID}" class="product-link">
                                 <img src="/img/${product.ImageURL}" alt="">
                                 <div>
-                                    <h3 class="product-name">${product.name}</h3>
-                                    <h3 class="product-price">${product.price}đ</h3>
+                                    <h3 class="product-name">${product.ProductName}</h3>
+                                    <h3 class="product-price">${product.Price}đ</h3>
                                 </div>
                                 </a>
                             </div>`;
-                
-                        $('.section').append(productItem);
+                            $('.section').append(productItem);
+                        });
+
+                        // Cập nhật giá trị offset
+                        currentOffset += newProducts.length;
                     });
-                    currentOffset += 8;
                 });
             });
 

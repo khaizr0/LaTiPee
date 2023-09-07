@@ -1,3 +1,5 @@
+const cloudinary = require('cloudinary').v2;          
+
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -5,10 +7,7 @@ const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const sql = require('mssql');
 const session = require('express-session');
-const multer = require('multer'); // Để xử lý tải lên tệp
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
+const { render } = require('ejs');
 
 const app = express();
 
@@ -39,11 +38,15 @@ sql.connect(dbConfig).then(pool => {
     sqlPool = pool;
 }).catch(err => console.error('SQL Connection Error:', err));
 
+cloudinary.config({ 
+  cloud_name: 'djey3wddu', 
+  api_key: '166845325672825', 
+  api_secret: 'E_OuXFOabgNWSnE6Nb2BQ1v1lHQ' 
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
-app.use(upload.single('productImage'));
 app.set('view engine', 'ejs');
 
 //session middleware
@@ -270,36 +273,36 @@ app.get('/admin', authenticateAdmin, async (req, res, next) => {
   }
 });
 
-
-
-app.post('/loadMoreProducts', async (req, res) => {
+app.post('/search', async (req, res) => {
   try {
-    const { offset } = req.body;
-    const response = await axios.get(`http://localhost:8000/Products?_start=${offset}&_limit=8`);
-    res.json(response.data);
+    const pool = await sql.connect(dbConfig);
+    const keyword = req.body.keyword; // Lấy keyword từ request body
+    const result = await pool.request()
+        .input('keyword', sql.NVarChar(255), `%${keyword}%`)
+        .query('SELECT * FROM Products WHERE Products.ProductName LIKE @keyword');
+    res.json(result.recordset);
   } catch (error) {
-    console.error("Error loading more products:", error);
+    console.error("Error during search:", error);
     res.status(500).send('Internal Server Error');
   }
 });
 
-app.post('/search', async (req, res) => {
-  try {
-      const keyword = req.body.keyword;
-      const response = await axios.get(`http://localhost:8000/Products`);
-      const products = response.data.filter(product => 
-          product.name.toLowerCase().includes(keyword.toLowerCase())
-      );
-      res.json(products);
-  } catch (error) {
-      console.error("Error during search:", error);
-      res.status(500).send('Internal Server Error');
-  }
-});
-
-
-
-
+  app.post('/loadMoreProducts', async (req, res) => {
+      try {
+          const { offset } = req.body;
+          const pool = await sql.connect(dbConfig);
+          const response = await pool.request()
+              .input('currentOffset', sql.Int, offset)
+              .query('SELECT * FROM Products WHERE Products.ProductID > @currentOffset ORDER BY Products.ProductID ASC LIMIT 8');
+          
+          const products = response.recordset;
+          res.send(products);
+      } catch (error) {
+          console.error("Error loading more products:", error);
+          res.status(500).send('Internal Server Error');
+      }
+  });
+  
 // Update product status in the SQL database
 app.post('/admin/update-user-status', async (req, res, next) => {
   const { userId, newStatus } = req.body;
@@ -644,31 +647,49 @@ app.post('/seller/update-user-product-status', async (req, res) => {
   }
 });
 
-app.post('/sell-product', upload.single('productImage'), async (req, res) => {
+app.post('/sell-product', async (req, res) => {
   try {
-      const { productName, productPrice, productDescription, productType, productQuantity, productCategory } = req.body;
-      const productImage = req.file ? req.file.filename : null;
+    const {
+      productName,
+      productPrice,
+      productDescription,
+      productType,
+      productQuantity,
+      productCategory,
+    } = req.body;
+    const productImage = req.file;
 
-      if (!productImage) {
-          return res.status(400).send('Image is required');
-      }
+    if (!productImage) {
+      return res.status(400).send('Image is required');
+    }
 
-      const pool = await sql.connect(dbConfig);
-      const result = await pool.request()
-          .input('ProductName', sql.NVarChar, productName)
-          .input('ProductPrice', sql.Decimal, productPrice)
-          .input('ProductDescription', sql.NVarChar, productDescription)
-          .input('ProductType', sql.NVarChar, productType)
-          .input('ProductImage', sql.VarBinary, productImage)
-          .input('ProductQuantity', sql.Int, productQuantity)
-          .input('ProductCategory', sql.Int, productCategory)
-          .query('INSERT INTO Products (CategoryID, ShopID, ProductName, ProductTypeID, Description, Status, AdminStatus, Price, ImageURL) VALUES (@ProductCategory, 1, @ProductName, @ProductType, @ProductDescription, 1, 1, @ProductPrice, @ProductImage)');
+    // Upload the image to Cloudinary
+    const cloudinaryUpload = await cloudinary.uploader.upload(productImage.path, {
+      folder: 'product_images', // Customize the folder where images are stored in Cloudinary
+    });
 
-      res.status(200).send('Product added successfully');
+    // Extract the Cloudinary image URL
+    const imageUrl = cloudinaryUpload.secure_url;
+
+    // Store the product information in your SQL database, including the Cloudinary image URL
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request()
+      .input('ProductName', sql.NVarChar, productName)
+      .input('ProductPrice', sql.Decimal, productPrice)
+      .input('ProductDescription', sql.NVarChar, productDescription)
+      .input('ProductType', sql.NVarChar, productType)
+      .input('ProductImage', sql.NVarChar, imageUrl) // Store the Cloudinary image URL
+      .input('ProductQuantity', sql.Int, productQuantity)
+      .input('ProductCategory', sql.Int, productCategory)
+      .query(`
+        INSERT INTO Products (CategoryID, ShopID, ProductName, ProductTypeID, Description, Status, AdminStatus, Price, ImageURL)
+        VALUES (@ProductCategory, 1, @ProductName, @ProductType, @ProductDescription, 1, 1, @ProductPrice, @ProductImage)
+      `);
+
+    res.status(200).send('Product added successfully');
   } catch (error) {
-      console.error(error);
-      res.status(500).send('Error adding product');
+    console.error(error);
+    res.status(500).send('Error adding product');
   }
 });
-
 app.listen(3000, () => console.log('🚀 @ http://localhost:3000'));
