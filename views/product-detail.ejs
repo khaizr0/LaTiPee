@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaTiPee</title>
+    <title>LaZaPee</title>
     <link rel="stylesheet" href="/css/product.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,15 +58,15 @@
                         </ol>
                       </div>
                       <div class="product-gallery-featured">
-                        <% if (product.imageURL) { %>
-                          <img src="<%= product.imageURL %>" alt="<%= product.name %>">
+                        <% if (product.ImageURL) { %>
+                          <img src="<%= product.ImageURL %>" alt="<%= product.ProductName %>">
                       <% } else { %>
                           <p>Không có hình ảnh cho sản phẩm này</p>
                       <% } %>                      </div>
                   <div class="product-payment-details">
-                    <h1 class="product-title mb-2"><%= product.name %></h1>
+                    <h1 class="product-title mb-2"><%= product.ProductName %></h1>
                     
-                    <span class="product-price display-4"><%= product.price %> VND</span>
+                    <span class="product-price display-4"><%= product.Price %> VND</span>
                     <p class="mb-0"><i class="fa fa-truck"></i> Giao hàng bởi người bán</p>
                     <div class="text-muted mb-2"><small>Liên hệ người bán hàng để biết thêm thông tin chi tiết</small></div>
                     <div class="mb-2">
@@ -95,7 +95,7 @@
         </div>
         <div class="description">
             <h3>Product description</h3>
-            <p><%= product.description %></p>
+            <p><%= product.Description %></p>
         </div>
 
         <div class=" mt-4">

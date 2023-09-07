@@ -1,10 +1,10 @@
 ﻿use master
 go 
 
-CREATE DATABASE LaTiPee
+CREATE DATABASE LaZaPee
 GO
 
-USE LaTiPee
+USE LaZaPee
 GO
 CREATE TABLE Users (
   UserID INT PRIMARY KEY IDENTITY,
@@ -75,7 +75,7 @@ CREATE TABLE Promotions (
   PromotionID INT PRIMARY KEY IDENTITY,
   ProductID INT NOT NULL,
   Discount FLOAT NOT NULL,
-  StartDate DATETIME NOT NULL,
+  StartDate DATETIME NOT NULL,	
   EndDate DATETIME NOT NULL,
   FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
@@ -87,3 +87,14 @@ VALUES
     ('Gia Dụng'),
 	('Sắc Đẹp'),
     ('Thời Trang');
+	
+	select * from Categories
+	select * from Products
+
+
+
+
+	
+
+
+

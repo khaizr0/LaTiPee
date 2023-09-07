@@ -90,13 +90,14 @@
         </div>
         <div id="">
             <section class="section" >
+
                 <% products.forEach(product => { %>
                     <div class="item-product">
-                        <a class="product-link" href="/product/<%= product.id %>">
-                            <img src="/img/<%= product.imageURL %>" alt="">
+                        <a class="product-link" href="/product/<%= product.ProductID %>">
                             <div>
-                                <h3 class="product-name"><%= product.name %></h3>
-                                <h3 class="product-price"><%= product.price %>đ</h3>
+                                <img src="/img/<%= product.ImageURL %>" alt="">
+                                <h3 class="product-name"><%= product.ProductName %></h3>
+                                <h3 class="product-price"><%= product.Price %>đ</h3>
                             </div>
                         </a>
                     </div>
@@ -147,7 +148,7 @@
                         const productItem = `
                             <div class="item-product">
                                 <a href="/product/${product.id}" class="product-link">
-                                <img src="/img/${product.imageURL}" alt="">
+                                <img src="/img/${product.ImageURL}" alt="">
                                 <div>
                                     <h3 class="product-name">${product.name}</h3>
                                     <h3 class="product-price">${product.price}đ</h3>

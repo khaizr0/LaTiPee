@@ -18,6 +18,15 @@ const dbConfig = {
   trustServerCertificate: true,
 };
 
+// const dbConfig = {
+//   driver: "mssql",
+//   server: "localhost",
+//   database: "LaZaPee",
+//   user: "sa",
+//   password: "123",
+//   port: 1433,
+//   trustServerCertificate: true,
+// };
 // Dùng để lưu pool kết nối
 let sqlPool; 
 
@@ -107,11 +116,12 @@ const transporter = nodemailer.createTransport({
     try {
       const userSession = req.session.user;
   
-      // Fetch product data from your SQL database
-      const pool = await sql.connect(dbConfig);
-      const productsResult = await pool.request().query('SELECT * FROM Products');
-  
-      const products = productsResult.recordset;
+      const sqlPool = await sql.connect(dbConfig);
+      const result = await sqlPool.request().query('SELECT TOP 8 p.ProductID, p.CategoryID,p.ShopID, p.ProductName,p.Product_Type,p.Description,p.Status, p.AdminStatus, p.Price, img.ImageURL FROM Products p LEFT JOIN PRODUCT_IMAGE img ON p.ProductID = img.ProductID ORDER BY p.ProductID DESC ');
+      const products = result.recordset;
+      
+      console.log(products);
+    
   
       res.render('index', { products: products, user: userSession });
     } catch (error) {
@@ -120,37 +130,24 @@ const transporter = nodemailer.createTransport({
     }
   });
 
-  app.get('/404', async (req, res) => {
-    res.render('404');
-  });
-
-  
-
   app.get('/product/:productId', async (req, res, next) => {
     const productId = req.params.productId;
-  
+    const userSession = req.session.user;
+    console.log("ProductId:", productId);
+
+
     try {
-      const userSession = req.session.user;
-  
-      // Fetch product details from your SQL database based on productId
-      const pool = await sql.connect(dbConfig);
-      const productResult = await pool
-        .request()
-        .input('productId', sql.Int, productId)
-        .query('SELECT * FROM Products WHERE ProductID = @productId');
-  
-      const product = productResult.recordset[0];
-  
-      if (!product) {
-        return res.status(404).redirect('/404');
-      }
-  
-      // Render the product-detail page with product data
-      res.render('product-detail', { product: product, user: userSession });
+      const sqlPool = await sql.connect(dbConfig);
+      const result = await sqlPool.request().input('productId', sql.Int, productId).query('SELECT * FROM Products where Products.ProductID = @productId');
+      const products = result.recordset;
+      console.log(products)
+      
+      // Render trang EJS với dữ liệu sản phẩm
+      await res.render('product-detail', { product: products[0], user: userSession });
     } catch (error) {
       console.error("Error fetching product details:", error);
       res.status(500).send('Lỗi máy chủ');
-    }
+  }
   });
 
 

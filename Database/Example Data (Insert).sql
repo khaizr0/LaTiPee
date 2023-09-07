@@ -1,8 +1,4 @@
-﻿use master
-go 
-
-USE LaTiPee
-GO
+﻿
 
 -- Insert 
 INSERT INTO Users (UserName, Password, Email, PhoneNumber, HomeAddress, AllowAdmin, Status)
@@ -22,7 +18,40 @@ VALUES ('1', 2, 'Smartphone', 'Electronics', 'Latest smartphone with 128GB stora
 -- Insert data into the Orders table
 INSERT INTO Orders (UserID, ShopID, ProductID, Quantity, OrderDate, Total, Status, Address, UsersOrderName, ShipmentName, ShipmentID)
 VALUES
-    (1, 2, 3, 2, '2023-09-06 14:30:00', 100, 1, '123 Main St, City', 'John Doe', 'Shipping Company A', 'XYZ12345'),
-    (2, 1, 4, 1, '2023-09-06 15:45:00', 50, 1, '456 Elm St, Town', 'Jane Smith', 'Shipping Company B', 'ABC67890'),
+    (1, 2, 2, 2, '2023-09-06 14:30:00', 100, 1, '123 Main St, City', 'John Doe', 'Shipping Company A', 'XYZ12345'),
+    (2, 1, 2, 1, '2023-09-06 15:45:00', 50, 1, '456 Elm St, Town', 'Jane Smith', 'Shipping Company B', 'ABC67890'),
     (2, 2, 2, 3, '2023-09-06 16:00:00', 150, 1, '789 Oak St, Village', 'Bob Johnson', 'Shipping Company C', 'PQR54321');
+
+
+
+	-- products
+DECLARE @i INT = 1
+WHILE @i <= 20
+BEGIN
+    IF @i % 2 = 0 -- to alternate between the two shops and product types
+    BEGIN
+        INSERT INTO Products (CategoryID, ShopID, ProductName, Product_Type, Description, Status, AdminStatus, Price)
+        VALUES (1, 2, 'Smartphone' + CAST(@i AS NVARCHAR(5)), 'Electronics', 'Latest smartphone with 128GB storage', 1, 1, 800);
+    END
+    ELSE
+    BEGIN
+        INSERT INTO Products (CategoryID, ShopID, ProductName, Product_Type, Description, Status, AdminStatus, Price)
+        VALUES (1, 1, 'Laptop' + CAST(@i AS NVARCHAR(5)), 'Electronics', 'High-performance laptop with 16GB RAM', 1, 1, 1000);
+    END
+    SET @i = @i + 1;
+END
+
+select *from Products
+
+
+
+
+--product-image
+DECLARE @ProductID INT = 5
+WHILE @ProductID <= 22
+BEGIN
+    INSERT INTO PRODUCT_IMAGE (ProductID, ImageURL)
+    VALUES (@ProductID, 'product.png');
+    SET @ProductID = @ProductID + 1;
+END
 
