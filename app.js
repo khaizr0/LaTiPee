@@ -16,25 +16,25 @@ const fs = require('fs');
 
 const app = express();
 
-// const dbConfig = {
-//   driver: "mssql",
-//   server: "localhost",
-//   database: "LaZaPee",
-//   user: "sa",
-//   password: "Caophankhai2808@",
-//   port: 1433,
-//   trustServerCertificate: true,
-// };
-
 const dbConfig = {
   driver: "mssql",
   server: "localhost",
   database: "LaZaPee",
   user: "sa",
-  password: "123",
+  password: "Caophankhai2808@",
   port: 1433,
   trustServerCertificate: true,
 };
+
+// const dbConfig = {
+//   driver: "mssql",
+//   server: "localhost",
+//   database: "LaZaPee",
+//   user: "sa",
+//   password: "123",
+//   port: 1433,
+//   trustServerCertificate: true,
+// };
 // Dùng để lưu pool kết nối
 let sqlPool; 
 
@@ -665,6 +665,8 @@ app.post('/sell-product', upload.single('productImage'), async (req, res) => {
       productCategory,
     } = req.body;
 
+    const userSession = req.session.user;
+
     // Check if an image was uploaded
     if (!req.file) {
       return res.status(400).send('Image is required');
@@ -702,9 +704,10 @@ app.post('/sell-product', upload.single('productImage'), async (req, res) => {
       .input('ProductImage', sql.NVarChar, imageUrl) // Store the Cloudinary image URL
       .input('ProductQuantity', sql.Int, productQuantity)
       .input('ProductCategory', sql.Int, productCategory)
+      .input('ShopID', sql.Int, userSession.userId) // Use user's UserID as ShopID
       .query(`
         INSERT INTO Products (CategoryID, ShopID, ProductName, ProductTypeID, Description, Status, AdminStatus, Price, ImageURL)
-        VALUES (@ProductCategory, 1, @ProductName, @ProductType, @ProductDescription, 1, 1, @ProductPrice, @ProductImage)
+        VALUES (@ProductCategory, @ShopID, @ProductName, @ProductType, @ProductDescription, 1, 1, @ProductPrice, @ProductImage)
       `);
 
     res.status(200).send('Product added successfully');
@@ -713,7 +716,6 @@ app.post('/sell-product', upload.single('productImage'), async (req, res) => {
     res.status(500).send('Error adding product');
   }
 });
-
 
 
 
