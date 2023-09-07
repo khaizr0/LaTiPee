@@ -6,6 +6,7 @@
     <title>Mua - Bán</title>
     <link rel="stylesheet" href="/css/sell_home.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="icon" type="image/x-icon" href="/img/LaTiPee-small.png">
 </head>
 <body>
     <header>
@@ -102,7 +103,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Hình ảnh</th>
+                            <th>Hình ảnh Đại Diện</th>
                             <th>Tên sản phẩm</th>
                             <th>Giá tiền</th>
                             <th>Số lượng</th>
@@ -112,92 +113,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <% products.forEach(product => { %>
+                          <tr>
+                            <td></td>
+                            <td><%= product.ProductName %></td>
+                            <td><%= product.Price %></td>
+                            <td><%= product.Quantity %></td>
+                            <td><%= product.Description %></td>
+                            <td><%= product.DatePosted %></td>
                             <td>
-                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
-                            </td>
-                            <td>iPhone 14 Pro</td>
-                            <td>700</td>
-                            <td>20</td>
-                            <td>Không có mô tả</td>
-                            <td>05/07/2023</td>
-                            <td>
-                                <select>
-                                    <option>Ngừng Bán</option>
-                                    <option>Đăng Bán</option>
-                                    <option>Xoá</option>
+                                <select class="product-user-status-select" data-product-id="<%= product.ProductID %>" data-product-status="<%= product.Status %>">
+                                    <option <%= product.Status === 1 ? 'selected' : '' %> value="1">Đăng Bán</option>
+                                    <option <%= product.Status === 0 ? 'selected' : '' %> value="0">Tạm dừng đăng bán</option>
                                 </select>
+                                <button class="save-user-product-status" data-product-id="<%= product.ProductID %>" data-product-status="<%= product.Status %>">Save</button>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
-                            </td>
-                            <td>iPhone 14 Pro</td>
-                            <td>700</td>
-                            <td>20</td>
-                            <td>Không có mô tả</td>
-                            <td>05/07/2023</td>
-                            <td>
-                                <select>
-                                    <option>Ngừng Bán</option>
-                                    <option>Đăng Bán</option>
-                                    <option>Xoá</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
-                            </td>
-                            <td>iPhone 14 Pro</td>
-                            <td>700</td>
-                            <td>20</td>
-                            <td>Không có mô tả</td>
-                            <td>05/07/2023</td>
-                            <td>
-                                <select>
-                                    <option>Ngừng Bán</option>
-                                    <option>Đăng Bán</option>
-                                    <option>Xoá</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
-                            </td>
-                            <td>iPhone 14 Pro</td>
-                            <td>700</td>
-                            <td>20</td>
-                            <td>Không có mô tả</td>
-                            <td>05/07/2023</td>
-                            <td>
-                                <select>
-                                    <option>Ngừng Bán</option>
-                                    <option>Đăng Bán</option>
-                                    <option>Xoá</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_m_12.png" alt="Iphone 14 Pro Max" width="20">
-                            </td>
-                            <td>iPhone 14 Pro</td>
-                            <td>700</td>
-                            <td>20</td>
-                            <td>Không có mô tả</td>
-                            <td>05/07/2023</td>
-                            <td>
-                                <select>
-                                    <option>Ngừng Bán</option>
-                                    <option>Đăng Bán</option>
-                                    <option>Xoá</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
+                          </tr>
+                        <% }); %>
+                      </tbody>
                 </table>
             </div>
         </div>
@@ -253,5 +186,31 @@
             </ul>
         </div>
 </footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+// Handle the click event for the "Save" button
+$('.save-user-product-status').on('click', function () {
+    const productId = $(this).data('product-id');
+    const newStatus = $(this).data('product-status');
+
+    // Send the productId and newStatus values as numbers (1 or 0) to the server
+    $.ajax({
+        url: '/seller/update-user-product-status',
+        method: 'POST',
+        data: { productId, newStatus },
+        success: function (response) {
+            console.log(response);
+            // Handle success
+            location.reload();
+        },
+        error: function (error) {
+            console.error(error);
+            // Handle error
+        }
+    });
+});
+</script>
+
 </body>
 </html>

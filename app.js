@@ -11,9 +11,9 @@ const app = express();
 const dbConfig = {
   driver: "mssql",
   server: "localhost",
-  database: "LaTiPee",
+  database: "LaZaPee",
   user: "sa",
-  password: "Caophankhai2808@",
+  password: "Caophankhai///",
   port: 1433,
   trustServerCertificate: true,
 };
@@ -149,7 +149,9 @@ const transporter = nodemailer.createTransport({
       res.status(500).send('Lỗi máy chủ');
   }
   });
-
+  app.get('/404', async (req, res, next) => {
+    res.render('404');
+  });
 
   app.get('/login/admin', (req, res, next) => {
     res.render('Admin-login');
@@ -235,17 +237,6 @@ app.get('/dasboard', authenticateUser, async (req, res) => {
   }
 });
 
-//For Seller
-app.get('/seller', authenticateUser, async (req, res) => {
-  try {
-    const userSession = req.session.user;
-    
-    res.render('seller-homepage', { user: userSession });
-  } catch (error) {
-    console.error("Error loading seller dashboard:", error);
-    res.status(500).send('Internal Server Error');
-  }
-});
 
 app.get('/admin', authenticateAdmin, async (req, res, next) => {
   try {
@@ -257,7 +248,7 @@ app.get('/admin', authenticateAdmin, async (req, res, next) => {
       const users = usersResult.recordset;
       const products = productsResult.recordset;
 
-      res.render('admin', { users, products });
+      res.render('admin', { users, products, user: req.session.user }); // Pass the 'user' variable here
     } else {
       console.log('Admin authentication failed');
       res.redirect('/login/admin');
@@ -267,6 +258,7 @@ app.get('/admin', authenticateAdmin, async (req, res, next) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
 
 
 app.post('/loadMoreProducts', async (req, res) => {
@@ -294,41 +286,7 @@ app.post('/search', async (req, res) => {
   }
 });
 
-//login (admin)
-app.post('/login/admin', async (req, res, next) => {
-  const { userName, password } = req.body;
 
-  try {
-    const response = await axios.get(`http://localhost:8000/users?userName=${userName}`);
-    const admin = response.data.find(user => user.userName === userName && user.admin === 'y');
-
-    if (!admin) {
-      return res.status(400).send('Tên đăng nhập không tồn tại hoặc không phải là admin');
-    }
-    if (admin.status === '0') {
-      return res.status(403).send('Tài khoản của bạn đã bị cấm');
-    }
-
-    const checkPass = await bcrypt.compare(password, admin.password);
-
-    if (!checkPass) {
-      return res.status(400).send('Mật khẩu không chính xác');
-    }
-
-    // Set user data in the session
-    req.session.user = admin;
-
-    // Redirect to admin dashboard
-    res.redirect('/admin');
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Có lỗi xảy ra');
-  }
-});
-
-// admin (function)
-// Update user status in the SQL database
 
 
 // Update product status in the SQL database
@@ -395,7 +353,7 @@ app.post('/login', async (req, res, next) => {
     if (!user) {
       return res.status(400).send('Tên đăng nhập không tồn tại');
     }
-    if (user.TYPE === 0) {
+    if (user.Status === 0) {
       return res.status(403).send('Tài khoản của bạn đã bị cấm');
     }
 
@@ -409,15 +367,16 @@ app.post('/login', async (req, res, next) => {
     req.session.user = {
       userName: user.UserName,
       userId: user.UserID,
+      userStatus: user.Status, // You can add more user-related data here
     };
 
     res.redirect('/');
-    // ...
   } catch (error) {
     console.log(error);
     res.status(500).send('Có lỗi xảy ra');
   }
 });
+
 
 
 
@@ -594,9 +553,6 @@ app.post('/reset-password/:id/:token', async (req, res, next) => {
   }
 });
 
-//seller
-
-
 //cart
 app.get('/cart', authenticateUser, async (req, res) => {
   try {
@@ -616,6 +572,56 @@ app.get('/cart', authenticateUser, async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+//Seller page:
+app.get('/seller', authenticateUser, async (req, res) => {
+  try {
+    const userSession = req.session.user;
+
+    // Fetch product information from the SQL database
+    const pool = await sql.connect(dbConfig);
+    const productResult = await pool.request()
+      .input('shopId', sql.Int, userSession.userId) // Use shopId instead of userId
+      .query('SELECT * FROM Products WHERE ShopID = @shopId'); // Filter by ShopID
+
+    const products = productResult.recordset;
+
+    // Render the seller.ejs template with product data
+    res.render('seller-homepage', { products: products, user: userSession });
+  } catch (error) {
+    console.error("Error loading product information:", error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+app.post('/seller/update-user-product-status', async (req, res) => {
+  const { productId, newStatus } = req.body;
+
+  try {
+      // Convert the numeric value (1, 0, or 3) to a boolean value
+      const booleanNewStatus = newStatus === 1 || newStatus === 0;
+
+      // Update the Status field in your SQL database for the specified product
+      const query = 'UPDATE Products SET Status = @booleanNewStatus WHERE ProductID = @productId';
+      const result = await sqlPool.request()
+          .input('productId', sql.Int, productId)
+          .input('booleanNewStatus', sql.Bit, booleanNewStatus)
+          .query(query);
+
+      if (result.rowsAffected[0] === 1) {
+          res.status(200).send('Product status updated successfully');
+      } else {
+          throw new Error('Failed to update product status');
+      }
+  } catch (error) {
+      console.error('Error updating product status:', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+
 
 
 app.listen(3000, () => console.log('🚀 @ http://localhost:3000'));

@@ -22,7 +22,9 @@
 
     <main>
         <div class="title-table">
-            <h5>Xin chào, user</h5>
+            <h5>            <% if (user) { %>
+                Xin Chào, <%= user.userName %> 🌆
+            <% } %></h5>
             <h3>Quản lý tài khoản</h3>
         </div>
         <div class="table-content">

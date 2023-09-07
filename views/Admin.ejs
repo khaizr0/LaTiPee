@@ -21,6 +21,11 @@
     </nav>
 
     <main>
+        <div class="hellotag">
+            <% if (user) { %>
+                Xin Chào, <%= user.userName %> 😘
+            <% } %>
+        </div>
         <div class="table-content" id="user-tab">
             <div class="table-header">
                 <h3>Quản lý tài khoản người dùng</h3>
@@ -33,7 +38,6 @@
                         <th>Loại tài khoản</th>
                         <th>Giao dịch gần đây</th>
                         <th>Trạng thái tài khoản</th>
-                        <th></th>
                     </thead>
                     <tbody>
                         <% users.forEach(user => { %>
@@ -67,14 +71,13 @@
             <div class="table-body">
                 <table>
                     <thead>
-                        <th></th>
+                        <th>Hình đại diện</th>
                         <th>Tên sản phẩm</th>
                         <th>Chi tiết sản phẩm</th>
                         <th>Lượt mua</th>
                         <th>Ngày đăng</th>
                         <th>Chủ shop</th>
                         <th>Trạng thái bài đăng</th>
-                        <th></th>
                     </thead>
                     <tbody>
                         <% products.forEach(product => { %>
@@ -92,8 +95,8 @@
                                 </td>
                                 <td>
                                     <select class="product-status-select" data-product-id="<%= product.ProductID %>">
-                                        <option <%= product.AdminStatus === 1 ? 'selected' : '' %> value="1">Cho phép</option>
-                                        <option <%= product.AdminStatus === 0 ? 'selected' : '' %> value="0">Đình chỉ</option>
+                                        <option <%= product.AdminStatus === true ? 'selected' : '' %> value="1">Cho phép</option>
+                                        <option <%= product.AdminStatus === false ? 'selected' : '' %> value="0">Đình chỉ</option>
                                     </select>
                                     <button class="save-product-status" data-product-id="<%= product.ProductID %>">Save</button>                                  
                                 </td>                                
@@ -168,7 +171,6 @@
           });
         });
       });
-             
 </script>
 </body>
 </html>

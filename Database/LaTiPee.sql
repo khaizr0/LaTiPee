@@ -29,7 +29,7 @@ CREATE TABLE Products (
   ProductName NVARCHAR(255) NOT NULL,
   Product_Type NVARCHAR(MAX),
   Description NVARCHAR(MAX) NOT NULL,
-  Status BIT NOT NULL,
+  Status INT NOT NULL,
   AdminStatus BIT NOT NULL,
   Price DECIMAL(10,0) NOT NULL, check (Price >= 0),
   FOREIGN KEY (ShopID) REFERENCES Users(UserID),
