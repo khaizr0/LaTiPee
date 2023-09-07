@@ -30,7 +30,7 @@ CREATE TABLE Products (
   ProductTypeID NVARCHAR(MAX),
   Description NVARCHAR(MAX) NOT NULL,
   Status INT NOT NULL,
-  ImageURL VARBINARY(MAX),
+  ImageURL NVARCHAR(MAX) NOT NULL,
   AdminStatus BIT NOT NULL,
   Price DECIMAL(10,0) NOT NULL, check (Price >= 0),
   FOREIGN KEY (ShopID) REFERENCES Users(UserID),

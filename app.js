@@ -1,5 +1,3 @@
-const cloudinary = require('cloudinary').v2;          
-
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -8,28 +6,35 @@ const bcrypt = require('bcryptjs');
 const sql = require('mssql');
 const session = require('express-session');
 const { render } = require('ejs');
+const cloudinary = require('cloudinary').v2; 
+const streamifier = require('streamifier'); 
+const multer = require('multer');
+const storage = multer.memoryStorage(); // Store images in memory
+const upload = multer({ storage: storage });
+const path = require('path');
+const fs = require('fs');
 
 const app = express();
-
-// const dbConfig = {
-//   driver: "mssql",
-//   server: "localhost",
-//   database: "LaZaPee",
-//   user: "sa",
-//   password: "Caophankhai///",
-//   port: 1433,
-//   trustServerCertificate: true,
-// };
 
 const dbConfig = {
   driver: "mssql",
   server: "localhost",
   database: "LaZaPee",
   user: "sa",
-  password: "123",
+  password: "Caophankhai2808@",
   port: 1433,
   trustServerCertificate: true,
 };
+
+// const dbConfig = {
+//   driver: "mssql",
+//   server: "localhost",
+//   database: "LaZaPee",
+//   user: "sa",
+//   password: "123",
+//   port: 1433,
+//   trustServerCertificate: true,
+// };
 // Dùng để lưu pool kết nối
 let sqlPool; 
 
@@ -647,7 +652,7 @@ app.post('/seller/update-user-product-status', async (req, res) => {
   }
 });
 
-app.post('/sell-product', async (req, res) => {
+app.post('/sell-product', upload.single('productImage'), async (req, res) => {
   try {
     const {
       productName,
@@ -657,15 +662,29 @@ app.post('/sell-product', async (req, res) => {
       productQuantity,
       productCategory,
     } = req.body;
-    const productImage = req.file;
 
-    if (!productImage) {
+    // Check if an image was uploaded
+    if (!req.file) {
       return res.status(400).send('Image is required');
     }
 
-    // Upload the image to Cloudinary
-    const cloudinaryUpload = await cloudinary.uploader.upload(productImage.path, {
-      folder: 'product_images', // Customize the folder where images are stored in Cloudinary
+    // Create a custom stream from the Buffer using streamifier
+    const imageStream = streamifier.createReadStream(req.file.buffer);
+
+    // Use Promises with async/await to upload the image
+    const cloudinaryUpload = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { folder: 'product_images' }, // Customize the folder where images are stored in Cloudinary
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        }
+      );
+
+      imageStream.pipe(uploadStream);
     });
 
     // Extract the Cloudinary image URL
@@ -692,4 +711,9 @@ app.post('/sell-product', async (req, res) => {
     res.status(500).send('Error adding product');
   }
 });
+
+
+
+
+
 app.listen(3000, () => console.log('🚀 @ http://localhost:3000'));
