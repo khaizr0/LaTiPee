@@ -117,7 +117,7 @@ const transporter = nodemailer.createTransport({
       const userSession = req.session.user;
   
       const sqlPool = await sql.connect(dbConfig);
-      const result = await sqlPool.request().query('SELECT TOP 8 p.ProductID, p.CategoryID,p.ShopID, p.ProductName,p.Product_Type,p.Description,p.Status, p.AdminStatus, p.Price, img.ImageURL FROM Products p LEFT JOIN PRODUCT_IMAGE img ON p.ProductID = img.ProductID ORDER BY p.ProductID DESC ');
+      const result = await sqlPool.request().query('SELECT TOP 8 p.ProductID, p.CategoryID,p.ShopID, p.ProductName,p.ProductTypeID,p.Description,p.Status, p.AdminStatus, p.Price, img.ImageURL FROM Products p LEFT JOIN PRODUCT_IMAGE img ON p.ProductID = img.ProductID ORDER BY p.ProductID DESC ');
       const products = result.recordset;
       
       console.log(products);
@@ -582,18 +582,32 @@ app.get('/seller', authenticateUser, async (req, res) => {
     // Fetch product information from the SQL database
     const pool = await sql.connect(dbConfig);
     const productResult = await pool.request()
-      .input('shopId', sql.Int, userSession.userId) // Use shopId instead of userId
-      .query('SELECT * FROM Products WHERE ShopID = @shopId'); // Filter by ShopID
+      .input('shopId', sql.Int, userSession.userId)
+      .query('SELECT * FROM Products WHERE ShopID = @shopId');
 
     const products = productResult.recordset;
 
-    // Render the seller.ejs template with product data
-    res.render('seller-homepage', { products: products, user: userSession });
+    // Fetch order information including the corresponding product name from the SQL database
+    const orderResult = await pool.request()
+      .input('userId', sql.Int, userSession.userId) // Use 'userId' here
+      .query(`
+        SELECT O.*, P.ProductName
+        FROM Orders O
+        INNER JOIN Products P ON O.ProductID = P.ProductID
+        WHERE O.UserID = @userId
+      `);
+
+    const orders = orderResult.recordset;
+
+    // Render the seller.ejs template with product and order data
+    res.render('seller-homepage', { products: products, orders: orders, user: userSession });
   } catch (error) {
-    console.error("Error loading product information:", error);
+    console.error("Error loading product and order information:", error);
     res.status(500).send('Internal Server Error');
   }
 });
+
+
 app.post('/seller/update-user-product-status', async (req, res) => {
   const { productId, newStatus } = req.body;
 
@@ -616,6 +630,36 @@ app.post('/seller/update-user-product-status', async (req, res) => {
   } catch (error) {
       console.error('Error updating product status:', error);
       res.status(500).send('Internal Server Error');
+  }
+});
+
+app.post('/sell-product', async (req, res) => {
+  try {
+    const { productName, productPrice, productDescription, productType, productImage, productQuantity, productCategory } = req.body;
+
+    // Validate CategoryID (should be between 1 and 4)
+    if (productCategory < 1 || productCategory > 4) {
+      return res.status(400).send('Invalid CategoryID');
+    }
+
+    // Create a connection pool
+    const pool = await sql.connect(dbConfig);
+
+    // Insert the product into the database
+    const result = await pool.request()
+      .input('ProductName', sql.NVarChar, productName)
+      .input('ProductPrice', sql.Decimal, productPrice)
+      .input('ProductDescription', sql.NVarChar, productDescription)
+      .input('ProductType', sql.NVarChar, productType)
+      .input('ProductImage', sql.NVarChar, productImage)
+      .input('ProductQuantity', sql.Int, productQuantity)
+      .input('ProductCategory', sql.Int, productCategory)
+      .query('INSERT INTO Products (CategoryID, ShopID, ProductName, ProductTypeID, Description, Status, AdminStatus, Price) VALUES (@ProductCategory, 1, @ProductName, @ProductType, @ProductDescription, 1, 1, @ProductPrice)');
+
+    res.status(200).send('Product added successfully');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error adding product');
   }
 });
 

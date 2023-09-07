@@ -27,7 +27,7 @@ CREATE TABLE Products (
   CategoryID INT NOT NULL,
   ShopID INT NOT NULL, 
   ProductName NVARCHAR(255) NOT NULL,
-  Product_Type NVARCHAR(MAX),
+  ProductTypeID NVARCHAR(MAX),
   Description NVARCHAR(MAX) NOT NULL,
   Status INT NOT NULL,
   AdminStatus BIT NOT NULL,
@@ -35,6 +35,15 @@ CREATE TABLE Products (
   FOREIGN KEY (ShopID) REFERENCES Users(UserID),
   FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
 );
+
+GO
+CREATE TABLE ProductTypes (
+	ProductID INT NOT NULL,
+	ShopID INT NOT NULL, 
+	ProductTypeID NVARCHAR(MAX) NOT NULL,
+	Type NVARCHAR(MAX) NOT NULL
+);
+
 GO
 CREATE TABLE PRODUCT_IMAGE(
 	ImageID INT Primary key,
@@ -90,11 +99,3 @@ VALUES
 	
 	select * from Categories
 	select * from Products
-
-
-
-
-	
-
-
-
