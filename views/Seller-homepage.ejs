@@ -57,7 +57,7 @@
         </div>
         <div class="sell-fill">
             <h2>Đăng bán sản phẩm</h2>
-            <form action="/sell-product" method="POST">
+            <form action="/sell-product" method="POST" enctype="multipart/form-data">
                 <label for="productName">Tên sản phẩm:</label>
                 <input type="text" id="productName" name="productName" required><br>
     
@@ -70,8 +70,9 @@
                 <label for="productType">Loại sản phẩm:</label>
                 <input type="text" id="productType" name="productType" required><br>
     
-                <label for="productImage">URL hình ảnh sản phẩm:</label>
-                <input type="text" id="productImage" name="productImage" required><br>
+                <label for="productImage">Hình ảnh sản phẩm:</label>
+                <input type="file" id="productImage" name="productImage" accept="image/*" required><br>
+
     
                 <label for="productQuantity">Số lượng sản phẩm:</label>
                 <input type="number" id="productQuantity" name="productQuantity" required><br>

@@ -56,7 +56,7 @@ select *from Products
 DECLARE @ProductID INT = 5
 WHILE @ProductID <= 22
 BEGIN
-    INSERT INTO PRODUCT_IMAGE (ProductID, ImageURL)
+    INSERT INTO Products(ProductID, ImageURL)
     VALUES (@ProductID, 'product.png');
     SET @ProductID = @ProductID + 1;
 END

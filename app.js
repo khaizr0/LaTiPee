@@ -5,28 +5,32 @@ const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const sql = require('mssql');
 const session = require('express-session');
+const multer = require('multer'); // Để xử lý tải lên tệp
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 
 const app = express();
-
-const dbConfig = {
-  driver: "mssql",
-  server: "localhost",
-  database: "LaZaPee",
-  user: "sa",
-  password: "Caophankhai///",
-  port: 1433,
-  trustServerCertificate: true,
-};
 
 // const dbConfig = {
 //   driver: "mssql",
 //   server: "localhost",
 //   database: "LaZaPee",
 //   user: "sa",
-//   password: "123",
+//   password: "Caophankhai///",
 //   port: 1433,
 //   trustServerCertificate: true,
 // };
+
+const dbConfig = {
+  driver: "mssql",
+  server: "localhost",
+  database: "LaZaPee",
+  user: "sa",
+  password: "123",
+  port: 1433,
+  trustServerCertificate: true,
+};
 // Dùng để lưu pool kết nối
 let sqlPool; 
 
@@ -37,8 +41,9 @@ sql.connect(dbConfig).then(pool => {
 
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+app.use(upload.single('productImage'));
 app.set('view engine', 'ejs');
 
 //session middleware
@@ -117,11 +122,9 @@ const transporter = nodemailer.createTransport({
       const userSession = req.session.user;
   
       const sqlPool = await sql.connect(dbConfig);
-      const result = await sqlPool.request().query('SELECT TOP 8 p.ProductID, p.CategoryID,p.ShopID, p.ProductName,p.ProductTypeID,p.Description,p.Status, p.AdminStatus, p.Price, img.ImageURL FROM Products p LEFT JOIN PRODUCT_IMAGE img ON p.ProductID = img.ProductID ORDER BY p.ProductID DESC ');
+      const result = await sqlPool.request().query('SELECT TOP 8 ProductID, CategoryID,ShopID, ProductName,ProductTypeID,Description,Status, AdminStatus, Price FROM Products  ');
       const products = result.recordset;
-      
-      console.log(products);
-    
+          
   
       res.render('index', { products: products, user: userSession });
     } catch (error) {
@@ -131,24 +134,32 @@ const transporter = nodemailer.createTransport({
   });
 
   app.get('/product/:productId', async (req, res, next) => {
-    const productId = req.params.productId;
+    // Chuyển đổi giá trị productId từ chuỗi sang số nguyên
+    const productId = parseInt(req.params.productId, 10);
+    
+    // Kiểm tra xem giá trị productId có phải là một số hợp lệ hay không
+    if (isNaN(productId)) {
+        return res.status(400).send('productId phải là số');
+    }
+
     const userSession = req.session.user;
-    console.log("ProductId:", productId);
-
-
+    
     try {
-      const sqlPool = await sql.connect(dbConfig);
-      const result = await sqlPool.request().input('productId', sql.Int, productId).query('SELECT * FROM Products where Products.ProductID = @productId');
-      const products = result.recordset;
-      console.log(products)
+        const sqlPool = await sql.connect(dbConfig);
+        const result = await sqlPool.request().input('productId', sql.Int, productId).query('SELECT * FROM Products where Products.ProductID = @productId');
+        const products = result.recordset;
       
-      // Render trang EJS với dữ liệu sản phẩm
-      await res.render('product-detail', { product: products[0], user: userSession });
+        console.log("ProductId:", productId);
+        console.log(products);
+      
+        // Render trang EJS với dữ liệu sản phẩm
+        res.render('product-detail', { product: products[0], user: userSession });
     } catch (error) {
-      console.error("Error fetching product details:", error);
-      res.status(500).send('Lỗi máy chủ');
-  }
-  });
+        console.error("Error fetching product details:", error);
+        res.status(500).send('Lỗi máy chủ');
+    }
+});
+
   app.get('/404', async (req, res, next) => {
     res.render('404');
   });
@@ -633,39 +644,31 @@ app.post('/seller/update-user-product-status', async (req, res) => {
   }
 });
 
-app.post('/sell-product', async (req, res) => {
+app.post('/sell-product', upload.single('productImage'), async (req, res) => {
   try {
-    const { productName, productPrice, productDescription, productType, productImage, productQuantity, productCategory } = req.body;
+      const { productName, productPrice, productDescription, productType, productQuantity, productCategory } = req.body;
+      const productImage = req.file ? req.file.filename : null;
 
-    // Validate CategoryID (should be between 1 and 4)
-    if (productCategory < 1 || productCategory > 4) {
-      return res.status(400).send('Invalid CategoryID');
-    }
+      if (!productImage) {
+          return res.status(400).send('Image is required');
+      }
 
-    // Create a connection pool
-    const pool = await sql.connect(dbConfig);
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request()
+          .input('ProductName', sql.NVarChar, productName)
+          .input('ProductPrice', sql.Decimal, productPrice)
+          .input('ProductDescription', sql.NVarChar, productDescription)
+          .input('ProductType', sql.NVarChar, productType)
+          .input('ProductImage', sql.VarBinary, productImage)
+          .input('ProductQuantity', sql.Int, productQuantity)
+          .input('ProductCategory', sql.Int, productCategory)
+          .query('INSERT INTO Products (CategoryID, ShopID, ProductName, ProductTypeID, Description, Status, AdminStatus, Price, ImageURL) VALUES (@ProductCategory, 1, @ProductName, @ProductType, @ProductDescription, 1, 1, @ProductPrice, @ProductImage)');
 
-    // Insert the product into the database
-    const result = await pool.request()
-      .input('ProductName', sql.NVarChar, productName)
-      .input('ProductPrice', sql.Decimal, productPrice)
-      .input('ProductDescription', sql.NVarChar, productDescription)
-      .input('ProductType', sql.NVarChar, productType)
-      .input('ProductImage', sql.NVarChar, productImage)
-      .input('ProductQuantity', sql.Int, productQuantity)
-      .input('ProductCategory', sql.Int, productCategory)
-      .query('INSERT INTO Products (CategoryID, ShopID, ProductName, ProductTypeID, Description, Status, AdminStatus, Price) VALUES (@ProductCategory, 1, @ProductName, @ProductType, @ProductDescription, 1, 1, @ProductPrice)');
-
-    res.status(200).send('Product added successfully');
+      res.status(200).send('Product added successfully');
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Error adding product');
+      console.error(error);
+      res.status(500).send('Error adding product');
   }
 });
-
-
-
-
-
 
 app.listen(3000, () => console.log('🚀 @ http://localhost:3000'));

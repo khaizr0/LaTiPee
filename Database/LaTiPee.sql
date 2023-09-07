@@ -30,6 +30,7 @@ CREATE TABLE Products (
   ProductTypeID NVARCHAR(MAX),
   Description NVARCHAR(MAX) NOT NULL,
   Status INT NOT NULL,
+  ImageURL VARBINARY(MAX),
   AdminStatus BIT NOT NULL,
   Price DECIMAL(10,0) NOT NULL, check (Price >= 0),
   FOREIGN KEY (ShopID) REFERENCES Users(UserID),
@@ -44,13 +45,6 @@ CREATE TABLE ProductTypes (
 	Type NVARCHAR(MAX) NOT NULL
 );
 
-GO
-CREATE TABLE PRODUCT_IMAGE(
-	ImageID INT Primary key,
-	ProductID INT NOT NULL,
-	ImageURL VARCHAR(MAX),
-	FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-);
 GO
 CREATE TABLE Orders (
   OrderID INT PRIMARY KEY IDENTITY,

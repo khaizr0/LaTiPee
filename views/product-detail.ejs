@@ -48,15 +48,6 @@
                 <div class="card-body store-body">
                   <div class="product-info">
                     <div class="product-gallery">
-                      <div class="product-gallery-thumbnails">
-                        <ol class="thumbnails-list list-unstyled">
-                          <li><img src="https://via.placeholder.com/350x350/ffcf5b" class="img-responsive" alt=""></li>
-                          <li><img src="https://via.placeholder.com/350x350/f16a22" alt=""></li>
-                          <li><img src="https://via.placeholder.com/350x350/d3ffce" alt=""></li>
-                          <li><img src="https://via.placeholder.com/350x350/7937fc" alt=""></li>
-                          <li><img src="https://via.placeholder.com/350x350/930000" alt=""></li>
-                        </ol>
-                      </div>
                       <div class="product-gallery-featured">
                         <% if (product.ImageURL) { %>
                           <img src="<%= product.ImageURL %>" alt="<%= product.ProductName %>">
@@ -65,7 +56,6 @@
                       <% } %>                      </div>
                   <div class="product-payment-details">
                     <h1 class="product-title mb-2"><%= product.ProductName %></h1>
-                    
                     <span class="product-price display-4"><%= product.Price %> VND</span>
                     <p class="mb-0"><i class="fa fa-truck"></i> Giao hàng bởi người bán</p>
                     <div class="text-muted mb-2"><small>Liên hệ người bán hàng để biết thêm thông tin chi tiết</small></div>
